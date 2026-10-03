@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="TheSingularityWorkshop.FSM_UserIO.csproj" />
+  <Project Path="tests/FSM_UserIO.Tests/FSM_UserIO.Tests.csproj" />
+</Solution>
