@@ -27,29 +27,17 @@ Those are manifestations of computation.
 
 FSM_UserIO sits at the semantic boundary beneath them:
 
-```text
-                    ACTOR / FORM
-                         |
-                  has capabilities
-                         |
-             +-----------+-----------+
-             |           |           |
-          sensing     expression   action
-             |           |           |
-             +-----------+-----------+
-                         |
-              observation / expression
-                         |
-                         v
-                  FSM_UserIO
-                         |
-                 semantic interaction
-                         |
-                         v
-                application policy
-                         |
-                         v
-                    execution
+```mermaid
+flowchart TB
+    A["ACTOR / FORM"] --> C["Capabilities"]
+    C --> S["Sensing"]
+    C --> E["Expression"]
+    C --> X["Action"]
+    S --> U["FSM_UserIO"]
+    E --> U
+    X --> U
+    U --> P["Application policy"]
+    P --> R["Execution"]
 ```
 
 The upper limit is therefore not "what a human can do with a controller" or "what Unity exposes." The boundary is constrained by the capabilities that can be represented and by the computation that can process them.
@@ -61,6 +49,15 @@ A keyboard key, mouse movement, controller button, paw gesture, gaze event, voic
 It is an observation, expression, or proposal produced through some capability.
 
 FSM_UserIO exists to carry the semantic interaction across that boundary without taking ownership of the source, the GUI, the datum, or execution.
+
+```mermaid
+flowchart LR
+    O["Observation / expression"] --> U["FSM_UserIO"]
+    U --> I["Semantic interaction"]
+    I --> P["Policy / authorization / validation"]
+    P --> E["Execution"]
+    A["Actor / form"] -. capabilities .-> O
+```
 
 That gives the Workshop a stable separation:
 
@@ -107,20 +104,13 @@ A dog may be physically capable of biting. A human may be capable of deleting a 
 
 Whether any of those interactions are meaningful, permitted, authorized, or executable belongs to application policy.
 
-```text
-capability
-    |
-    v
-observation / expression
-    |
-    v
-semantic interaction
-    |
-    v
-policy / authorization / validation
-    |
-    v
-execution
+```mermaid
+flowchart TB
+    C["Capability"] --> O["Observation / expression"]
+    O --> I["Semantic interaction"]
+    I --> P["Policy / authorization / validation"]
+    P --> E["Execution"]
+    C -. "does not grant" .-> E
 ```
 
 This separation is fundamental to the package.
@@ -152,23 +142,12 @@ The name describes the application boundary through which an interacting form re
 
 Likewise, do not assume that every platform needs a package named `WPF_IO`, `Blazor_IO`, or `Unity_IO`. A platform-specific adapter should exist only when a real shared contract justifies it.
 
-The dependency direction is:
-
-```text
-WPF / Blazor / Unity / other platform
-                |
-          native observation
-                |
-                v
-       platform-specific adapter
-                |
-                v
-           FSM_UserIO
-                |
-        semantic interaction
-                |
-                v
-        application / host
+```mermaid
+flowchart TB
+    W["WPF / Blazor / Unity / other platform"] --> N["Native observation or expression"]
+    N --> A["Platform-specific adapter"]
+    A --> U["FSM_UserIO"]
+    U --> H["Application / host"]
 ```
 
 If several platforms share a capability, the shared bridge belongs at the smallest boundary that actually owns that capability. This is the same minimum-intersection principle used elsewhere in the Workshop.
@@ -177,32 +156,20 @@ If several platforms share a capability, the shared bridge belongs at the smalle
 
 FSM_UserIO does not replace the other Workshop packages. It gives them a clean boundary to meet at:
 
-```text
-                 ACTOR / FORM
-                       |
-                 capabilities
-                       |
-              source / surface adapters
-                       |
-                       v
-                 FSM_UserIO
-                       |
-          +------------+------------+
-          |            |            |
-          v            v            v
-      ProtocolAi      GUI       other surfaces
-       WHAT        presentation
-          |            |
-          +------------+------------+
-                       |
-                 Host / Application
-                  POLICY + EXECUTION
-                       |
-                       v
-                   computation
-                       |
-                       v
-                    FSM_COS
+```mermaid
+flowchart TB
+    F["ACTOR / FORM"] --> C["Capabilities"]
+    C --> A["Source / surface adapters"]
+    A --> U["FSM_UserIO"]
+    U --> P["ProtocolAi"]
+    U --> G["GUI"]
+    U --> S["Other surfaces"]
+    P --> H["Host / Application"]
+    G --> H
+    S --> H
+    H --> E["POLICY + EXECUTION"]
+    E --> R["Computation"]
+    R --> COS["FSM_COS"]
 ```
 
 ProtocolAi can give application-owned symbols deterministic identity.
@@ -245,6 +212,7 @@ Start with:
 - [Architecture](docs/ARCHITECTURE.md) — ownership and dependency direction.
 - [Development](docs/DEVELOPMENT.md) — contribution and design rules.
 - [Roadmap](docs/ROADMAP.md) — deliberately staged API evolution.
+- [Alpha readiness](docs/ALPHA_READINESS.md) — the Alpha 1 release gate.
 
 The documentation is part of the API. It exists to prevent future consumers from accidentally importing a game-engine or human-device interpretation into a package intended to remain computation-bound rather than platform-bound.
 
