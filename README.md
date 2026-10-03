@@ -1,183 +1,220 @@
 # TheSingularityWorkshop.FSM_UserIO
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Build Status](https://img.shields.io/github/actions/workflow/status/TrentBest/FSM_UserIO/build.yml?branch=main&style=flat-square&logo=github)](https://github.com/TrentBest/FSM_UserIO/actions)
-[![Last commit](https://img.shields.io/github/last-commit/TrentBest/FSM_UserIO/main)](https://github.com/TrentBest/FSM_UserIO/commits/main)
+[![NuGet](https://img.shields.io/nuget/v/TheSingularityWorkshop.FSM_UserIO?style=flat-square&logo=nuget&logoColor=white)](https://www.nuget.org/packages/TheSingularityWorkshop.FSM_UserIO)
+[![NuGet downloads](https://img.shields.io/nuget/dt/TheSingularityWorkshop.FSM_UserIO?style=flat-square&logo=nuget&logoColor=white)](https://www.nuget.org/packages/TheSingularityWorkshop.FSM_UserIO)
+[![Build](https://img.shields.io/github/actions/workflow/status/TrentBest/FSM_UserIO/build.yml?branch=main&style=flat-square&logo=github)](https://github.com/TrentBest/FSM_UserIO/actions/workflows/build.yml)
+[![Coverage](https://codecov.io/gh/TrentBest/FSM_UserIO/graph/badge.svg)](https://codecov.io/gh/TrentBest/FSM_UserIO)
+[![License](https://img.shields.io/github/license/TrentBest/FSM_UserIO?style=flat-square)](LICENSE.txt)
+[![Last commit](https://img.shields.io/github/last-commit/TrentBest/FSM_UserIO/main?style=flat-square)](https://github.com/TrentBest/FSM_UserIO/commits/main)
+[![GitHub issues](https://img.shields.io/github/issues/TrentBest/FSM_UserIO?style=flat-square)](https://github.com/TrentBest/FSM_UserIO/issues)
+[![.NET 8](https://img.shields.io/badge/.NET-8.0-512BD4?logo=dotnet&logoColor=white)](https://dotnet.microsoft.com/)
 
-**The Singularity Workshop UserIO boundary: semantic human interaction without owning the user, the device, the GUI, or execution.**
+**The Singularity Workshop UserIO boundary: semantic interaction across forms, capabilities, observations, expression, and computation.**
 
-FSM_UserIO is the platform-neutral boundary between physical or software-originated observations and application-owned semantic interaction.
+FSM_UserIO is a platform-neutral semantic interaction boundary. It is not a human-input library, a game-engine input layer, or a GUI event abstraction.
 
-It exists because **GUI uses input, but GUI should not own input**.
+The package begins from a more fundamental question:
 
-```text
-physical / software source
-        |
-        v
-     FSM_UserIO
-        |
-   semantic intent
-        |
-        +---------> ProtocolAi identity
-        |
-        v
-       GUI
-        |
-        v
- domain / application request
-        |
-        v
- host policy + execution
+> **What can the interacting form sense, express, or perform, and what semantic interaction does that capability produce?**
+
+A human is one possible form. A dog is another. A robot, VR avatar, accessibility system, AI agent, remote operator, or software process can also be an interacting form. The common abstraction is not anatomy and it is not a device. It is **capability**.
+
+## The vision
+
+The Workshop does not want UserIO constrained by the conventions of Unity, WPF, Blazor, another game engine, or the human keyboard-and-mouse model.
+
+Those are manifestations of computation.
+
+FSM_UserIO sits at the semantic boundary beneath them:
+
+```mermaid
+flowchart TB
+    A["ACTOR / FORM"] --> C["Capabilities"]
+    C --> S["Sensing"]
+    C --> E["Expression"]
+    C --> X["Action"]
+    S --> U["FSM_UserIO"]
+    E --> U
+    X --> U
+    U --> P["Application policy"]
+    P --> R["Execution"]
 ```
+
+The upper limit is therefore not "what a human can do with a controller" or "what Unity exposes." The boundary is constrained by the capabilities that can be represented and by the computation that can process them.
 
 ## Why this package exists
 
-A keyboard key, mouse movement, controller button, hand gesture, gaze event, voice utterance, accessibility action, automation signal, or AI proposal is not itself the application's meaning.
+A keyboard key, mouse movement, controller button, paw gesture, gaze event, voice utterance, accessibility action, automation signal, software message, or AI proposal is **not itself application meaning**.
 
-FSM_UserIO provides the boundary at which an observation can become a **semantic interaction** without forcing that interaction to belong to a particular GUI technology or physical device.
+It is an observation, expression, or proposal produced through some capability.
 
-That distinction lets the Workshop keep these concerns separate:
+FSM_UserIO exists to carry the semantic interaction across that boundary without taking ownership of the source, the GUI, the datum, or execution.
+
+```mermaid
+flowchart LR
+    O["Observation / expression"] --> U["FSM_UserIO"]
+    U --> I["Semantic interaction"]
+    I --> P["Policy / authorization / validation"]
+    P --> E["Execution"]
+    A["Actor / form"] -. capabilities .-> O
+```
+
+That gives the Workshop a stable separation:
 
 | Concern | Owner |
 |---|---|
-| Physical device observation | input/output adapter |
-| User/session identity | user/application boundary |
+| Actor/form and its real capabilities | originating system / application |
+| Physical or software observation | source adapter |
 | Semantic interaction | FSM_UserIO |
 | Deterministic semantic identity | ProtocolAi |
-| Structural command composition | GrammarAi |
-| Human-facing presentation | GUI |
-| Domain datum/state | application/domain |
-| Policy and execution | host |
+| Structural composition | GrammarAi |
+| Human-facing semantic presentation | GUI |
+| Domain datum and domain meaning | application/domain |
+| Policy, authorization, validation, execution | host/application |
 | Runtime composition | FSM_COS |
+| Native manifestation/rendering | platform-specific package |
 
-## The core idea
+## Capability is the important abstraction
 
-The package is intentionally **not** a keyboard abstraction, mouse library, GUI event system, or device framework.
+Capability is broader than input.
 
-It is the semantic middle.
+A capability can describe what a form can **sense**, **express**, or **perform**.
 
-```text
-device / voice / gaze / automation / AI
-                  |
-                  v
-        observation / proposal
-                  |
-                  v
-             FSM_UserIO
-                  |
-                  v
-          semantic interaction
-                  |
-          +-------+-------+
-          |               |
-          v               v
-      ProtocolAi         GUI
-       identity       presentation
-          |               |
-          +-------+-------+
-                  |
-                  v
-          host policy / execution
+Examples are intentionally illustrative rather than an ontology:
+
+| Form | Possible capabilities |
+|---|---|
+| Human | vision, hearing, speech, grasping, locomotion, typing |
+| Dog | vision, hearing, smell, barking, biting, locomotion |
+| Robot | sensors, locomotion, manipulation, speech, network interaction |
+| VR avatar | application-granted perception, locomotion, manipulation, expression |
+| AI agent | semantic observation, proposal, planning, software interaction |
+| Software process | messages, API calls, files, events, service operations |
+| Accessibility system | gaze, switches, speech, specialized controls |
+
+The point is **not** to encode these examples as a giant universal capability enum.
+
+The point is to avoid making the core accidentally assume that every user is a biped holding a controller.
+
+### Capability is not authority
+
+A capability does not grant permission.
+
+A dog may be physically capable of biting. A human may be capable of deleting a record. An AI agent may be capable of proposing `DeleteAccount`. A software process may be capable of invoking an API.
+
+Whether any of those interactions are meaningful, permitted, authorized, or executable belongs to application policy.
+
+```mermaid
+flowchart TB
+    C["Capability"] --> O["Observation / expression"]
+    O --> I["Semantic interaction"]
+    I --> P["Policy / authorization / validation"]
+    P --> E["Execution"]
+    C -. "does not grant" .-> E
 ```
 
-The same semantic interaction vocabulary can therefore be approached by a human through a GUI or proposed by an AI through ProtocolAi, while neither mechanism receives authority merely by producing an intent.
+This separation is fundamental to the package.
 
-## Architecture
+## What FSM_UserIO is not
 
-FSM_UserIO sits beside GUI rather than underneath it:
+FSM_UserIO is deliberately **not**:
 
-```text
-                 Domain / Application
-                         ^
-                         |
-                 Host policy/execution
-                         ^
-                         |
-       +-----------------+-----------------+
-       |                                   |
-     GUI                             FSM_UserIO
-       |                                   |
-       |                         +---------+---------+
-       |                         |                   |
-       v                         v                   v
-  presentation             physical adapters      AI proposal
-                              / devices          via ProtocolAi
+- a keyboard or mouse API;
+- a controller abstraction;
+- a WPF input framework;
+- a Blazor event framework;
+- a Unity input layer;
+- a game-engine abstraction;
+- a device SDK;
+- a rendering system;
+- a GUI widget library;
+- an authorization system;
+- an application command executor;
+- a replacement for ProtocolAi or GrammarAi.
+
+Those concerns may have adapters or bridge packages. They do not belong in the semantic core merely because one consumer happens to need them.
+
+## Platform independence
+
+Do **not** read "UserIO" as "human I/O."
+
+The name describes the application boundary through which an interacting form reaches semantic interaction.
+
+Likewise, do not assume that every platform needs a package named `WPF_IO`, `Blazor_IO`, or `Unity_IO`. A platform-specific adapter should exist only when a real shared contract justifies it.
+
+```mermaid
+flowchart TB
+    W["WPF / Blazor / Unity / other platform"] --> N["Native observation or expression"]
+    N --> A["Platform-specific adapter"]
+    A --> U["FSM_UserIO"]
+    U --> H["Application / host"]
 ```
 
-The exact concrete contracts are deliberately being established incrementally. The first responsibility of this repository is to make the **ownership boundary** explicit and testable before freezing a large API.
+If several platforms share a capability, the shared bridge belongs at the smallest boundary that actually owns that capability. This is the same minimum-intersection principle used elsewhere in the Workshop.
 
-## Theory
+## The Workshop stack
 
-Start with [docs/THEORY.md](docs/THEORY.md).
+FSM_UserIO does not replace the other Workshop packages. It gives them a clean boundary to meet at:
 
-The theory defines:
-
-- observation versus semantic intent;
-- the user/device/application ownership boundary;
-- why GUI consumes interaction but does not own physical input;
-- how ProtocolAi can provide deterministic identity for semantic interactions;
-- how GrammarAi can describe structure without granting execution authority;
-- why user interaction must remain policy-neutral;
-- how shared interaction concepts can remain platform-neutral while physical adapters specialize below the boundary.
-
-See also [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
-
-## Design invariants
-
-1. **FSM_UserIO does not own GUI.**
-2. **FSM_UserIO does not own physical devices.**
-3. **FSM_UserIO does not own application datum.**
-4. **An interaction is not execution.**
-5. **Protocol identity is not authority.**
-6. **Grammar describes structure; it does not execute it.**
-7. **Hosts retain policy and execution authority.**
-8. **Concrete device APIs stay outside the semantic core.**
-9. **Platform-specific GUI behavior stays outside the semantic core.**
-10. **The smallest useful semantic contract is preferred over a universal input enum.**
-
-## Relationship to ProtocolAi
-
-ProtocolAi gives application-owned semantic symbols deterministic identity.
-
-That creates an important possibility:
-
-```text
-human action
-     |
-     v
-semantic intent
-     |
-     v
-ProtocolAi identity
-     |
-     +---- GUI can present it
-     |
-     +---- AI can propose it
-     |
-     v
-host policy
-     |
-     v
-execution
+```mermaid
+flowchart TB
+    F["ACTOR / FORM"] --> C["Capabilities"]
+    C --> A["Source / surface adapters"]
+    A --> U["FSM_UserIO"]
+    U --> P["ProtocolAi"]
+    U --> G["GUI"]
+    U --> S["Other surfaces"]
+    P --> H["Host / Application"]
+    G --> H
+    S --> H
+    H --> E["POLICY + EXECUTION"]
+    E --> R["Computation"]
+    R --> COS["FSM_COS"]
 ```
 
-This does **not** make an LLM deterministic. It moves application-owned meaning into an explicit address space that a host can validate before execution.
+ProtocolAi can give application-owned symbols deterministic identity.
 
-See [TheSingularityWorkshop.ProtocolAi](https://github.com/TrentBest/TheSingularityWorkshop.ProtocolAi).
+GrammarAi can describe how those identities are structurally composed.
 
-## Relationship to GUI
+GUI can mediate human-facing presentation and interaction with datum.
 
-GUI is the human-facing bridge between datum and non-datum presentation.
+FSM_COS can compose runtime capabilities.
 
-FSM_UserIO supplies the semantic interaction boundary that GUI can consume without becoming responsible for keyboard, mouse, touch, controller, gaze, voice, or other physical/software sources.
+None of those relationships require FSM_UserIO to depend upward on them.
 
-See [TheSingularityWorkshop.GUI](https://github.com/TrentBest/TheSingularityWorkshop.GUI).
+## Alpha 1
 
-## Status
+Alpha 1 deliberately starts with one semantic artifact:
 
-This repository is a **new architectural boundary**, not a claim that the final interaction API has already been designed.
+```csharp
+public sealed record SemanticIntent(string Name, ulong? ProtocolId = null);
+```
 
-The initial work establishes theory, ownership, tests, documentation, packaging, and CI before committing the Workshop to a large concrete interaction vocabulary.
+This is intentionally small.
+
+It establishes that an application-owned semantic interaction can have:
+
+- a required application-defined name;
+- an optional deterministic numeric identity;
+- no embedded device type;
+- no GUI type;
+- no rendering type;
+- no authorization policy;
+- no execution behavior.
+
+The package will grow only when a real boundary requires another contract and that contract can be demonstrated with tests and a consumer.
+
+## Documentation
+
+Start with:
+
+- [Theory](docs/THEORY.md) — the conceptual boundary and capability model.
+- [Architecture](docs/ARCHITECTURE.md) — ownership and dependency direction.
+- [Development](docs/DEVELOPMENT.md) — contribution and design rules.
+- [Roadmap](docs/ROADMAP.md) — deliberately staged API evolution.
+- [Alpha readiness](docs/ALPHA_READINESS.md) — the Alpha 1 release gate.
+
+The documentation is part of the API. It exists to prevent future consumers from accidentally importing a game-engine or human-device interpretation into a package intended to remain computation-bound rather than platform-bound.
 
 ## NuGet publication
 
