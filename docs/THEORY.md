@@ -2,173 +2,343 @@
 
 ## The missing boundary
 
-GUI is the human-facing bridge between datum and presentation. But GUI consumes interaction without owning the physical source of that interaction.
+FSM_UserIO exists at a boundary that is easy to misidentify.
 
-That missing ownership boundary is **FSM_UserIO**.
+It is tempting to define "input/output" from the perspective of a human using a device:
 
-The same semantic action can arrive from keyboard, mouse, touch, controller, hand tracking, gaze, voice, accessibility technology, automation, another software process, or an AI system. Those sources are observations or proposals. They are not the application's meaning.
+```text
+keyboard -> application
+mouse    -> application
+controller -> application
+```
 
-## Observation is not intent
+That is too narrow.
 
-A physical observation might be:
+The more fundamental model is:
 
-~~~text
-keyboard / controller / touch
-            |
-            v
-       physical event
-~~~
-
-The semantic meaning might instead be:
-
-~~~text
-physical event
-      |
-      v
-   "select"
-~~~
-
-The first belongs to an input/output adapter. The second belongs to an application-owned semantic vocabulary. FSM_UserIO is the boundary between them.
-
-## UserIO is not GUI
-
-GUI answers what is presented, where it is presented, how it is arranged, how it is labeled, and how a user can inspect or modify datum.
-
-FSM_UserIO answers a different question:
-
-> **What semantic interaction has been proposed or observed?**
-
-Therefore:
-
-~~~text
-Input source
+```text
+actor / form
+     |
+     +-- capabilities
+     |
+     +-- sensing
+     +-- expression
+     +-- action
      |
      v
-FSM_UserIO
+observation / expression
      |
      v
 semantic interaction
      |
-     +----> GUI presentation / interaction
-     |
-     +----> other application surfaces
-     |
      v
-host policy
+application policy
      |
      v
 execution
-~~~
+```
 
-GUI and UserIO are siblings at the semantic boundary.
+A human is one possible actor/form. A dog, robot, VR avatar, accessibility system, AI agent, remote operator, or software process can also participate.
 
-## User is not device
+The common boundary is therefore **capability and semantic interaction**, not human anatomy and not a particular device.
 
-A user is not reducible to a device. The same user can interact through keyboard, voice, gaze, VR controller, accessibility technology, or another software surface.
+## Form is not device
 
-Conversely, a device can produce observations without a human being the immediate source.
+An actor/form describes the participating entity or computational representation.
 
-That is why this package does not define a universal Keyboard, Mouse, or Controller hierarchy.
+A device is only one possible mechanism through which a capability is manifested.
 
-## Intent is not authority
+For example:
 
-A semantic intent says what was proposed or observed. It does not say whether the action is permitted, whether the target exists, whether the user is authorized, whether the application should execute it, or whether execution is safe.
+- a human can speak through a microphone;
+- the same human can express a semantic action through gaze;
+- a dog can bark, bite, walk, smell, or urinate;
+- a robot can sense and manipulate;
+- an AI agent can propose a semantic operation;
+- a software process can emit a message or invoke an API.
 
-Those are host/application policy decisions.
+FSM_UserIO does not need to know that a dog has teeth or that a human has thumbs. Those examples demonstrate why the abstraction must remain above the physical implementation.
 
-~~~text
-semantic intent
-      |
-      v
-policy
-      |
-      v
-authorization / validation
-      |
-      v
-execution
-~~~
+## Capability is not a device list
 
-This keeps the semantic boundary reusable without turning it into an execution framework.
+A capability answers a question such as:
+
+> **What can this form legitimately sense, express, or perform in this application context?**
+
+This is broader than "what input devices are attached?"
+
+Capability may be:
+
+- biological;
+- mechanical;
+- virtual;
+- software-defined;
+- application-granted;
+- mediated by accessibility technology;
+- mediated by another system.
+
+The package should not turn these possibilities into a universal ontology.
+
+The purpose of the abstraction is to keep the semantic boundary independent of the particular form.
+
+## Capability is not authority
+
+This distinction is essential.
+
+```text
+CAPABILITY
+    |
+    | what can be sensed, expressed, or performed
+    v
+OBSERVATION / EXPRESSION
+    |
+    | what occurred or was proposed
+    v
+SEMANTIC INTERACTION
+    |
+    | what the application says it means
+    v
+POLICY
+    |
+    | what is permitted, valid, and appropriate
+    v
+EXECUTION
+```
+
+Capability does not imply permission.
+
+A capability can exist without authorization.
+
+An observation can exist without being accepted.
+
+A semantic intent can exist without being executable.
+
+Only the host/application boundary decides whether execution occurs.
+
+## Observation is not intent
+
+A physical or software observation is not automatically semantic meaning.
+
+For example:
+
+```text
+button pressed
+     |
+     v
+source observation
+     |
+     v
+"select"
+```
+
+The first is source-specific.
+
+The second is application meaning.
+
+The same semantic interaction could be produced by:
+
+- a keyboard;
+- a hand gesture;
+- gaze;
+- voice;
+- accessibility input;
+- another program;
+- an AI proposal.
+
+FSM_UserIO protects the semantic middle from being defined by any one source.
+
+## Expression is broader than input
+
+The term "input" can imply a one-way model in which the computer receives information from a human.
+
+That is not sufficient.
+
+A form can express a semantic action through many modalities, and an application can also expose meaningful output or feedback.
+
+For Alpha 1, the package does not yet freeze an observation/output object model. The theory establishes the direction without prematurely inventing contracts.
+
+## User is not human
+
+"User" in the package name should be read functionally, not anatomically.
+
+The interacting party may be:
+
+- a human;
+- an animal;
+- a robot;
+- a virtual avatar;
+- an AI agent;
+- an accessibility system;
+- a software process;
+- a remote operator;
+- another computational environment.
+
+The package does not need a `HumanUser`, `DogUser`, `RobotUser`, or `AIUser` hierarchy.
+
+Those would encode examples instead of defining the boundary.
+
+## UserIO is not GUI
+
+GUI is the human-facing bridge between datum and non-datum presentation.
+
+FSM_UserIO answers a different question:
+
+> **What semantic interaction has been observed, expressed, or proposed across an interaction boundary?**
+
+Therefore GUI and UserIO are complementary:
+
+```text
+                 Domain datum
+                      |
+                      v
+                    GUI
+                      ^
+                      |
+               semantic interaction
+                      ^
+                      |
+                 FSM_UserIO
+                      ^
+                      |
+             source / surface adapter
+                      ^
+                      |
+                 actor / form
+```
+
+GUI does not need to own physical input.
+
+FSM_UserIO does not need to own presentation.
 
 ## ProtocolAi connection
 
-ProtocolAi can provide deterministic identity for application-owned semantic symbols.
+ProtocolAi can give application-owned semantic symbols deterministic identity.
 
-~~~text
-human / device / AI
-        |
-        v
-semantic intent
-        |
-        v
+```text
+source / actor
+     |
+     v
+semantic interaction
+     |
+     v
 ProtocolAi identity
-        |
-        v
+     |
+     v
 host policy
-        |
-        v
+     |
+     v
 execution
-~~~
+```
 
-This is a boundary of **deprobabilization**, not a claim that an LLM becomes deterministic.
+This is a form of **deprobabilization**: application-owned meaning can move from an open-ended representation into an explicit deterministic address space.
 
-An application can move meaning such as select, focus, navigate, inspect, or a domain-specific action into an explicit application-owned identity space. The identity can then be shared by different producers and consumers without granting those producers execution authority.
+That does not make an LLM deterministic.
 
-FSM_UserIO should not become a second ProtocolAi. Its role is to carry semantic interaction across the user-facing boundary.
+FSM_UserIO should not become a second ProtocolAi. It carries interaction semantics; ProtocolAi owns deterministic symbol identity.
 
 ## GrammarAi connection
 
-GrammarAi can describe how protocol identities are structured into larger commands or exchanges.
+GrammarAi describes how protocol identities may be structurally connected.
 
-~~~text
+```text
 ProtocolAi = WHAT
 GrammarAi  = HOW
-FSM_UserIO  = semantic user interaction boundary
+FSM_UserIO  = interaction boundary
 GUI         = human-facing presentation
 Host        = POLICY + EXECUTION
-~~~
+```
 
-None of those layers should silently acquire the authority of another.
+Grammar does not become execution merely because it describes executable-looking structure.
 
-## The minimum-behavior principle
+## Minimum-intersection principle
 
-Different GUI domains will overlap. Suppose Blazor and WPF both need a concept such as Sparkles, while another platform does not.
+The Workshop repeatedly uses the idea that a shared core should contain the intersection of capabilities actually shared by its consumers.
 
-Do not force Sparkles into every GUI implementation. Extract the shared semantic concept into the smallest bridge that actually needs it.
+```text
+Core       ≈ intersection of shared semantic capabilities
+Bridge     ≈ shared subset between applicable domains
+Platform   ≈ Core + bridges + native extension
+```
 
-~~~text
-shared semantic concept
-          |
-          v
-       bridge
-      /         Blazor    WPF
-~~~
+This means:
 
-Likewise, if several input domains share a semantic interaction concept, that concept belongs at the smallest boundary that actually shares it.
+- do not put WPF events in FSM_UserIO;
+- do not put Blazor callbacks in FSM_UserIO;
+- do not put Unity input objects in FSM_UserIO;
+- do not put every imaginable animal capability in FSM_UserIO;
+- do not create a bridge until multiple consumers demonstrate the shared boundary.
 
-This follows the same mathematical idea used for GUI.Core:
+If WPF and Blazor eventually share a semantic capability, a bridge can represent that shared subset.
 
-~~~text
-Core ≈ intersection of shared semantic capabilities
-Bridge ≈ shared subset between applicable domains
-Platform ≈ Core + bridges + native extension
-~~~
+If Unity and another environment share a capability, the same principle applies.
 
-## Why the API starts small
+The platform is an adapter. The semantic boundary remains platform-neutral.
 
-A new package is a discovery, not a reason to invent a hundred types.
+## Why Alpha 1 is intentionally tiny
 
-The first alpha establishes only the smallest useful semantic artifact: SemanticIntent.
+A new repository is a discovery of a boundary, not permission to invent an ontology.
 
-It can carry application-defined semantic identity by name and an optional deterministic ProtocolAi identity.
+Alpha 1 contains only `SemanticIntent`.
 
-It does not carry keyboard codes, mouse coordinates, WPF events, Blazor callbacks, Unity input objects, GUI widgets, domain datum, authorization, or execution commands.
+That type establishes a useful fact:
 
-Those remain outside this core.
+```text
+application-owned semantic identity
+             |
+             v
+        SemanticIntent
+             |
+             +--> optional deterministic identity
+             |
+             +--> no execution authority
+```
+
+It deliberately does not define:
+
+- keyboard codes;
+- mouse coordinates;
+- WPF events;
+- Blazor callbacks;
+- Unity input objects;
+- controller SDKs;
+- device discovery;
+- GUI widgets;
+- application datum;
+- authorization;
+- execution.
+
+Those remain outside the core until a real consumer demonstrates a need.
 
 ## Architectural invariant
 
-> **FSM_UserIO translates or carries user interaction semantics; it does not own the user, the device, the GUI, the datum, or execution.**
+> **FSM_UserIO carries semantic interaction across actor/form capabilities; it does not own the actor, the device, the GUI, the datum, policy, or execution.**
 
 That is the boundary this repository exists to protect.
+
+## The larger vision
+
+The intended ceiling is not a particular engine.
+
+The intended ceiling is the capability of the participating form and the computation available to the system.
+
+```text
+biological form
+     |
+mechanical form
+     |
+virtual form
+     |
+software form
+     |
+distributed form
+     |
+     v
+semantic interaction
+     |
+     v
+computation
+```
+
+The package is therefore deliberately agnostic about whether the eventual consumer is a desktop application, web application, game engine, immersive environment, robot, accessibility system, AI agent, server, or distributed computation.
+
+The implementation remains small because the vision is broad enough that premature specialization would be an architectural mistake.
