@@ -1,3 +1,29 @@
-<Project Sdk="Microsoft.NET.Sdk"><PropertyGroup><TargetFramework>net8.0</TargetFramework><ImplicitUsings>enable</ImplicitUsings><Nullable>enable</Nullable><IsPackable>true</IsPackable><PackageId>TheSingularityWorkshop.FSM_UserIO</PackageId><Version>0.1.0-alpha.1</Version><Authors>Trent Best</Authors><Company>The Singularity Workshop</Company><Description>Platform-neutral semantic user interaction boundary between observations, application meaning, GUI, and execution.</Description><PackageTags>UserIO;input;output;interaction;intent;GUI;AI;ProtocolAi;TheSingularityWorkshop</PackageTags><PackageReadmeFile>README.md</PackageReadmeFile><PackageLicenseFile>LICENSE.txt</PackageLicenseFile><PackageProjectUrl>https://github.com/TrentBest/FSM_UserIO</PackageProjectUrl><RepositoryUrl>https://github.com/TrentBest/FSM_UserIO</RepositoryUrl><RepositoryType>git</RepositoryType><PackageReleaseNotes>Alpha 1: establish the semantic UserIO boundary without owning physical devices, GUI, datum, or execution.</PackageReleaseNotes><GenerateDocumentationFile>true</GenerateDocumentationFile><TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <EnableDefaultCompileItems>false</EnableDefaultCompileItems></PropertyGroup><ItemGroup>
-    <Compile Include="SemanticIntent.cs" /><None Include="README.md" Pack="true" PackagePath="" /><None Include="LICENSE.txt" Pack="true" PackagePath="" /><None Include="docs/**/*.md" Pack="true" PackagePath="docs/" /></ItemGroup></Project>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>true</IsPackable>
+    <PackageId>TheSingularityWorkshop.FSM_UserIO</PackageId>
+    <Version>0.1.0-alpha.1</Version>
+    <Authors>Trent Best</Authors>
+    <Company>The Singularity Workshop</Company>
+    <Description>Platform-neutral semantic interaction boundary across actor capabilities, observations, expression, application meaning, and execution policy.</Description>
+    <PackageTags>UserIO;interaction;capability;intent;input;output;GUI;AI;ProtocolAi;TheSingularityWorkshop</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <PackageProjectUrl>https://github.com/TrentBest/FSM_UserIO</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/TrentBest/FSM_UserIO</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageReleaseNotes>Alpha 1: establish the platform-neutral semantic interaction boundary across actor capabilities without owning devices, GUI, datum, policy, or execution.</PackageReleaseNotes>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="SemanticIntent.cs" />
+    <None Include="README.md" Pack="true" PackagePath="" />
+    <None Include="LICENSE.txt" Pack="true" PackagePath="" />
+    <None Include="docs/**/*.md" Pack="true" PackagePath="docs/" />
+  </ItemGroup>
+</Project>
