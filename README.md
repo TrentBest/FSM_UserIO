@@ -2,10 +2,10 @@
 
 [![NuGet](https://img.shields.io/nuget/v/TheSingularityWorkshop.FSM_UserIO?style=flat-square&logo=nuget&logoColor=white)](https://www.nuget.org/packages/TheSingularityWorkshop.FSM_UserIO)
 [![NuGet downloads](https://img.shields.io/nuget/dt/TheSingularityWorkshop.FSM_UserIO?style=flat-square&logo=nuget&logoColor=white)](https://www.nuget.org/packages/TheSingularityWorkshop.FSM_UserIO)
-[![Build](https://img.shields.io/github/actions/workflow/status/TrentBest/FSM_UserIO/build.yml?branch=main&style=flat-square&logo=github)](https://github.com/TrentBest/FSM_UserIO/actions/workflows/build.yml)
+[![Build](https://img.shields.io/github/actions/workflow/status/TrentBest/FSM_UserIO/build.yml?branch=master&style=flat-square&logo=github)](https://github.com/TrentBest/FSM_UserIO/actions/workflows/build.yml)
 [![Coverage](https://codecov.io/gh/TrentBest/FSM_UserIO/graph/badge.svg)](https://codecov.io/gh/TrentBest/FSM_UserIO)
 [![License](https://img.shields.io/github/license/TrentBest/FSM_UserIO?style=flat-square)](LICENSE.txt)
-[![Last commit](https://img.shields.io/github/last-commit/TrentBest/FSM_UserIO/main?style=flat-square)](https://github.com/TrentBest/FSM_UserIO/commits/main)
+[![Last commit](https://img.shields.io/github/last-commit/TrentBest/FSM_UserIO/main?style=flat-square)](https://github.com/TrentBest/FSM_UserIO/commits/master)
 [![GitHub issues](https://img.shields.io/github/issues/TrentBest/FSM_UserIO?style=flat-square)](https://github.com/TrentBest/FSM_UserIO/issues)
 [![.NET 8](https://img.shields.io/badge/.NET-8.0-512BD4?logo=dotnet&logoColor=white)](https://dotnet.microsoft.com/)
 
