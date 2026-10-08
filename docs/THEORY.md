@@ -264,13 +264,13 @@ This means:
 
 - do not put WPF events in FSM_UserIO;
 - do not put Blazor callbacks in FSM_UserIO;
-- do not put Unity input objects in FSM_UserIO;
+- do not put platform-specific host input objects in FSM_UserIO;
 - do not put every imaginable animal capability in FSM_UserIO;
 - do not create a bridge until multiple consumers demonstrate the shared boundary.
 
 If WPF and Blazor eventually share a semantic capability, a bridge can represent that shared subset.
 
-If Unity and another environment share a capability, the same principle applies.
+If platform-specific host and another environment share a capability, the same principle applies.
 
 The platform is an adapter. The semantic boundary remains platform-neutral.
 
@@ -299,7 +299,7 @@ It deliberately does not define:
 - mouse coordinates;
 - WPF events;
 - Blazor callbacks;
-- Unity input objects;
+- platform-specific host input objects;
 - controller SDKs;
 - device discovery;
 - GUI widgets;

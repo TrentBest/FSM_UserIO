@@ -2,10 +2,10 @@
 
 [![NuGet](https://img.shields.io/nuget/v/TheSingularityWorkshop.FSM_UserIO?style=flat-square&logo=nuget&logoColor=white)](https://www.nuget.org/packages/TheSingularityWorkshop.FSM_UserIO)
 [![NuGet downloads](https://img.shields.io/nuget/dt/TheSingularityWorkshop.FSM_UserIO?style=flat-square&logo=nuget&logoColor=white)](https://www.nuget.org/packages/TheSingularityWorkshop.FSM_UserIO)
-[![Build](https://img.shields.io/github/actions/workflow/status/TrentBest/FSM_UserIO/build.yml?branch=main&style=flat-square&logo=github)](https://github.com/TrentBest/FSM_UserIO/actions/workflows/build.yml)
+[![Build](https://img.shields.io/github/actions/workflow/status/TrentBest/FSM_UserIO/build.yml?branch=master&style=flat-square&logo=github)](https://github.com/TrentBest/FSM_UserIO/actions/workflows/build.yml)
 [![Coverage](https://codecov.io/gh/TrentBest/FSM_UserIO/graph/badge.svg)](https://codecov.io/gh/TrentBest/FSM_UserIO)
 [![License](https://img.shields.io/github/license/TrentBest/FSM_UserIO?style=flat-square)](LICENSE.txt)
-[![Last commit](https://img.shields.io/github/last-commit/TrentBest/FSM_UserIO/main?style=flat-square)](https://github.com/TrentBest/FSM_UserIO/commits/main)
+[![Last commit](https://img.shields.io/github/last-commit/TrentBest/FSM_UserIO/main?style=flat-square)](https://github.com/TrentBest/FSM_UserIO/commits/master)
 [![GitHub issues](https://img.shields.io/github/issues/TrentBest/FSM_UserIO?style=flat-square)](https://github.com/TrentBest/FSM_UserIO/issues)
 [![.NET 8](https://img.shields.io/badge/.NET-8.0-512BD4?logo=dotnet&logoColor=white)](https://dotnet.microsoft.com/)
 
@@ -19,9 +19,65 @@ The package begins from a more fundamental question:
 
 A human is one possible form. A dog is another. A robot, VR avatar, accessibility system, AI agent, remote operator, or software process can also be an interacting form. The common abstraction is not anatomy and it is not a device. It is **capability**.
 
+## What and Why
+
+FSM_UserIO defines the semantic boundary between an observation or expression and the application meaning that may follow. A keyboard event, gaze signal, voice utterance, robot sensor, software message, or agent proposal is not automatically an instruction to execute. The application retains ownership of policy, authorization, validation, and execution.
+
+The package starts with a small shared representation: `SemanticIntent`. It does not own devices, GUI events, the originating actor, or application behavior.
+
+## 60-Second Quick Start
+
+### 1. Create a project in Visual Studio
+
+Choose **Create a new project → Console App**, select C#, and target **.NET 8**.
+
+### 2. Open the Developer Terminal
+
+Choose **View → Terminal** and ensure it is in the directory containing your project's `.csproj` file.
+
+### 3. Install FSM_UserIO
+
+```powershell
+dotnet add package TheSingularityWorkshop.FSM_UserIO --version 0.1.0-alpha.1
+```
+
+### 4. Replace `Program.cs` with this example
+
+```csharp
+using TheSingularityWorkshop.FSM_UserIO;
+
+var intent = new SemanticIntent("open-settings");
+
+Console.WriteLine($"Intent: {intent.Name}");
+Console.WriteLine(intent.ProtocolId is null
+    ? "Protocol identity: not assigned"
+    : $"Protocol identity: {intent.ProtocolId}");
+```
+
+Expected output:
+
+```text
+Intent: open-settings
+Protocol identity: not assigned
+```
+
+This creates a semantic intent value. It does not authorize or execute the requested action; your application still decides what the intent means and whether it is allowed.
+
+## Add It to an Existing Project
+
+Already have an application? Add the package to the project where you translate a source observation into application-owned semantic meaning:
+
+```powershell
+dotnet add package TheSingularityWorkshop.FSM_UserIO --version 0.1.0-alpha.1
+```
+
+For example, an event adapter may map a UI action or service message to `new SemanticIntent("open-settings")`. Keep raw device/framework event types in the adapter and keep authorization, validation, and execution in the host/application.
+
+Do not add FSM_UserIO merely to pass through an unmodified device event. Use it when a stable semantic interaction boundary is useful to your architecture.
+
 ## The vision
 
-The Workshop does not want UserIO constrained by the conventions of Unity, WPF, Blazor, another game engine, or the human keyboard-and-mouse model.
+The Workshop does not want UserIO constrained by the conventions of platform-specific host, WPF, Blazor, another game engine, or the human keyboard-and-mouse model.
 
 Those are manifestations of computation.
 
@@ -40,7 +96,7 @@ flowchart TB
     P --> R["Execution"]
 ```
 
-The upper limit is therefore not "what a human can do with a controller" or "what Unity exposes." The boundary is constrained by the capabilities that can be represented and by the computation that can process them.
+The upper limit is therefore not "what a human can do with a controller" or "what platform-specific host exposes." The boundary is constrained by the capabilities that can be represented and by the computation that can process them.
 
 ## Why this package exists
 
@@ -123,7 +179,7 @@ FSM_UserIO is deliberately **not**:
 - a controller abstraction;
 - a WPF input framework;
 - a Blazor event framework;
-- a Unity input layer;
+- a platform-specific host input layer;
 - a game-engine abstraction;
 - a device SDK;
 - a rendering system;
@@ -144,7 +200,7 @@ Likewise, do not assume that every platform needs a package named `WPF_IO`, `Bla
 
 ```mermaid
 flowchart TB
-    W["WPF / Blazor / Unity / other platform"] --> N["Native observation or expression"]
+    W["WPF / Blazor / platform-specific host / other platform"] --> N["Native observation or expression"]
     N --> A["Platform-specific adapter"]
     A --> U["FSM_UserIO"]
     U --> H["Application / host"]
