@@ -29,7 +29,7 @@ User interaction is a capability boundary, not authority by itself. A host may c
 
 ## 🟣 02 Why
 
-This boundary lets the Workshop compose the capability without confusing it with the host, user interface, external provider, or application authority. The implementation status and limits described in the detailed guide remain authoritative.
+Input and output are reusable capabilities, but capability must not be confused with authority. Separating the interaction contract from host policy makes it possible to change presentation without accidentally granting user-facing components permission to perform application actions.
 
 ## 🔺 03 How
 
