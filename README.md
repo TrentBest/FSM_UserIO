@@ -1,3 +1,5 @@
+![The Singularity Workshop animated moniker](https://raw.githubusercontent.com/TrentBest/TheSingularityWorkshop.Renderer/development/docs/assets/moniker.svg)
+
 # TheSingularityWorkshop.FSM_UserIO
 
 [![NuGet](https://img.shields.io/nuget/v/TheSingularityWorkshop.FSM_UserIO?style=flat-square&logo=nuget&logoColor=white)](https://www.nuget.org/packages/TheSingularityWorkshop.FSM_UserIO)
@@ -8,6 +10,42 @@
 [![Last commit](https://img.shields.io/github/last-commit/TrentBest/FSM_UserIO/main?style=flat-square)](https://github.com/TrentBest/FSM_UserIO/commits/main)
 [![GitHub issues](https://img.shields.io/github/issues/TrentBest/FSM_UserIO?style=flat-square)](https://github.com/TrentBest/FSM_UserIO/issues)
 [![.NET 8](https://img.shields.io/badge/.NET-8.0-512BD4?logo=dotnet&logoColor=white)](https://dotnet.microsoft.com/)
+
+
+> **Platform-neutral contracts for user-facing input and output capabilities.**
+
+User interaction is a capability boundary, not authority by itself. A host may collect input or present output while authorization and application decisions remain elsewhere.
+
+```mermaid
+flowchart TD
+  U[User / external input] --> C[FSM_UserIO capability]
+  C --> H[Host policy and authority]
+  H --> O[Output / next interaction]
+```
+
+## 🟦 01 What
+
+User interaction is a capability boundary, not authority by itself. A host may collect input or present output while authorization and application decisions remain elsewhere.
+
+## 🟣 02 Why
+
+This boundary lets the Workshop compose the capability without confusing it with the host, user interface, external provider, or application authority. The implementation status and limits described in the detailed guide remain authoritative.
+
+## 🔺 03 How
+
+Describe the interaction capability separately from platform-specific UI, then connect a suitable adapter or host. The package does not grant a capability permission to perform unrelated actions.
+
+## 🟢 04 See it in a minute
+
+Start with the capability abstraction and Alpha 1 boundary below, then run the repository's tests to see which contracts are currently enforced.
+
+## 🟪 05 Documentation and theory
+
+[The vision](#the-vision) · [Capability is the important abstraction](#capability-is-the-important-abstraction) · [Documentation](#documentation)
+
+---
+
+## Detailed guide
 
 **The Singularity Workshop UserIO boundary: semantic interaction across forms, capabilities, observations, expression, and computation.**
 
