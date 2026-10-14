@@ -5,7 +5,7 @@
   </a>
 </p>
 
-# TheSingularityWorkshop.FSM_UserIO
+# ✳️ 00 TheSingularityWorkshop.FSM_UserIO
 
 [![NuGet](https://img.shields.io/nuget/v/TheSingularityWorkshop.FSM_UserIO?style=flat-square&logo=nuget&logoColor=white)](https://www.nuget.org/packages/TheSingularityWorkshop.FSM_UserIO)
 [![NuGet downloads](https://img.shields.io/nuget/dt/TheSingularityWorkshop.FSM_UserIO?style=flat-square&logo=nuget&logoColor=white)](https://www.nuget.org/packages/TheSingularityWorkshop.FSM_UserIO)
@@ -25,6 +25,9 @@ The package begins from a more fundamental question:
 > **What can the interacting form sense, express, or perform, and what semantic interaction does that capability produce?**
 
 A human is one possible form. A dog is another. A robot, VR avatar, accessibility system, AI agent, remote operator, or software process can also be an interacting form. The common abstraction is not anatomy and it is not a device. It is **capability**.
+
+
+This README follows the Workshop's shared [Documentation Standard](https://github.com/TrentBest/TheSingularityWorkshop.FSM_COS/blob/master/DOCUMENTATION_STANDARD.md), while keeping this repository's own purpose and implementation authoritative.
 
 ## The vision
 
