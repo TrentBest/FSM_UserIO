@@ -3,10 +3,12 @@ name: Build, test, and package UserIO
 on:
   push:
     branches:
-      - "**"
+      - master
+      - development
   pull_request:
     branches:
-      - main
+      - master
+      - development
   workflow_dispatch:
     inputs:
       publish:
@@ -83,7 +85,7 @@ jobs:
   publish_nuget:
     needs: build-and-test
     runs-on: ubuntu-24.04
-    if: ${{ github.event_name == 'workflow_dispatch' && inputs.publish == true && false }}
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.publish == true && github.ref == 'refs/heads/development' }}
     permissions:
       contents: read
       id-token: write
