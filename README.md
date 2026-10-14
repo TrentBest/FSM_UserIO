@@ -233,3 +233,14 @@ MIT. See [LICENSE.txt](LICENSE.txt).
 <p align="center">
   <em>The Singularity Workshop — edify, don't mystify.</em>
 </p>
+
+
+## Deterministic identity with ProtocolAi
+
+FSM_UserIO carries semantic interaction; it does not need to own every application's vocabulary. A host can optionally carry a ProtocolAi protocol identity through SemanticIntent while keeping the dependency in the host integration layer.
+
+~~~csharp
+var intent = new SemanticIntent("open.forge", IntentProtocolId);
+~~~
+
+ProtocolAi defines the application-owned vocabulary; FSM_UserIO carries the intent; the host determines meaning, permission, and behavior. See the [ProtocolAi ecosystem map](https://github.com/TrentBest/TheSingularityWorkshop.ProtocolAi/blob/development/docs/ECOSYSTEM_USAGE_MAP.md#3-fsm_userio--implemented-primitive-carrier-boundary) for the rationale and cross-repository example. This is an illustrative host-side snippet, not a new dependency from FSM_UserIO to ProtocolAi.
