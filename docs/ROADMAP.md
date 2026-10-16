@@ -11,7 +11,7 @@
 - [x] Establish an optional numeric identity slot for ProtocolAi association.
 - [x] Keep FSM_UserIO free of runtime package dependencies.
 - [x] Add build, test, coverage, package, and publication-safety infrastructure.
-- [x] Document platform independence explicitly, including Unity, WPF, and Blazor boundaries.
+- [x] Document platform independence explicitly, including platform boundaries such as WPF and Blazor.
 
 ## Alpha 1 — release-readiness work
 
@@ -47,12 +47,12 @@ The architecture should eventually be demonstrated by multiple forms rather than
 - [ ] GUI consumes the same semantic interaction vocabulary.
 - [ ] A host applies policy and can reject an otherwise valid interaction.
 
-A Unity demonstration may be useful, but it is only one demonstration. It must not become the definition of the package.
+A platform-specific demonstration may be useful, but it is only one demonstration. It must not become the definition of the package.
 
 ## Explicitly not planned in Core
 
 - physical keyboard/mouse/controller APIs;
-- WPF, Blazor, Unity, or other GUI event types;
+- WPF, Blazor, or other platform-specific GUI event types;
 - device SDK dependencies;
 - a universal human-input enum;
 - an organism capability ontology;

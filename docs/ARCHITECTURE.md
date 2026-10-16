@@ -159,12 +159,12 @@ The optional numeric identity allows an application to associate the intent with
 
 ## Platform adapters
 
-WPF, Blazor, Unity, and other platforms are not UserIO implementations merely because they expose input events.
+WPF, Blazor, and other platform-specific hosts are not UserIO implementations merely because they expose input events.
 
 A platform adapter may eventually exist where a real consumer needs one:
 
 ```text
-WPF / Blazor / Unity / other platform
+WPF / Blazor / other platform-specific host
                 |
           native events
                 |
@@ -240,7 +240,7 @@ FSM_UserIO does not own:
 - device discovery;
 - WPF APIs;
 - Blazor APIs;
-- Unity APIs;
+- platform-specific host APIs;
 - rendering;
 - GUI widgets;
 - application datum;

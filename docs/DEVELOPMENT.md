@@ -51,7 +51,7 @@ If those answers are unclear, document the boundary before expanding the API.
 
 When reviewing a proposed core API, mentally remove the first implementation platform.
 
-If the type stops making sense without WPF, Blazor, Unity, a game engine, a keyboard, a mouse, or a human operator, it probably belongs below the UserIO boundary.
+If the type stops making sense without WPF, Blazor, platform-specific host, a game engine, a keyboard, a mouse, or a human operator, it probably belongs below the UserIO boundary.
 
 The inverse test also matters:
 
@@ -75,7 +75,7 @@ In particular:
 - GUI consumption must not require GUI as a runtime dependency;
 - WPF must not enter the core;
 - Blazor must not enter the core;
-- Unity must not enter the core;
+- platform-specific host must not enter the core;
 - FSM_COS must not become a dependency of UserIO merely because a host later composes it.
 
 Adapters and hosts may reference the core.

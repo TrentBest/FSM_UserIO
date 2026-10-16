@@ -2,7 +2,7 @@
 
 ## Purpose
 
-FSM_UserIO Alpha 1 establishes a new Workshop boundary. The release is successful only if a reader can understand the boundary without importing assumptions from Unity, WPF, Blazor, game engines, or the human keyboard-and-mouse model.
+FSM_UserIO Alpha 1 establishes a new Workshop boundary. The release is successful only if a reader can understand the boundary without importing assumptions from platform-specific host, WPF, Blazor, game engines, or the human keyboard-and-mouse model.
 
 The package must communicate a broader vision:
 
@@ -28,7 +28,7 @@ Before release, confirm:
 - Roadmap distinguishes established facts from future questions.
 - Development guidance prevents platform leakage.
 - Package metadata describes semantic interaction rather than human/device input.
-- Documentation explicitly states that Unity, WPF, and Blazor are possible adapters, not the definition of UserIO.
+- Documentation explicitly states that platform-specific host, WPF, and Blazor are possible adapters, not the definition of UserIO.
 
 ## Code gate
 
@@ -87,7 +87,7 @@ Alpha 1 must not imply that:
 - UserIO is a human-only abstraction;
 - input means keyboard/controller input;
 - output means a GUI;
-- Unity defines the interaction model;
+- platform-specific host defines the interaction model;
 - WPF or Blazor define the interaction model;
 - capability equals authority;
 - intent equals execution;
