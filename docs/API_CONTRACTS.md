@@ -2,34 +2,34 @@
 
 This page documents the public core contract that exists today. It is intentionally narrower than the complete UserIO domain.
 
-## \`SemanticIntent\`
+## `SemanticIntent`
 
-Namespace: \`TheSingularityWorkshop.FSM_UserIO\`
+Namespace: `TheSingularityWorkshop.FSM_UserIO`
 
-\`\`\`csharp
+```csharp
 public sealed record SemanticIntent(string Name, ulong? ProtocolId = null);
-\`\`\`
+```
 
 ### Fields and behavior
 
 | Member | Contract |
 |---|---|
-| \`Name\` | Required application-defined semantic name. Null, empty, and whitespace-only names throw \`ArgumentException\`. A nonblank value is preserved as supplied; the constructor does not normalize or trim it. |
-| \`ProtocolId\` | Optional \`ulong\` value. Null means no numeric protocol identity is associated with this value. UserIO does not allocate, resolve, validate against a vocabulary, or authenticate this ID. |
+| `Name` | Required application-defined semantic name. Null, empty, and whitespace-only names throw `ArgumentException`. A nonblank value is preserved as supplied; the constructor does not normalize or trim it. |
+| `ProtocolId` | Optional `ulong` value. Null means no numeric protocol identity is associated with this value. UserIO does not allocate, resolve, validate against a vocabulary, or authenticate this ID. |
 | Record equality | The type is a C# record and therefore uses value-based equality semantics for its record members. |
 
 ### Example
 
-\`\`\`csharp
+```csharp
 var openSettings = new SemanticIntent("open-settings");
 var identified = new SemanticIntent("open-settings", protocolId: 42UL);
-\`\`\`
+```
 
 The first value has no numeric identity. The second carries an application-supplied identity association. Neither value grants permission or executes an operation.
 
 ### Non-guarantees
 
-\`SemanticIntent\` does not prove that:
+`SemanticIntent` does not prove that:
 
 - the name exists in an application vocabulary;
 - the numeric identity is registered, unique, trusted, or valid for a particular host;
