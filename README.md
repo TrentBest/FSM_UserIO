@@ -89,6 +89,7 @@ This creates a semantic value. It does **not** authorize or execute an operation
 - [Theory](docs/THEORY.md) — why capability, observation, expression, intent, authority, and execution must remain distinct.
 - [Architecture](docs/ARCHITECTURE.md) — responsibility ownership, dependency direction, and explicit non-ownership.
 - [Domain completion roadmap](docs/ROADMAP.md) — full domain inventory, implemented-versus-deferred status, unresolved decisions, and completion gates.
+- [API contracts](docs/API_CONTRACTS.md) — exact Alpha 1 `SemanticIntent` behavior and non-guarantees.
 - [Development](docs/DEVELOPMENT.md) — build, test, coverage, packaging, and rules for proposing new contracts.
 - [Alpha readiness](docs/ALPHA_READINESS.md) — release evidence required for the deliberately small Alpha 1 API.
 - [Workshop documentation standard](https://github.com/TrentBest/TheSingularityWorkshop.FSM_COS/blob/master/DOCUMENTATION_STANDARD.md) — shared README sequence and documentation quality rules.
