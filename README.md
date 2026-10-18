@@ -251,6 +251,7 @@ Start with:
 - [Development](docs/DEVELOPMENT.md) — contribution and design rules.
 - [Roadmap](docs/ROADMAP.md) — deliberately staged API evolution.
 - [Alpha readiness](docs/ALPHA_READINESS.md) — the Alpha 1 release gate.
+- [Alpha 2 readiness](docs/0.1.0-alpha.2-READINESS.md) — provisional next-release gates; the package version remains Alpha 1 until separately approved.
 
 The documentation is part of the API. It exists to prevent future consumers from accidentally importing a game-engine or human-device interpretation into a package intended to remain computation-bound rather than platform-bound.
 
