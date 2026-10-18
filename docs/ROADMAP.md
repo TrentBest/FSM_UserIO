@@ -70,10 +70,10 @@ Steps 1–3 and 5–7 are architectural responsibilities, not APIs supplied by A
 
 ### Documentation work
 
-- [ ] Reconcile README, Theory, Architecture, Development, Alpha Readiness, and this roadmap so they make the same implemented-versus-planned distinction.
+- [x] Reconcile README, Theory, Architecture, Development, Alpha Readiness, and this roadmap on the implemented-versus-planned distinction; the integration example and ownership matrix are explicitly identified as documentation/examples, not shipped APIs.
 - [x] Add a short API contract reference for `SemanticIntent`: constructor behavior, blank-name rejection, name preservation, optional `ProtocolId`, equality/value semantics, and explicit non-guarantees.
-- [ ] Add a small integration walkthrough showing an adapter producing an intent and a host rejecting or accepting it without UserIO performing execution.
-- [ ] Add a consumer/producer matrix that maps each domain concept to its owning Workshop package and links to that package's authoritative documentation.
+- [x] Add a small integration walkthrough showing application-local adapter code producing an intent and a host rejecting or accepting it without UserIO performing execution: [Integration Walkthrough](INTEGRATION_WALKTHROUGH.md).
+- [x] Add a consumer/producer matrix mapping domain concepts to owning Workshop repositories and their READMEs: [Consumer / Producer Ownership Matrix](OWNERSHIP_MATRIX.md).
 - [x] Maintain a traceability table from each public contract to tests and package documentation. Alpha 1 currently has one public contract; see [API contracts](API_CONTRACTS.md).
 - [x] Add an implementation-grounded domain map that marks implemented, conceptual/deferred, and neighboring ownership distinctly; keep it synchronized as the API changes.
 
