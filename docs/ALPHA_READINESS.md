@@ -70,15 +70,11 @@ NuGet publication remains disabled until an explicit release decision.
 
 ## Publication gate
 
-The repository follows the Workshop-wide hard gate:
+Ordinary pushes and pull requests run verification and package creation without publishing. NuGet publication is a separate manual workflow dispatch that requires `publish: true` and the `development` branch; it runs only after the build-and-test job succeeds.
 
-```yaml
-if: ${{ ... && false }}
-```
+For a release decision, inspect the exact package artifact and version, confirm the intended branch and manual input, and verify the published package independently after the workflow completes. A green CI run or uploaded `.nupkg` artifact alone does not mean publication occurred.
 
-The release process temporarily changes only the final `false` to `true` when publication is explicitly authorized, then restores the hard gate immediately after verification.
-
-See the Workshop NuGet Publication Runbook for the full procedure.
+See the Workshop [NuGet Publication Runbook](https://github.com/TrentBest/FSM_COS/blob/master/docs/RELEASING.md) for the full procedure.
 
 ## What Alpha 1 must not imply
 
