@@ -94,7 +94,8 @@ This creates a semantic value. It does **not** authorize or execute an operation
 - [Integration walkthrough](docs/INTEGRATION_WALKTHROUGH.md) — a minimal adapter-to-intent-to-host example using only the existing contract and local application code.
 - [Consumer / producer ownership matrix](docs/OWNERSHIP_MATRIX.md) — package ownership boundaries and verified Workshop repository links.
 - [Development](docs/DEVELOPMENT.md) — build, test, coverage, packaging, and rules for proposing new contracts.
-- [Alpha readiness](docs/ALPHA_READINESS.md) — release evidence required for the deliberately small Alpha 1 API.
+- [Alpha 1 readiness baseline](docs/ALPHA_READINESS.md) — the release evidence established for the deliberately small initial API.
+- [Alpha 2 release readiness](docs/0.1.0-alpha.2-READINESS.md) — proposed next-release gates, consumer evidence, domain boundaries, and publication checks.
 - [Workshop documentation standard](https://github.com/TrentBest/TheSingularityWorkshop.FSM_COS/blob/master/DOCUMENTATION_STANDARD.md) — shared README sequence and documentation quality rules.
 
 ## Domain boundary at a glance
