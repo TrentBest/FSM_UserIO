@@ -90,6 +90,8 @@ This creates a semantic value. It does **not** authorize or execute an operation
 - [Architecture](docs/ARCHITECTURE.md) — responsibility ownership, dependency direction, and explicit non-ownership.
 - [Domain completion roadmap](docs/ROADMAP.md) — full domain inventory, implemented-versus-deferred status, unresolved decisions, and completion gates.
 - [API contracts](docs/API_CONTRACTS.md) — exact Alpha 1 `SemanticIntent` behavior and non-guarantees.
+- [Integration walkthrough](docs/INTEGRATION_WALKTHROUGH.md) — a minimal adapter-to-intent-to-host example using only the existing contract and local application code.
+- [Consumer / producer ownership matrix](docs/OWNERSHIP_MATRIX.md) — package ownership boundaries and verified Workshop repository links.
 - [Development](docs/DEVELOPMENT.md) — build, test, coverage, packaging, and rules for proposing new contracts.
 - [Alpha readiness](docs/ALPHA_READINESS.md) — release evidence required for the deliberately small Alpha 1 API.
 - [Workshop documentation standard](https://github.com/TrentBest/TheSingularityWorkshop.FSM_COS/blob/master/DOCUMENTATION_STANDARD.md) — shared README sequence and documentation quality rules.
