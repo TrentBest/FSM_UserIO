@@ -78,6 +78,7 @@ Steps 1–3 and 5–7 are architectural responsibilities, not APIs supplied by A
 - [x] Add a consumer/producer matrix mapping domain concepts to owning Workshop repositories and their READMEs: [Consumer / Producer Ownership Matrix](OWNERSHIP_MATRIX.md).
 - [x] Maintain a traceability table from each public contract to tests and package documentation. Alpha 1 currently has one public contract; see [API contracts](API_CONTRACTS.md).
 - [x] Add an implementation-grounded domain map that marks implemented, conceptual/deferred, and neighboring ownership distinctly; keep it synchronized as the API changes.
+- [x] Define package-level completion criteria so deferred concepts are not mistaken for required implementation: [Domain Completion Criteria](DOMAIN_COMPLETION_CRITERIA.md).
 
 ### Contract decisions that need evidence before implementation
 
