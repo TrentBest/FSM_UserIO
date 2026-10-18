@@ -2,6 +2,8 @@
 
 This document is the domain inventory and evidence ledger for FSM_UserIO. It separates the semantic domain the Workshop intends to support from the contracts actually implemented in Alpha 1. It is deliberately not a promise to put every concept in the core package.
 
+For the package-level definition of done, evidence gates, and what is *not* required for completion, see [Domain Completion Criteria](DOMAIN_COMPLETION_CRITERIA.md).
+
 ## Domain statement
 
 **FSM_UserIO is the platform-neutral semantic interaction boundary between a participating form's contextual capabilities and application-owned meaning.**
