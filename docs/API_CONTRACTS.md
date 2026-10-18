@@ -27,6 +27,19 @@ var identified = new SemanticIntent("open-settings", protocolId: 42UL);
 
 The first value has no numeric identity. The second carries an application-supplied identity association. Neither value grants permission or executes an operation.
 
+### Test traceability
+
+The current test suite demonstrates the implemented Alpha 1 contract:
+
+| Contract behavior | Test |
+|---|---|
+| Application-owned name and optional numeric identity are preserved | `Intent_preserves_application_owned_identity` |
+| Numeric identity is optional | `Intent_does_not_require_protocol_identity` |
+| Empty and whitespace-only names are rejected | `Intent_requires_a_non_blank_name` |
+| Equal member values produce equal records | `Intent_is_value_based` |
+
+These tests cover the present value object; they do not demonstrate adapter interoperability, host authorization, execution, delivery guarantees, or any deferred domain contract.
+
 ### Non-guarantees
 
 `SemanticIntent` does not prove that:
