@@ -89,6 +89,7 @@ This creates a semantic value. It does **not** authorize or execute an operation
 - [Theory](docs/THEORY.md) — why capability, observation, expression, intent, authority, and execution must remain distinct.
 - [Architecture](docs/ARCHITECTURE.md) — responsibility ownership, dependency direction, and explicit non-ownership.
 - [Domain completion roadmap](docs/ROADMAP.md) — full domain inventory, implemented-versus-deferred status, unresolved decisions, and completion gates.
+- [Domain completion criteria](docs/DOMAIN_COMPLETION_CRITERIA.md) — the package-level definition of done, evidence gates, and concepts that are not required just for completeness.
 - [API contracts](docs/API_CONTRACTS.md) — exact Alpha 1 `SemanticIntent` behavior and non-guarantees.
 - [Integration walkthrough](docs/INTEGRATION_WALKTHROUGH.md) — a minimal adapter-to-intent-to-host example using only the existing contract and local application code.
 - [Consumer / producer ownership matrix](docs/OWNERSHIP_MATRIX.md) — package ownership boundaries and verified Workshop repository links.
