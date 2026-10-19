@@ -4,7 +4,7 @@
 
 ## Release readiness
 
-- **Current readiness: 38%.** The repository has a deliberately small implementation, seven focused unit tests, architecture/theory/roadmap/readiness documents, and a successful CI run covering build, tests, coverage upload, pack, and artifact upload. Package contents, dependency verification, and clean-consumer installation remain outstanding.
+- **Current readiness: 65%.** The latest CI run passed build, tests, coverage upload, pack, documentation-path verification, clean-consumer installation, and artifact upload. The packed alpha package was inspected and contains the README, MIT license, seven Markdown guides, assembly, and XML documentation. Remaining work includes the full public-contract/dependency-boundary audit, documentation and version consistency review, and broader adapter/integration guidance.
 - **100% means release-ready**, not published.
 - Publication remains a separate action requiring explicit authorization. Keep the publish job hard-gated until then.
 
