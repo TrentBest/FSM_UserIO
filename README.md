@@ -247,6 +247,7 @@ The package will grow only when a real boundary requires another contract and th
 Start with:
 
 - [Theory](docs/THEORY.md) — the conceptual boundary and capability model.
+- [API contract](docs/API_CONTRACTS.md) — the exact behavior of the currently implemented `SemanticIntent` type.
 - [Architecture](docs/ARCHITECTURE.md) — ownership and dependency direction.
 - [Development](docs/DEVELOPMENT.md) — contribution and design rules.
 - [Roadmap](docs/ROADMAP.md) — deliberately staged API evolution.
