@@ -83,11 +83,10 @@ jobs:
           for required_path in "README.md" "LICENSE.txt" "docs/API_CONTRACTS.md"; do
             if ! grep -Fxq "$required_path" <<< "$entries"; then
               echo "Expected package entry is missing: $required_path"
-              printf '%s\\n' "$entries"
+              printf '%s\n' "$entries"
               exit 1
             fi
           done
-          if ! grep -Eq '^docs/.+\.md
 
       - name: Verify package in a clean consumer project
         shell: bash
