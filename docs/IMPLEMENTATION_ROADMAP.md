@@ -4,16 +4,16 @@
 
 ## Release readiness
 
-- **Current readiness: 75%.** The current development commit is `d4cc90f8d005f4b2494e01bc1412a0e3f5e7353a`; [CI run #139](https://github.com/TrentBest/FSM_UserIO/actions/runs/39320861310) passed Release build, tests, coverage/Codecov, package creation, required documentation-path checks, clean-consumer build, and artifact uploads. The publish job was skipped; this run did not publish to NuGet. I downloaded and inspected the exact package artifact from run #139: package ID `TheSingularityWorkshop.FSM_UserIO`, version `0.1.0-alpha.1`, target framework `net8.0`, assembly and XML documentation present, README/license and all seven checked-in Markdown docs included, and no NuGet runtime package dependencies declared. The inspected `.nupkg` SHA-256 is `171ab041e3be4fc2c339bf8d04154fcff8efcfc99bd9547f85a9b4b28448fd2a`. The compiled assembly reference graph, workflow action pinning, broader document alignment, and downstream integration decision remain open. Use the [development-branch Actions history](https://github.com/TrentBest/FSM_UserIO/actions/workflows/build.yml?query=branch%3Adevelopment) for later exact-commit evidence.
+- **Current readiness: 77%.** The latest workflow/security change is commit `4cfff96db4fadb2d0fbc7cddafcd7adbdb0b1fc7`; [CI run #143](https://github.com/TrentBest/FSM_UserIO/actions/runs/39321870262) passed on that exact commit, including Release build, tests, coverage/Codecov, package creation, required documentation-path checks, clean-consumer build, and artifact uploads. The publish job was not triggered. Separately, the exact package artifact from [run #139](https://github.com/TrentBest/FSM_UserIO/actions/runs/39320861310) was downloaded and inspected: package ID `TheSingularityWorkshop.FSM_UserIO`, version `0.1.0-alpha.1`, target framework `net8.0`, assembly and XML documentation present, README/license and all seven checked-in Markdown docs included, and no NuGet runtime package dependencies declared. The inspected `.nupkg` SHA-256 is `171ab041e3be4fc2c339bf8d04154fcff8efcfc99bd9547f85a9b4b28448fd2a`. Remaining release gaps include independent compiled-assembly reference inspection, repository merge-protection verification, broader document alignment, and a downstream integration decision. See the [development-branch Actions history](https://github.com/TrentBest/FSM_UserIO/actions/workflows/build.yml?query=branch%3Adevelopment) for later exact-commit evidence.
 - **100% means release-ready**, not published.
 - Publication remains a separate action requiring explicit authorization. The workflow requires manual dispatch on `development` with `publish: true`; do not enable that input until the owner authorizes a release.
 
 ## Security and supply-chain audit
 
-- [x] Pin third-party GitHub Actions to full commit SHAs with upstream version comments in workflow commit `f7f48df1e6d3d0e92b7bab51d34b6af96bf56460`; its CI validation is tracked separately below.
+- [x] Pin all seven workflow action uses to full commit SHAs with upstream version comments; the final previously mutable `actions/upload-artifact@v7` reference was pinned in commit `4cfff96db4fadb2d0fbc7cddafcd7adbdb0b1fc7`. Exact-commit CI verification passed in [run #143](https://github.com/TrentBest/FSM_UserIO/actions/runs/39321870262).
 - [ ] Verify repository branch protection/rules for `master` and `development`; the current branch metadata reports both as unprotected. Confirm an appropriate policy before treating merge controls as hardened.
 - [ ] Inspect the compiled assembly's referenced assemblies independently of the NuGet `.nuspec`; the manifest declares no runtime package dependencies, but that alone does not prove the binary has no unexpected references.
-- [ ] Verify the action-pinned workflow run passes on the exact commit, then refresh the readiness evidence to that run.
+- [x] Verify the fully action-pinned workflow passes on the exact commit; [run #143](https://github.com/TrentBest/FSM_UserIO/actions/runs/39321870262) passed for commit `4cfff96db4fadb2d0fbc7cddafcd7adbdb0b1fc7`.
 - [x] Keep default workflow permissions read-only at workflow scope and grant `id-token: write` only to the opt-in NuGet publish job.
 - [x] Confirm the publish job is gated on manual dispatch, explicit `publish: true`, `development` ref, and successful completion of the verification job. The gate is not publication authorization.
 
@@ -145,7 +145,7 @@ Prioritize real, small demonstrations. Mark each one implemented only when sourc
 - [x] Verify tests pass and coverage output is produced.
 - [x] Verify Codecov integration and test/coverage artifact upload are functioning as configured.
 - [x] Verify package creation succeeds and required documentation paths are present in the `.nupkg`.
-- [ ] Inspect the exact packed package's README, license, intended documentation files, assembly, XML docs, metadata, target framework, and dependency metadata; record the artifact identity and evidence rather than relying on CI success alone.
+- [x] Inspect the exact packed package's README, license, intended documentation files, assembly presence, XML docs, metadata, target framework, and NuGet dependency metadata; artifact identity and SHA-256 are recorded above for run #139. The independent compiled assembly reference graph remains a separate open check.
 - [ ] Independently inspect the packed package's dependency metadata and assembly references to verify no platform-specific assembly or unintended runtime dependency is included.
 - [x] Install the packed package into a clean consumer project and compile it.
 - [x] Verify the workflow triggers only on `master` and `development` for pushes and pull requests.
