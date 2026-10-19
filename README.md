@@ -25,7 +25,7 @@ flowchart TD
 
 ## 🟦 01 What
 
-User interaction is a capability boundary, not authority by itself. A host may collect input or present output while authorization and application decisions remain elsewhere.
+FSM_UserIO currently exposes one platform-neutral contract: `SemanticIntent`, an application-owned name with an optional numeric protocol identity. See the [exact API contract](docs/API_CONTRACTS.md) for validation and equality behavior. The wider capability model is architectural direction, not a claim that actor, observation, device, GUI, or execution APIs already exist.
 
 ## 🟣 02 Why
 
