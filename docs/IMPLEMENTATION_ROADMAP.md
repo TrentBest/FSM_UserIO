@@ -15,6 +15,7 @@
 - [x] Keep the core free of runtime package dependencies and platform-specific types.
 - [x] Separate capability from authority, semantic intent from domain meaning, and validation from execution.
 - [x] Document the intended relationship to ProtocolAi, GrammarAi, GUI, FSM_COS, and host/application policy.
+- [x] Add `docs/API_CONTRACTS.md` describing the implemented `SemanticIntent` constructor, property, equality, and non-guarantees; keep it traceable to source and tests.
 - [ ] Audit every public type/member against implementation, XML docs, tests, and package metadata.
 - [ ] Mark every roadmap claim as implemented, missing, intentionally out of scope, or awaiting a decision.
 - [ ] Run the complete release verification sequence and preserve evidence.
