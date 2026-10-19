@@ -4,7 +4,7 @@
 
 ## Release readiness
 
-- **Current readiness: 35%.** The repository has a deliberately small implementation, four focused unit tests, architecture/theory/roadmap/readiness documents, and a CI workflow. This is a preliminary estimate: a clean build, test/coverage run, package inspection, dependency audit, and consumer verification have not yet been demonstrated in this audit.
+- **Current readiness: 35%.** The repository has a deliberately small implementation, seven focused unit tests, architecture/theory/roadmap/readiness documents, and a CI workflow. This is a preliminary estimate: a clean build, test/coverage run, package inspection, dependency audit, and consumer verification have not yet been demonstrated in this audit.
 - **100% means release-ready**, not published.
 - Publication remains a separate action requiring explicit authorization. Keep the publish job hard-gated until then.
 
@@ -66,9 +66,9 @@ The current domain is the **semantic interaction crossing point** between a sour
 - [x] Support an omitted protocol identity.
 - [x] Support an explicit protocol identity.
 - [x] Verify value equality.
-- [ ] Test null-name behavior explicitly (including parameter name and exception contract).
-- [ ] Test preservation of meaningful leading/trailing whitespace; decide whether names are preserved exactly or normalized, and document that decision. Do not silently normalize.
-- [ ] Test equality for same name/different protocol IDs and different names/same ID.
+- [x] Test null-name behavior explicitly (including parameter name and exception contract).
+- [x] Test preservation of meaningful leading/trailing whitespace; names are preserved exactly and are not silently normalized.
+- [x] Test equality for same name/different protocol IDs and different names/same ID.
 - [ ] Document whether `ProtocolId = 0` is valid; do not assume it is reserved without a domain decision.
 - [ ] Document that equal numeric IDs from different protocol namespaces may be ambiguous unless the application supplies scope elsewhere.
 - [ ] Confirm record equality and serialization behavior are the intended public contract.
