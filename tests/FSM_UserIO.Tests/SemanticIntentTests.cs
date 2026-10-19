@@ -40,4 +40,28 @@ public sealed class SemanticIntentTests
 
         Assert.Equal(first, second);
     }
+
+    [Fact]
+    public void Intent_rejects_null_name_with_a_stable_argument_contract()
+    {
+        var exception = Assert.Throws<ArgumentException>(() => new SemanticIntent(null!));
+
+        Assert.Equal("Name", exception.ParamName);
+    }
+
+    [Fact]
+    public void Intent_preserves_non_blank_name_exactly()
+    {
+        const string name = " select ";
+        var intent = new SemanticIntent(name);
+
+        Assert.Equal(name, intent.Name);
+    }
+
+    [Fact]
+    public void Intent_equality_includes_name_and_protocol_identity()
+    {
+        Assert.NotEqual(new SemanticIntent("select", 42UL), new SemanticIntent("select", 43UL));
+        Assert.NotEqual(new SemanticIntent("select", 42UL), new SemanticIntent("inspect", 42UL));
+    }
 }
