@@ -7,7 +7,7 @@
 [![Build](https://img.shields.io/github/actions/workflow/status/TrentBest/FSM_UserIO/build.yml?branch=master&style=flat-square&logo=github)](https://github.com/TrentBest/FSM_UserIO/actions/workflows/build.yml)
 [![Coverage](https://codecov.io/gh/TrentBest/FSM_UserIO/graph/badge.svg)](https://codecov.io/gh/TrentBest/FSM_UserIO)
 [![License](https://img.shields.io/github/license/TrentBest/FSM_UserIO?style=flat-square)](LICENSE.txt)
-[![Last commit](https://img.shields.io/github/last-commit/TrentBest/FSM_UserIO/main?style=flat-square)](https://github.com/TrentBest/FSM_UserIO/commits/main)
+[![Last commit](https://img.shields.io/github/last-commit/TrentBest/FSM_UserIO/master?style=flat-square)](https://github.com/TrentBest/FSM_UserIO/commits/master)
 [![GitHub issues](https://img.shields.io/github/issues/TrentBest/FSM_UserIO?style=flat-square)](https://github.com/TrentBest/FSM_UserIO/issues)
 [![.NET 8](https://img.shields.io/badge/.NET-8.0-512BD4?logo=dotnet&logoColor=white)](https://dotnet.microsoft.com/)
 
@@ -260,7 +260,7 @@ The documentation is part of the API. It exists to prevent future consumers from
 
 Publication is intentionally disabled by default.
 
-The Workshop-wide release safety rule is that NuGet publication jobs end with an explicit `&& false` gate. Build, test, coverage, and package creation remain useful while publication stays off.
+The workflow can publish only when manually dispatched on `development` with the `publish` input explicitly set to `true`. Ordinary pushes and pull requests build, test, measure coverage, package, and verify a clean consumer without publishing.
 
 The release procedure is documented in the Workshop's [NuGet Publication Runbook](https://github.com/TrentBest/TheSingularityWorkshop.FSM_COS/blob/master/docs/RELEASING.md).
 
