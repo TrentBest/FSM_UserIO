@@ -70,13 +70,9 @@ NuGet publication remains disabled until an explicit release decision.
 
 ## Publication gate
 
-The repository follows the Workshop-wide hard gate:
+The publish job is opt-in and requires all of the following: a manually dispatched workflow, the `publish` input explicitly set to `true`, the `development` branch, and a successful build/test/package-verification job. Ordinary pushes and pull requests cannot publish. A green CI run or a package artifact is not publication authorization.
 
-```yaml
-if: ${{ ... && false }}
-```
-
-The release process temporarily changes only the final `false` to `true` when publication is explicitly authorized, then restores the hard gate immediately after verification.
+Do not dispatch with `publish: true` until the owner has explicitly authorized the release. The workflow gate and the human release decision are separate safeguards.
 
 See the Workshop NuGet Publication Runbook for the full procedure.
 
