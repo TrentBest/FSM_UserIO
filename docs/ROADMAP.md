@@ -15,10 +15,11 @@
 
 ## Alpha 1 — release-readiness work
 
-- [ ] Complete documentation review against the actor/capability model.
-- [ ] Maintain meaningful unit-test coverage for every implemented behavior.
-- [ ] Verify package contents, XML documentation, README, license, and version metadata.
-- [ ] Verify CI build, test, coverage, pack, and artifact generation.
+- [ ] Complete the full documentation review against the actor/capability model; cross-document alignment and link/content review remain in progress.
+- [x] Maintain meaningful unit-test coverage for the implemented `SemanticIntent` behavior.
+- [x] Inspect the Alpha 1 package contents, XML documentation, README, license, version metadata, and declared NuGet dependencies; artifact identity and SHA-256 are recorded in the [implementation audit](IMPLEMENTATION_ROADMAP.md) from [CI run #139](https://github.com/TrentBest/FSM_UserIO/actions/runs/39320861310).
+- [x] Verify CI build, test, coverage, pack, clean-consumer build, and artifact generation; [run #143](https://github.com/TrentBest/FSM_UserIO/actions/runs/39321870262) passed on the exact action-pinning commit.
+- [ ] Independently inspect the compiled assembly's reference graph and verify repository merge-protection settings.
 - [ ] Verify NuGet Trusted Publishing configuration before an authorized release.
 - [ ] Publish only through the Workshop hard-gated release procedure after explicit authorization.
 
