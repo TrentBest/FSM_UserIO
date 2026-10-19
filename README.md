@@ -259,9 +259,9 @@ The documentation is part of the API. It exists to prevent future consumers from
 
 ## NuGet publication
 
-Publication is intentionally disabled by default.
+Alpha 1 (`0.1.0-alpha.1`) is published on NuGet; see the [package page](https://www.nuget.org/packages/TheSingularityWorkshop.FSM_UserIO/0.1.0-alpha.1).
 
-The workflow can publish only when manually dispatched on `development` with the `publish` input explicitly set to `true`. Ordinary pushes and pull requests build, test, measure coverage, package, and verify a clean consumer without publishing.
+Future publication remains opt-in. The workflow can publish only when manually dispatched on `development` with the `publish` input explicitly set to `true`, after the verification job succeeds. Ordinary pushes and pull requests build, test, measure coverage, package, and verify a clean consumer without publishing. A successful CI run or package artifact is not publication authorization.
 
 The release procedure is documented in the Workshop's [NuGet Publication Runbook](https://github.com/TrentBest/TheSingularityWorkshop.FSM_COS/blob/master/docs/RELEASING.md).
 
