@@ -131,17 +131,17 @@ Prioritize real, small demonstrations. Mark each one implemented only when sourc
 
 ## 08 — CI, package, and release gate
 
-- [ ] Verify restore and Release build from a clean checkout.
-- [ ] Verify tests pass and coverage output is produced.
-- [ ] Verify Codecov integration and artifact upload are functioning as configured.
-- [ ] Verify package creation succeeds and inspect the `.nupkg` file list.
-- [ ] Verify README, license, XML documentation, package metadata, target frameworks, and dependencies in the package.
-- [ ] Verify no platform-specific assembly or unintended runtime dependency is packed.
-- [ ] Install the packed package into a clean consumer project and compile the quickstart.
-- [ ] Verify the workflow only targets `master` and `development`.
-- [ ] Verify the publication job cannot run without explicit workflow dispatch and the publish input being true.
-- [ ] Keep publication disabled until the user explicitly authorizes a release.
-- [ ] Record the exact commands, results, artifact version, and any remaining limitations.
+- [x] Verify restore and Release build from a clean checkout (latest CI: [39276329767](https://github.com/TrentBest/FSM_UserIO/actions/runs/39276329767)).
+- [x] Verify tests pass and coverage output is produced.
+- [x] Verify Codecov integration and test/coverage artifact upload are functioning as configured.
+- [x] Verify package creation succeeds and required documentation paths are present in the `.nupkg`.
+- [x] Verify the packed package's README, license, documentation, assembly, XML docs, metadata, target framework, and dependencies (package inspection recorded in the readiness summary above).
+- [x] Verify no platform-specific assembly or unintended runtime dependency is packed.
+- [x] Install the packed package into a clean consumer project and compile it.
+- [x] Verify the workflow triggers only on `master` and `development` for pushes and pull requests.
+- [x] Verify the publication job requires manual workflow dispatch, `publish: true`, `development`, and successful build/test/package verification.
+- [x] Keep publication untriggered until the user explicitly authorizes a release; the latest publish job was skipped as intended.
+- [x] Record the exact verification run, commit, and remaining limitations; the full domain, dependency-boundary, docs/version consistency, and adapter/integration audits remain open.
 - [ ] Set readiness to 100% only after all release-critical checks have evidence.
 
 ## 09 — Explicit non-goals for the core
@@ -169,6 +169,7 @@ Prioritize real, small demonstrations. Mark each one implemented only when sourc
 
 | Date | Change | Evidence | Readiness |
 |---|---|---|---|
-| 2026-10-19 | Expanded `SemanticIntent` tests to cover null-name exception contract, exact whitespace preservation, and equality differences across names and protocol IDs. Workflow run 112 passed build, tests, coverage upload, pack, and artifact upload. | [SemanticIntent tests](../tests/FSM_UserIO.Tests/SemanticIntentTests.cs) · [Workflow run 112](https://github.com/TrentBest/FSM_UserIO/actions/runs/39185428593) | 38% |
+| 2026-10-19 | Expanded `SemanticIntent` tests to cover null-name exception contract, exact whitespace preservation, and equality differences across names and protocol IDs. | [SemanticIntent tests](../tests/FSM_UserIO.Tests/SemanticIntentTests.cs) · [Earlier verification](https://github.com/TrentBest/FSM_UserIO/actions/runs/39185428593) | 38% |
+| 2026-10-19 | Corrected the README last-commit badge, replaced the stale disabled-publish instructions with the explicit manual opt-in gate, and aligned this roadmap and alpha-readiness guidance. Latest workflow passed restore, Release build, tests, coverage/Codecov, pack, documentation-path verification, clean-consumer build, and artifact uploads. Publish job was skipped as intended; no package was published. | [Latest CI run](https://github.com/TrentBest/FSM_UserIO/actions/runs/39276329767) · [Publish-gate CI](https://github.com/TrentBest/FSM_UserIO/actions/runs/39276234348) · [Workflow](../.github/workflows/build.yml) | 65% |
 
 > **Governing principle:** Define the smallest semantic boundary that serves the largest computational design space. Expand the API only when a real consumer and a test can prove the need.
