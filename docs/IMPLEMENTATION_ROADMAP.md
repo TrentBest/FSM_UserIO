@@ -4,9 +4,16 @@
 
 ## Release readiness
 
-- **Current readiness: 70%.** The current development commit is `ec44a5c517d3e5412541f402880729cf1bd3330f`; [CI run #133](https://github.com/TrentBest/FSM_UserIO/actions/runs/39320150039) passed Release build, tests, coverage/Codecov, packaging, explicit checks for `README.md`, `LICENSE.txt`, and `docs/API_CONTRACTS.md`, clean-consumer build, and artifact uploads. The opt-in publish job was skipped; no package was published by this run. This confirms the workflow and package checks on that commit, but does not complete the wider contract, dependency-boundary, documentation consistency, package metadata, or integration audit. Use the [development-branch Actions history](https://github.com/TrentBest/FSM_UserIO/actions/workflows/build.yml?query=branch%3Adevelopment) for subsequent exact-commit evidence.
+- **Current readiness: 75%.** The current development commit is `d4cc90f8d005f4b2494e01bc1412a0e3f5e7353a`; [CI run #139](https://github.com/TrentBest/FSM_UserIO/actions/runs/39320861310) passed Release build, tests, coverage/Codecov, package creation, required documentation-path checks, clean-consumer build, and artifact uploads. The publish job was skipped; this run did not publish to NuGet. I downloaded and inspected the exact package artifact from run #139: package ID `TheSingularityWorkshop.FSM_UserIO`, version `0.1.0-alpha.1`, target framework `net8.0`, assembly and XML documentation present, README/license and all seven checked-in Markdown docs included, and no NuGet runtime package dependencies declared. The inspected `.nupkg` SHA-256 is `171ab041e3be4fc2c339bf8d04154fcff8efcfc99bd9547f85a9b4b28448fd2a`. The compiled assembly reference graph, workflow action pinning, broader document alignment, and downstream integration decision remain open. Use the [development-branch Actions history](https://github.com/TrentBest/FSM_UserIO/actions/workflows/build.yml?query=branch%3Adevelopment) for later exact-commit evidence.
 - **100% means release-ready**, not published.
 - Publication remains a separate action requiring explicit authorization. The workflow requires manual dispatch on `development` with `publish: true`; do not enable that input until the owner authorizes a release.
+
+## Security and supply-chain audit
+
+- [ ] Pin third-party GitHub Actions to reviewed full commit SHAs (with upstream version comments), rather than relying on mutable major-version tags; review the update process before changing the workflow.
+- [ ] Inspect the compiled assembly's referenced assemblies independently of the NuGet `.nuspec`; the manifest declares no runtime package dependencies, but that alone does not prove the binary has no unexpected references.
+- [x] Keep default workflow permissions read-only at workflow scope and grant `id-token: write` only to the opt-in NuGet publish job.
+- [x] Confirm the publish job is gated on manual dispatch, explicit `publish: true`, `development` ref, and successful completion of the verification job. The gate is not publication authorization.
 
 ## 00 — Definition of done
 
@@ -19,7 +26,7 @@
 - [ ] Audit every public type/member against implementation, XML docs, tests, and package metadata.
 - [ ] Mark every roadmap claim as implemented, missing, intentionally out of scope, or awaiting a decision.
 - [ ] Run the complete release verification sequence and preserve evidence.
-- [ ] Verify the packed package in a clean consumer project.
+- [x] Verify the packed package in a clean consumer project (run #139, exact commit above).
 - [ ] Verify the documentation links, badges, branch references, and version claims.
 - [ ] Maintain only `master` and `development` as long-lived branches.
 
