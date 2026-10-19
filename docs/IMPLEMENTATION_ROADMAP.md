@@ -136,8 +136,8 @@ Prioritize real, small demonstrations. Mark each one implemented only when sourc
 - [x] Verify tests pass and coverage output is produced.
 - [x] Verify Codecov integration and test/coverage artifact upload are functioning as configured.
 - [x] Verify package creation succeeds and required documentation paths are present in the `.nupkg`.
-- [x] Verify the packed package's README, license, documentation, assembly, XML docs, metadata, target framework, and dependencies (package inspection recorded in the readiness summary above).
-- [x] Verify no platform-specific assembly or unintended runtime dependency is packed.
+- [ ] Inspect the exact packed package's README, license, intended documentation files, assembly, XML docs, metadata, target framework, and dependency metadata; record the artifact identity and evidence rather than relying on CI success alone.
+- [ ] Independently inspect the packed package's dependency metadata and assembly references to verify no platform-specific assembly or unintended runtime dependency is included.
 - [x] Install the packed package into a clean consumer project and compile it.
 - [x] Verify the workflow triggers only on `master` and `development` for pushes and pull requests.
 - [x] Verify the publication job requires manual workflow dispatch, `publish: true`, `development`, and successful build/test/package verification.
