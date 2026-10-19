@@ -10,8 +10,10 @@
 
 ## Security and supply-chain audit
 
-- [ ] Pin third-party GitHub Actions to reviewed full commit SHAs (with upstream version comments), rather than relying on mutable major-version tags; review the update process before changing the workflow.
+- [x] Pin third-party GitHub Actions to full commit SHAs with upstream version comments in workflow commit `f7f48df1e6d3d0e92b7bab51d34b6af96bf56460`; its CI validation is tracked separately below.
+- [ ] Verify repository branch protection/rules for `master` and `development`; the current branch metadata reports both as unprotected. Confirm an appropriate policy before treating merge controls as hardened.
 - [ ] Inspect the compiled assembly's referenced assemblies independently of the NuGet `.nuspec`; the manifest declares no runtime package dependencies, but that alone does not prove the binary has no unexpected references.
+- [ ] Verify the action-pinned workflow run passes on the exact commit, then refresh the readiness evidence to that run.
 - [x] Keep default workflow permissions read-only at workflow scope and grant `id-token: write` only to the opt-in NuGet publish job.
 - [x] Confirm the publish job is gated on manual dispatch, explicit `publish: true`, `development` ref, and successful completion of the verification job. The gate is not publication authorization.
 
