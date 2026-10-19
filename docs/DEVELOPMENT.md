@@ -97,11 +97,14 @@ A change is ready for review when:
 
 ## Release discipline
 
-NuGet publication is hard-gated.
+NuGet publication is opt-in and remains a separate owner decision. The workflow only attempts publication when all of these are true:
 
-The normal development state leaves the publication condition ending in `&& false`.
+- the workflow is manually dispatched;
+- the `publish` input is explicitly set to `true`;
+- the selected branch is `development`;
+- the build, test, coverage, pack, package-verification, and artifact-upload job succeeds.
 
-An authorized release temporarily enables publication, verifies the resulting package, and immediately restores the hard gate.
+Ordinary pushes and pull requests build and verify the package but cannot publish it. A green CI run or package artifact is not publication authorization. Do not dispatch with `publish: true` until the owner explicitly authorizes release.
 
 See the Workshop [NuGet Publication Runbook](https://github.com/TrentBest/TheSingularityWorkshop.FSM_COS/blob/master/docs/RELEASING.md).
 
