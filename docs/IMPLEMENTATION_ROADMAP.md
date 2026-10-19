@@ -11,7 +11,7 @@
 ## Security and supply-chain audit
 
 - [x] Pin all seven workflow action uses to full commit SHAs with upstream version comments; the final previously mutable `actions/upload-artifact@v7` reference was pinned in commit `4cfff96db4fadb2d0fbc7cddafcd7adbdb0b1fc7`. Exact-commit CI verification passed in [run #143](https://github.com/TrentBest/FSM_UserIO/actions/runs/39321870262).
-- [ ] Verify repository branch protection/rules for `master` and `development`; the current branch metadata reports both as unprotected. Confirm an appropriate policy before treating merge controls as hardened.
+- [ ] Verify repository branch protection/rules for `master` and `development`; GitHub branch metadata currently reports both as unprotected, and the protection endpoint is inaccessible through the current connection. The live branch list also contains `docs/readme-standard` and `docs/userio-domain-map` in addition to the intended `master` and `development` branches. Reconcile the extra branches with the two-branch policy and confirm an appropriate protection policy before treating merge controls as hardened.
 - [ ] Inspect the compiled assembly's referenced assemblies independently of the NuGet `.nuspec`; the manifest declares no runtime package dependencies, but that alone does not prove the binary has no unexpected references.
 - [x] Verify the fully action-pinned workflow passes on the exact commit; [run #143](https://github.com/TrentBest/FSM_UserIO/actions/runs/39321870262) passed for commit `4cfff96db4fadb2d0fbc7cddafcd7adbdb0b1fc7`.
 - [x] Keep default workflow permissions read-only at workflow scope and grant `id-token: write` only to the opt-in NuGet publish job.
