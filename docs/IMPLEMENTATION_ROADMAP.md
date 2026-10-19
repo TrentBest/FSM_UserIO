@@ -4,7 +4,7 @@
 
 ## Release readiness
 
-- **Current readiness: 35%.** The repository has a deliberately small implementation, seven focused unit tests, architecture/theory/roadmap/readiness documents, and a CI workflow. This is a preliminary estimate: a clean build, test/coverage run, package inspection, dependency audit, and consumer verification have not yet been demonstrated in this audit.
+- **Current readiness: 38%.** The repository has a deliberately small implementation, seven focused unit tests, architecture/theory/roadmap/readiness documents, and a successful CI run covering build, tests, coverage upload, pack, and artifact upload. Package contents, dependency verification, and clean-consumer installation remain outstanding.
 - **100% means release-ready**, not published.
 - Publication remains a separate action requiring explicit authorization. Keep the publish job hard-gated until then.
 
@@ -164,5 +164,11 @@ Prioritize real, small demonstrations. Mark each one implemented only when sourc
 4. Add one real cross-package integration example and a policy-denial test in the consumer/host layer.
 5. Resolve only the open domain questions demanded by real consumer evidence.
 6. Polish docs and living examples, then reassess release readiness.
+
+## Progress log
+
+| Date | Change | Evidence | Readiness |
+|---|---|---|---|
+| 2026-10-19 | Expanded `SemanticIntent` tests to cover null-name exception contract, exact whitespace preservation, and equality differences across names and protocol IDs. Workflow run 112 passed build, tests, coverage upload, pack, and artifact upload. | [SemanticIntent tests](../tests/FSM_UserIO.Tests/SemanticIntentTests.cs) · [Workflow run 112](https://github.com/TrentBest/FSM_UserIO/actions/runs/39185428593) | 38% |
 
 > **Governing principle:** Define the smallest semantic boundary that serves the largest computational design space. Expand the API only when a real consumer and a test can prove the need.
