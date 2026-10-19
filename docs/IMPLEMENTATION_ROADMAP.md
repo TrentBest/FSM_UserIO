@@ -4,7 +4,7 @@
 
 ## Release readiness
 
-- **Current readiness: 65%.** The latest CI run passed build, tests, coverage upload, pack, documentation-path verification, clean-consumer installation, and artifact upload. The packed alpha package was inspected and contains the README, MIT license, seven Markdown guides, assembly, and XML documentation. Remaining work includes the full public-contract/dependency-boundary audit, documentation and version consistency review, and broader adapter/integration guidance.
+- **Current readiness: 65%.** The latest CI run passed build, tests, coverage upload, pack, documentation-path verification, clean-consumer installation, and artifact upload. The previously inspected alpha package contained the README, MIT license, seven Markdown guides, assembly, and XML documentation. `docs/API_CONTRACTS.md` was added after that artifact was produced, so the latest CI must verify the updated package includes it before package-content readiness can be checked off. Remaining work includes the full public-contract/dependency-boundary audit, documentation and version consistency review, and broader adapter/integration guidance.
 - **100% means release-ready**, not published.
 - Publication remains a separate action requiring explicit authorization. The workflow requires manual dispatch on `development` with `publish: true`; do not enable that input until the owner authorizes a release.
 
