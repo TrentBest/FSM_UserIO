@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="390" viewBox="0 0 960 390" role="img" aria-labelledby="title desc">
+  <title id="title">Implemented SemanticIntent API contract</title>
+  <desc id="desc">An implemented API contract card showing required non-empty Name, optional unsigned 64-bit ProtocolId, value equality based on both fields, and a note that the protocol ID is an association value rather than authentication or permission.</desc>
+  <rect width="960" height="390" rx="20" fill="#f4f7fb"/>
+  <text x="40" y="48" fill="#172b43" font-family="Segoe UI, sans-serif" font-size="25" font-weight="700">SemanticIntent</text>
+  <rect x="40" y="72" width="880" height="82" rx="12" fill="#173e57"/>
+  <text x="64" y="105" fill="#ffffff" font-family="Consolas, monospace" font-size="20">SemanticIntent(string Name, ulong? ProtocolId = null)</text>
+  <text x="64" y="132" fill="#cde9f5" font-family="Segoe UI, sans-serif" font-size="14">Implemented public record · value-based equality</text>
+  <g font-family="Segoe UI, sans-serif">
+    <rect x="40" y="182" width="420" height="82" rx="10" fill="#ffffff" stroke="#2a9d8f" stroke-width="3"/>
+    <text x="60" y="210" fill="#12685f" font-size="17" font-weight="700">Name · required</text>
+    <text x="60" y="235" fill="#26384b" font-size="15">Non-null, non-empty, non-whitespace.</text>
+    <rect x="500" y="182" width="420" height="82" rx="10" fill="#ffffff" stroke="#6488c7" stroke-width="3"/>
+    <text x="520" y="210" fill="#315a9c" font-size="17" font-weight="700">ProtocolId · optional</text>
+    <text x="520" y="235" fill="#26384b" font-size="15">An unsigned 64-bit association value.</text>
+    <rect x="40" y="286" width="880" height="64" rx="10" fill="#fff0d9" stroke="#d08a27" stroke-width="2"/>
+    <text x="60" y="311" fill="#7b4b0b" font-size="16" font-weight="700">Important boundary</text>
+    <text x="60" y="334" fill="#563d20" font-size="14">ProtocolId does not authenticate a producer, resolve a vocabulary, authorize, or execute an intent.</text>
+  </g>
+</svg>
