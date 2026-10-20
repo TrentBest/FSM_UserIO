@@ -14,6 +14,8 @@
 
 > **Platform-neutral contracts for user-facing input and output capabilities.**
 
+**[Gallery](docs/GALLERY.md)** — semantic maps, contract examples, and proposed executable traces
+
 User interaction is a capability boundary, not authority by itself. A host may collect input or present output while authorization and application decisions remain elsewhere.
 
 ```mermaid
