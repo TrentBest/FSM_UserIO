@@ -8,7 +8,9 @@ The package currently exposes one public domain type: `SemanticIntent(Name, Prot
 
 ## 01 — The semantic boundary
 
-**Proposed SVG:** a clear flow from actor/form capabilities through a source/surface adapter into FSM_UserIO, then outward to a host or consuming surface. Label arrows as information flow, not package dependencies.
+![Conceptual FSM_UserIO semantic boundary](assets/semantic-boundary.svg)
+
+This SVG is an explicitly conceptual responsibility map: arrows represent information flow, not package dependencies. It makes the important distinction visible between semantic intent and host-owned policy/execution.
 
 **What it explains:** FSM_UserIO carries source-neutral semantic interaction. It does not own devices, UI presentation, authorization, validation, or execution.
 
@@ -16,7 +18,9 @@ The package currently exposes one public domain type: `SemanticIntent(Name, Prot
 
 ## 02 — SemanticIntent: the smallest truthful specimen
 
-**Proposed SVG:** a single `SemanticIntent` card with `Name` and optional `ProtocolId`, paired with valid and invalid examples. Show value equality as a comparison of both fields; do not imply that ProtocolId authenticates, authorizes, or globally resolves an intent.
+![Implemented SemanticIntent API contract](assets/semantic-intent-contract.svg)
+
+This SVG describes the implemented record contract: required non-whitespace `Name`, optional `ProtocolId`, and value equality over both properties. It is a contract illustration, not runtime telemetry. The numeric association does not authenticate, authorize, or globally resolve an intent.
 
 **What it explains:** the implemented public contract and its validation boundary.
 
