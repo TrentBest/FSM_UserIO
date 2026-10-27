@@ -114,12 +114,12 @@ public sealed class SemanticIntentTests
     }
 
     [Theory]
-    [InlineData("\\r")]
-    [InlineData("\\v")]
-    [InlineData("\\f")]
-    [InlineData("\\u00A0")]
-    [InlineData("\\u2003")]
-    [InlineData("\\u3000")]
+    [InlineData("\${esc}")]
+    [InlineData("\${esc}")]
+    [InlineData("\${esc}")]
+    [InlineData("\${esc}")]
+    [InlineData("\${esc}")]
+    [InlineData("\${esc}")]
     public void Intent_rejects_additional_unicode_whitespace_names(string name)
     {
         Assert.Throws<ArgumentException>(() => new SemanticIntent(name));
