@@ -11,7 +11,7 @@
 
 ## Release readiness
 
-- **Current readiness: not yet re-scored.** The previous 77% figure and its evidence refer to commit `3c6afb97b5db690593eb5832c75b6622296e7f2f` and CI run [#147](https://github.com/TrentBest/FSM_UserIO/actions/runs/39326773142); they are historical, not a current readiness assessment. The latest verified development commit is `4ba4f535639c218f4d3dc1ded643a727b878a44e`, with [CI run #163](https://github.com/TrentBest/FSM_UserIO/actions/runs/40441349914) passing Release build, tests, coverage upload, package creation, package documentation-path checks, and a clean-consumer build; the NuGet publish job was skipped. This newer run does **not** by itself close the remaining release gaps below: the compiled assembly reference graph still needs independent inspection, documentation links and footer standards need a full audit, the audio-capture contracts and prototype need verification, and the extra topic branches need deliberate reconciliation under the two-branch policy. Do not treat this roadmap as a percentage-based release approval until those checks are re-evaluated against current evidence.
+- **Current readiness: not yet re-scored.** The previous 77% figure and its evidence refer to commit `3c6afb97b5db690593eb5832c75b6622296e7f2f` and CI run [#147](https://github.com/TrentBest/FSM_UserIO/actions/runs/39326773142); they are historical, not a current readiness assessment. The latest verified development commit is `6548f0c811b771bacc914342b689a9e8c6e4bc0b`, with [CI run #179](https://github.com/TrentBest/FSM_UserIO/actions/runs/40445317923) passing Release build, tests, coverage upload, package creation, package documentation-path checks, and a clean-consumer build; the NuGet publish job was skipped. A local Markdown-link audit of all 12 Markdown files found zero unresolved relative links; external URL reachability and badge rendering were not verified. The compiled assembly reference graph still needs independent inspection, the audio-capture contracts and prototype need verification, and the extra topic branches need deliberate reconciliation under the two-branch policy. Do not treat this roadmap as a percentage-based release approval until those checks are re-evaluated against current evidence.
 - **100% means release-ready**, not published.
 - Publication remains a separate action requiring explicit authorization. The workflow requires manual dispatch on `development` with `publish: true`; do not enable that input until the owner authorizes a release.
 
@@ -36,7 +36,7 @@
 - [ ] Mark every roadmap claim as implemented, missing, intentionally out of scope, or awaiting a decision.
 - [ ] Run the complete release verification sequence and preserve evidence.
 - [x] Verify the packed package in a clean consumer project (run #139, exact commit above).
-- [ ] Verify the documentation links, badges, branch references, and version claims.
+- [x] Audit relative Markdown links in all 12 Markdown files; no unresolved local paths were found on the current development tree. External URL reachability, badge rendering, branch references, and version claims still require separate verification.
 - [ ] Maintain only `master` and `development` as long-lived branches.
 
 ## 01 — Domain contract: what UserIO owns
