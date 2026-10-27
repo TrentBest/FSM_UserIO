@@ -144,4 +144,39 @@ public sealed class SemanticInteractionTests
             new SemanticFeedback(Correlation, FeedbackKind.Accepted, "queued"),
             new SemanticFeedback(Correlation, FeedbackKind.Accepted, "queued"));
     }
+
+    [Fact]
+    public void Payload_copies_input_and_exposes_copy_backed_data()
+    {
+        var input = new byte[] { 1, 2, 3 };
+        var payload = new SemanticPayload("application/octet-stream", "example.v1", input);
+        input[0] = 99;
+
+        var exposed = payload.Data.ToArray();
+        Assert.Equal(new byte[] { 1, 2, 3 }, exposed);
+        exposed[1] = 88;
+        Assert.Equal(new byte[] { 1, 2, 3 }, payload.Data.ToArray());
+    }
+
+    [Fact]
+    public void Payload_uses_value_equality_for_metadata_and_bytes()
+    {
+        var first = new SemanticPayload("application/json", "orders.v2", new byte[] { 4, 5 });
+        var second = new SemanticPayload("application/json", "orders.v2", new byte[] { 4, 5 });
+        var different = new SemanticPayload("application/json", "orders.v2", new byte[] { 4, 6 });
+
+        Assert.Equal(first, second);
+        Assert.Equal(first.GetHashCode(), second.GetHashCode());
+        Assert.NotEqual(first, different);
+    }
+
+    [Fact]
+    public void Payload_rejects_missing_metadata_or_null_bytes_but_allows_empty_bytes()
+    {
+        Assert.Throws<ArgumentException>(() => new SemanticPayload(" ", "schema.v1", Array.Empty<byte>()));
+        Assert.Throws<ArgumentException>(() => new SemanticPayload("application/json", " ", Array.Empty<byte>()));
+        Assert.Throws<ArgumentNullException>(() => new SemanticPayload("application/json", "schema.v1", null!));
+        Assert.Empty(new SemanticPayload("application/json", "schema.v1", Array.Empty<byte>()).Data.ToArray());
+    }
+
 }
