@@ -249,6 +249,8 @@ The package will grow only when a real boundary requires another contract and th
 Start with:
 
 - [Theory](docs/THEORY.md) — the conceptual boundary and capability model.
+- [Interaction lifecycle](docs/INTERACTION_LIFECYCLE.md) — the path from observation to host policy, execution, and feedback.
+- [API contracts](docs/API_CONTRACTS.md) — the exact currently implemented public API.
 - [API contract](docs/API_CONTRACTS.md) — the exact behavior of the currently implemented `SemanticIntent` type.
 - [Architecture](docs/ARCHITECTURE.md) — ownership and dependency direction.
 - [Development](docs/DEVELOPMENT.md) — contribution and design rules.
@@ -270,6 +272,12 @@ The release procedure is documented in the Workshop's [NuGet Publication Runbook
 ## License
 
 MIT. See [LICENSE.txt](LICENSE.txt).
+
+---
+
+<p align="center">
+  <em>The Singularity Workshop — edify, don't mystify.</em>
+</p>
 
 ---
 
