@@ -1,0 +1,43 @@
+name: Windows audio adapter
+
+on:
+  push:
+    branches:
+      - master
+      - development
+    paths:
+      - "src/FSM_UserIO.WindowsAudio/**"
+      - "samples/WindowsLoopbackSample/**"
+      - "TheSingularityWorkshop.FSM_UserIO.csproj"
+      - ".github/workflows/windows-audio.yml"
+  pull_request:
+    branches:
+      - master
+      - development
+    paths:
+      - "src/FSM_UserIO.WindowsAudio/**"
+      - "samples/WindowsLoopbackSample/**"
+      - "TheSingularityWorkshop.FSM_UserIO.csproj"
+      - ".github/workflows/windows-audio.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-windows-adapter:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Restore Windows sample and adapter
+        run: dotnet restore samples/WindowsLoopbackSample/WindowsLoopbackSample.csproj
+
+      - name: Build Windows sample and adapter
+        run: dotnet build samples/WindowsLoopbackSample/WindowsLoopbackSample.csproj --configuration Release --no-restore
