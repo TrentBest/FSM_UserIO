@@ -16,6 +16,8 @@ This matrix names the current architectural owner of each concern and links to t
 | Grammar / structural relationships | Define how protocol identities can be connected into grammar structure | [GrammarAi](https://github.com/TrentBest/TheSingularityWorkshop.GrammarAi) | Neighboring domain; UserIO does not define grammar or execution |
 | Semantic GUI tree and presentation manifestations | Describe GUI content neutrally and manifest it through appropriate presentation targets | [Workshop GUI](https://github.com/TrentBest/TheSingularityWorkshop.GUI) | Potential consumer/producer of semantic interactions; no direct integration is asserted here |
 | Runtime composition | Resolve and compose runtime capabilities into a host handoff | [FSM_COS](https://github.com/TrentBest/TheSingularityWorkshop.FSM_COS) | Composition boundary only; FSM_UserIO must not depend upward on FSM_COS |
+| Hub workflow execution | Own workflow orchestration, execution lifecycle, and run state | Foundry / Hub host | Authoritative execution pipeline; UserIO supplies interaction primitives and must not duplicate workflow scheduling or own run state |
+| Hub presentation | Present the Hub when a human-facing surface is selected | [Workshop GUI](https://github.com/TrentBest/TheSingularityWorkshop.GUI) or another selected surface | Optional manifestation; the Hub and UserIO must remain usable without GUI |
 | Native device/framework events | Convert source-specific events into application-owned semantic representations | A concrete platform adapter or application | No shared adapter contract is implemented in Alpha 1 |
 | Domain data and meaning | Interpret what an intent means in the application | Host / application domain | Outside UserIO |
 | Validation, policy, authorization, and effects | Accept, reject, clarify, authorize, and execute a requested operation | Host / application | Outside UserIO; an intent carries no authority |
@@ -46,7 +48,7 @@ GUI: presentation / manifestations
 FSM_COS: runtime composition
 ```
 
-The lines in this diagram describe responsibility and possible information flow, not mandatory direct project references. In particular, FSM_UserIO currently has no runtime package dependencies.
+The lines in this diagram describe responsibility and possible information flow, not mandatory direct project references. Foundry owns the Hub workflow lifecycle; UserIO does not duplicate it, and GUI is optional. In particular, FSM_UserIO currently has no runtime package dependencies.
 
 ## Evidence discipline
 
