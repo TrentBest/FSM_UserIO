@@ -1,6 +1,6 @@
-# Windows System-Audio Loopback Capture
+![The Singularity Workshop animated moniker](https://raw.githubusercontent.com/TrentBest/TheSingularityWorkshop.Renderer/development/docs/assets/moniker.svg)
 
-**The Singularity Workshop**
+# Windows System-Audio Loopback Capture
 
 This sample exercises the optional Windows-specific adapter for capturing audio played through the default Windows multimedia output endpoint. It is separate from the platform-neutral FSM_UserIO core and does not capture microphone input or mix sources.
 
