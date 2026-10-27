@@ -19,8 +19,9 @@ This page documents the public contracts compiled from the current `development`
 | `SemanticExpression` | Carry an expression or proposal before interpretation | Not itself an intent, authorization, or command |
 | `InteractionContext` | Carry correlation and optional participant/session labels | Non-empty correlation ID; optional labels remain application-owned |
 | `SemanticFeedback` / `FeedbackKind` | Carry non-authoritative feedback for an interaction | Non-empty correlation ID and message; kind does not prove execution |
+| `SemanticPayload` | Carry opaque application-owned bytes with content/schema labels | Defensive byte copies and value equality; no serializer or schema registry |
 
-All these types are immutable sealed records with value equality. Constructor validation rejects invalid values instead of silently normalizing them.
+All record contracts are immutable sealed records with value equality. `SemanticPayload` is an immutable value object with byte-wise equality and defensive copies. Constructor validation rejects invalid values instead of silently normalizing them.
 
 ## SemanticIntent
 
@@ -60,6 +61,20 @@ public sealed record SemanticExpression(
 Names are required and preserved. Timestamps are supplied by the producer and are not rewritten or validated against a global clock. An optional source label must be non-whitespace when supplied; it is metadata, not authenticated provenance. Observation confidence is optional and must be finite, between zero and one inclusive. An expression is deliberately not automatically converted into an intent: interpretation belongs to the host or adapter.
 
 These contracts do not impose ordering, deduplication, replay protection, clock synchronization, source trust, or delivery guarantees.
+
+## Opaque payload
+
+```csharp
+public sealed class SemanticPayload : IEquatable<SemanticPayload>
+{
+    public SemanticPayload(string mediaType, string schema, byte[] data);
+    public string MediaType { get; }
+    public string Schema { get; }
+    public ReadOnlyMemory<byte> Data { get; }
+}
+```
+
+The media type and schema labels are application-defined, non-whitespace strings. The byte array is copied on input, and `Data` returns a copy-backed read-only view. Equality compares media type, schema, and byte contents. Empty payload bytes are valid; a null byte array is not. UserIO does not serialize payloads, validate schema content, impose a size limit, or resolve schema identifiers. Consumers own those policies.
 
 ## Interaction context
 
