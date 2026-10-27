@@ -67,7 +67,7 @@ return mixedStream;
 }
 function beginRecorder(stream){
 const mime=['audio/webm;codecs=opus','audio/webm','audio/ogg;codecs=opus'].find(t=>MediaRecorder.isTypeSupported(t));
-recorder=new MediaRecorder(stream,mime?{mimeType:mime}:undefined);chunks=[];blob=null;
+recorder=new MediaRecorder(stream,mime?{mimeType:mime}:undefined);chunks=[];blob=null;$('download').disabled=true;$('play').disabled=true;$('size').textContent='0 KB';$('player').hidden=true;
 recorder.addEventListener('dataavailable',e=>{if(e.data&&e.data.size){chunks.push(e.data);const total=chunks.reduce((n,c)=>n+c.size,0);$('size').textContent=(total/1024).toFixed(0)+' KB';}});
 recorder.addEventListener('stop',()=>{blob=new Blob(chunks,{type:recorder.mimeType||'audio/webm'});if(objectUrl)URL.revokeObjectURL(objectUrl);objectUrl=URL.createObjectURL(blob);$('player').src=objectUrl;$('player').hidden=false;$('download').disabled=!blob.size;$('play').disabled=!blob.size;$('outputStatus').textContent='Recording ready: '+(blob.size/1024).toFixed(1)+' KB · '+blob.type;releaseSources();setState('stopped');log('Capture finalized: '+blob.size+' bytes. Download is available.');});
 recorder.start(500);startedAt=Date.now();elapsedMs=0;elapsedTimer=setInterval(()=>{$('elapsed').textContent=fmt(elapsedMs+Date.now()-startedAt);},250);setState('recording');$('sourceStatus').textContent='Capture active. Use Stop recording to finish and save.';log('Recording started ('+recorder.mimeType+').');
