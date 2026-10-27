@@ -33,7 +33,7 @@ flowchart TD
 
 ## 🟦 01 What
 
-The current `development` source exposes platform-neutral contracts for `SemanticIntent`, descriptive capabilities, observations, expressions, correlation context, and semantic feedback. The [API contract](docs/API_CONTRACTS.md) documents their invariants and non-guarantees. The published `0.1.0-alpha.1` package remains the earlier `SemanticIntent`-only baseline until a future release is explicitly authorized and published.
+The current `development` source exposes platform-neutral contracts for `SemanticIntent`, descriptive capabilities, observations, expressions, opaque payloads, correlation context, and semantic feedback. The [API contract](docs/API_CONTRACTS.md) documents their invariants and non-guarantees. The published `0.1.0-alpha.1` package remains the earlier `SemanticIntent`-only baseline until a future release is explicitly authorized and published.
 
 ## 🟣 02 Why
 
