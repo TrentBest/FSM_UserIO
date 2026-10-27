@@ -107,7 +107,7 @@ The implemented contracts intentionally stop at descriptive values. Remaining op
 - [ ] Source, tests, docs, package metadata, and README agree on the exact API.
 - [ ] Build, tests, coverage, package creation, XML docs, and package-content inspection pass.
 - [ ] README uses the Workshop 00–05 reader journey and links to focused domain documentation.
-- [ ] Domain map differentiates implemented contracts from conceptual and deferred areas.
+- [x] Domain map differentiates implemented contracts from conceptual and deferred areas.
 - [ ] No runtime dependencies or platform-specific types have leaked into core.
 - [ ] NuGet publication remains disabled unless explicitly authorized through the Workshop release process.
 
