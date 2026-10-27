@@ -24,6 +24,8 @@
 
 **[Windows system-audio loopback decision](docs/WINDOWS_SYSTEM_AUDIO_LOOPBACK.md)** — adapter boundary, privacy constraints, lifecycle mapping, and verification gates.
 
+**[Windows loopback sample](samples/WindowsLoopbackSample/README.md)** — runnable .NET 8 sample and real-device verification checklist.
+
 **[Audio Capture Lab verification guide](docs/demos/AUDIO_CAPTURE_TESTING.md)** — manual test matrix for normal capture, denial/cancellation, missing tracks, source loss, retries, and repeated sessions.
 
 User interaction is a capability boundary, not authority by itself. A host may collect input or present output while authorization and application decisions remain elsewhere.
