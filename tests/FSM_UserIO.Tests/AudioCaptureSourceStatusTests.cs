@@ -49,6 +49,20 @@ public sealed class AudioCaptureSourceStatusTests
     }
 
     [Fact]
+    public void Cancellation_is_a_real_state_and_can_be_retried()
+    {
+        var pending = new AudioCaptureSourceStatus(AudioCaptureSourceKind.Microphone, AudioCaptureSourceState.RequestPending);
+        var cancelled = pending.TransitionTo(AudioCaptureSourceState.Cancelled);
+        var retry = cancelled.TransitionTo(AudioCaptureSourceState.RequestPending);
+        var ready = retry.TransitionTo(AudioCaptureSourceState.Ready);
+        var countdownCancelled = ready.TransitionTo(AudioCaptureSourceState.Cancelled);
+
+        Assert.Equal(AudioCaptureSourceState.Cancelled, cancelled.State);
+        Assert.Equal(AudioCaptureSourceState.RequestPending, retry.State);
+        Assert.Equal(AudioCaptureSourceState.Cancelled, countdownCancelled.State);
+    }
+
+    [Fact]
     public void Host_estimate_is_not_misrepresented_as_direct_observation()
     {
         var initial = new AudioCaptureSourceStatus(AudioCaptureSourceKind.SystemAudio, AudioCaptureSourceState.NotRequested);
