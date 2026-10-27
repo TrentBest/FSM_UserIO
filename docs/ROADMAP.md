@@ -21,21 +21,21 @@ The governing separation is:
 
 `capability ≠ observation ≠ expression/proposal ≠ intent ≠ authority ≠ execution`
 
-Only `SemanticIntent` is currently an implemented core domain contract. The remaining concepts below are domain areas and design questions unless marked implemented.
+The `development` source implements the foundational source-neutral contracts listed below. The published Alpha 1 package remains `SemanticIntent`-only until a separately authorized release.
 
 ## Domain map
 
 | Domain area | Meaning / ownership | Alpha 1 status | Evidence or next decision |
 |---|---|---|---|
-| Semantic intent | Application-owned semantic name, optionally associated with a deterministic protocol identity | **Implemented** | `SemanticIntent(string Name, ulong? ProtocolId = null)`; blank names rejected; value semantics covered by tests |
+| Semantic intent | Application-owned semantic name, optionally associated with a numeric identity | **Implemented** | `SemanticIntent(string Name, ulong? ProtocolId = null)`; blank names rejected; value semantics covered by tests |
 | Protocol identity association | Optional numeric identity that can be resolved by an application protocol | **Implemented as a value slot only** | UserIO does not allocate IDs, define a vocabulary, or depend on ProtocolAi |
-| Participating form / actor | Entity or computational representation that originates or receives interaction | **Conceptual; not a core type** | Keep domain-specific actor models in their owning domain |
-| Contextual capability | What a form can sense, express, or perform in a particular context | **Conceptual; no contract** | Decide whether a real consumer needs capability descriptors or whether hosts/adapters already own them |
-| Source observation | Source-neutral account of something observed, sensed, or received | **Not implemented** | Define source, timestamp, value, confidence, provenance, ordering, and validity only when a consumer demonstrates the minimum needed fields |
-| Expression / proposal | A form expresses or proposes something; it may be inferred, spoken, gestured, or emitted by software | **Not implemented** | Decide whether it differs semantically from observation and intent; do not collapse proposal into authorized command |
-| Interaction payload | Structured data associated with an intent beyond its name and optional protocol ID | **Not implemented** | Identify schema ownership, serialization, size/version rules, and whether the payload belongs in UserIO or the host/domain |
-| Interaction context / session | Correlation across a sequence of interactions or an active interaction | **Not implemented** | Determine who owns actor/session identifiers, lifecycle, cancellation, and expiration |
-| Feedback / semantic output | Information returned to a form, including status, result, affordance, or rejection | **Not implemented** | Define only after a concrete producer and consumer establish what feedback means; presentation stays with the surface |
+| Participating form / actor | Entity or computational representation that originates or receives interaction | **Descriptive only; no universal actor type** | Keep domain-specific actor models in their owning domain |
+| Contextual capability | What a form can sense, express, or perform in a particular context | **Implemented as `InteractionCapability` + `InteractionMode`** | Descriptive only; no permission or enforcement |
+| Source observation | Source-neutral account of something observed, sensed, or received | **Implemented as `SemanticObservation`** | Name, producer-supplied timestamp, optional source label, optional confidence in `[0,1]`; no ordering or trust guarantee |
+| Expression / proposal | A form expresses or proposes something before interpretation | **Implemented as `SemanticExpression`** | Kept distinct from `SemanticIntent`; no automatic interpretation or authorization |
+| Interaction payload | Arbitrary structured content associated with an intent | **Deferred** | No stable schema/serialization ownership established; use application/domain payloads rather than adding a generic core envelope yet |
+| Interaction context / session | Correlation across interactions with optional participant/session labels | **Implemented as `InteractionContext`** | Carries IDs only; does not create or manage session lifecycle |
+| Feedback / semantic output | Non-authoritative status or explanatory feedback | **Implemented as `SemanticFeedback` + `FeedbackKind`** | Feedback is producer-reported and not independently verified by UserIO |
 | Capability discovery / negotiation | Discovering what a peer or form can do and agreeing on compatible interaction | **Not implemented** | Likely belongs in a bridge or protocol unless a shared, source-neutral core contract is demonstrated |
 | Policy / authorization / validation | Whether an interaction is allowed, valid, or appropriate | **Explicitly outside core** | Host/application owns the decision; capability or intent never grants permission |
 | Execution and domain effects | Performing the requested action and changing application state | **Explicitly outside core** | Host/application owns execution, side effects, and domain meaning |
