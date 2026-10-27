@@ -50,4 +50,4 @@ The Windows CI job validates compilation of the adapter and sample. It does not 
 
 ---
 
-![The Singularity Workshop](../docs/assets/Avatar.jpg)
+![The Singularity Workshop](../../docs/assets/Avatar.jpg)
