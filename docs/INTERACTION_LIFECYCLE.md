@@ -28,7 +28,7 @@ flowchart TD
     R --> FB
 ```
 
-Only `SemanticIntent` is currently a public domain contract in this package. The other boxes describe responsibilities and useful questions for consumers; they are not promises of additional core types.
+The `development` source implements `SemanticIntent`, `InteractionCapability`, `SemanticObservation`, `SemanticExpression`, `InteractionContext`, and `SemanticFeedback`. Policy, authorization, execution, device adapters, transport, and runtime composition remain outside core. The published Alpha 1 package still exposes only `SemanticIntent`.
 
 ## 2. Separate the concepts
 
