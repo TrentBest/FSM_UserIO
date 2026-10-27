@@ -8,20 +8,21 @@
     <Version>0.1.0-alpha.1</Version>
     <Authors>Trent Best</Authors>
     <Company>The Singularity Workshop</Company>
-    <Description>Platform-neutral semantic interaction boundary across actor capabilities, observations, expression, application meaning, and execution policy.</Description>
+    <Description>Platform-neutral semantic interaction contracts for capabilities, observations, expressions, intent, context, and feedback without owning application policy or execution.</Description>
     <PackageTags>UserIO;interaction;capability;intent;input;output;GUI;AI;ProtocolAi;TheSingularityWorkshop</PackageTags>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/TrentBest/FSM_UserIO</PackageProjectUrl>
     <RepositoryUrl>https://github.com/TrentBest/FSM_UserIO</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageReleaseNotes>Alpha 1: establish the platform-neutral semantic interaction boundary across actor capabilities without owning devices, GUI, datum, policy, or execution.</PackageReleaseNotes>
+    <PackageReleaseNotes>Alpha 1 is the published baseline. Development now adds source-neutral semantic interaction contracts; package version and publication remain unchanged until separately authorized.</PackageReleaseNotes>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="SemanticIntent.cs" />
+    <Compile Include="SemanticInteraction.cs" />
     <None Include="README.md" Pack="true" PackagePath="" />
     <None Include="LICENSE.txt" Pack="true" PackagePath="" />
     <None Include="docs/**/*.md" Pack="true" PackagePath="docs/" />
