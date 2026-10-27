@@ -84,7 +84,7 @@ public sealed record InteractionContext(
     public string? ParticipantId { get; } = SemanticValueValidation.Optional(ParticipantId, nameof(ParticipantId));
 
     /// <summary>Gets the optional application-defined session identifier.</summary>
-    public Guid? SessionId { get; } = SessionId;
+    public Guid? SessionId { get; } = SemanticValueValidation.OptionalIdentifier(SessionId, nameof(SessionId));
 }
 
 /// <summary>Non-authoritative semantic feedback associated with an interaction.</summary>
@@ -189,6 +189,11 @@ internal static class SemanticValueValidation
 
     internal static string? Optional(string? value, string parameterName) =>
         value is null ? null : Required(value, parameterName);
+
+    internal static Guid? OptionalIdentifier(Guid? value, string parameterName) =>
+        value == Guid.Empty
+            ? throw new ArgumentException("An optional identifier must be null or non-empty.", parameterName)
+            : value;
 
     internal static double? Confidence(double? value, string parameterName)
     {
