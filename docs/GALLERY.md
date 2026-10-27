@@ -1,3 +1,10 @@
+<!-- The Singularity Workshop moniker -->
+<p align="center">
+  <a href="https://github.com/TrentBest">
+    <img src="https://raw.githubusercontent.com/TrentBest/TheSingularityWorkshop.Renderer/development/docs/assets/moniker.svg" alt="The Singularity Workshop — animated workshop moniker" width="720" />
+  </a>
+</p>
+
 # FSM_UserIO Gallery
 
 **Make interaction meaning visible without making the core depend on a device, GUI, or game engine.**
@@ -49,3 +56,9 @@ Until these SVGs are generated from shared fixtures or test output, they are des
 ---
 
 [Roadmap](ROADMAP.md) · [Implementation roadmap](IMPLEMENTATION_ROADMAP.md) · [Alpha readiness](ALPHA_READINESS.md)
+
+---
+
+<p align="center">
+  <em>The Singularity Workshop — edify, don't mystify.</em>
+</p>
