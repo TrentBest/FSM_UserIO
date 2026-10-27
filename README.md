@@ -33,7 +33,7 @@ flowchart TD
 
 ## 🟦 01 What
 
-FSM_UserIO currently exposes one platform-neutral contract: `SemanticIntent`, an application-owned name with an optional numeric protocol identity. See the [exact API contract](docs/API_CONTRACTS.md) for validation and equality behavior. The wider capability model is architectural direction, not a claim that actor, observation, device, GUI, or execution APIs already exist.
+The current `development` source exposes platform-neutral contracts for `SemanticIntent`, descriptive capabilities, observations, expressions, correlation context, and semantic feedback. The [API contract](docs/API_CONTRACTS.md) documents their invariants and non-guarantees. The published `0.1.0-alpha.1` package remains the earlier `SemanticIntent`-only baseline until a future release is explicitly authorized and published.
 
 ## 🟣 02 Why
 
@@ -45,7 +45,7 @@ Describe the interaction capability separately from platform-specific UI, then c
 
 ## 🟢 04 See it in a minute
 
-Try the currently published Alpha 1 package in a clean .NET 8 console app. This demonstrates the implemented semantic-intent contract—not the broader capability model, which remains architectural direction.
+Try the currently published Alpha 1 package in a clean .NET 8 console app. This demonstrates the API actually available from NuGet today; the expanded contracts are present in `development` source and will not be available to package consumers until a separately authorized release.
 
 Create a console app and add the package:
 
@@ -283,7 +283,7 @@ Start with:
 
 - [Theory](docs/THEORY.md) — the conceptual boundary and capability model.
 - [Interaction lifecycle](docs/INTERACTION_LIFECYCLE.md) — the path from observation to host policy, execution, and feedback.
-- [API contracts](docs/API_CONTRACTS.md) — the exact currently implemented public API.
+- [API contracts](docs/API_CONTRACTS.md) — source contracts, validation rules, release availability, and explicit non-guarantees.
 - [API contract](docs/API_CONTRACTS.md) — the exact behavior of the currently implemented `SemanticIntent` type.
 - [Architecture](docs/ARCHITECTURE.md) — ownership and dependency direction.
 - [Development](docs/DEVELOPMENT.md) — contribution and design rules.
