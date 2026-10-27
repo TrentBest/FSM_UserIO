@@ -75,7 +75,7 @@ Keep these invariants:
 ```csharp
 using TheSingularityWorkshop.FSM_UserIO;
 
-var intent = new SemanticIntent("document.open", protocolId: null);
+var intent = new SemanticIntent("document.open", ProtocolId: null);
 ```
 
 `SemanticIntent` currently provides an application-defined, non-blank `Name` and an optional `ulong?` `ProtocolId`. The name is preserved exactly; equality is value-based and includes both properties. A missing protocol identity is valid.
