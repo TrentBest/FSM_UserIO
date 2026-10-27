@@ -46,6 +46,7 @@ ProtocolAi: symbol identity
 GrammarAi: structure between symbols
 GUI: presentation / manifestations
 FSM_COS: runtime composition
+Foundry: authoritative Hub workflow execution and run state
 ```
 
 The lines in this diagram describe responsibility and possible information flow, not mandatory direct project references. Foundry owns the Hub workflow lifecycle; UserIO does not duplicate it, and GUI is optional. In particular, FSM_UserIO currently has no runtime package dependencies.
