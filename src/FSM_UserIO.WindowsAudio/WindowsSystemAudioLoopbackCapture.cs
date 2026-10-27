@@ -70,7 +70,8 @@ public sealed class WindowsSystemAudioLoopbackCapture : IDisposable
             {
                 _capture.StopRecording();
                 // NAudio signals completion asynchronously; allow its stop callback to settle before disposal.
-                _stopSignal.Task.Wait(TimeSpan.FromSeconds(5));
+                if (!_stopSignal.Task.Wait(TimeSpan.FromSeconds(5)))
+                    throw new TimeoutException("The Windows audio capture stop callback did not arrive within five seconds.");
             }
         }
         catch
@@ -118,6 +119,8 @@ public sealed class WindowsSystemAudioLoopbackCapture : IDisposable
 
     private void OnRecordingStopped(object? sender, StoppedEventArgs args)
     {
+        _stopSignal.TrySetResult();
+
         if (args.Exception is not null &&
             (_status.State is AudioCaptureSourceState.Capturing or AudioCaptureSourceState.Ready))
             SetStatus(_status.TransitionTo(AudioCaptureSourceState.Failed,
