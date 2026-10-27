@@ -1,3 +1,10 @@
+<!-- The Singularity Workshop moniker -->
+<p align="center">
+  <a href="https://github.com/TrentBest">
+    <img src="https://raw.githubusercontent.com/TrentBest/TheSingularityWorkshop.Visualize/development/docs/assets/moniker.svg" alt="The Singularity Workshop — animated workshop moniker" width="720" />
+  </a>
+</p>
+
 # FSM_UserIO Theory
 
 ## The missing boundary
@@ -342,3 +349,9 @@ computation
 The package is therefore deliberately agnostic about whether the eventual consumer is a desktop application, web application, game engine, immersive environment, robot, accessibility system, AI agent, server, or distributed computation.
 
 The implementation remains small because the vision is broad enough that premature specialization would be an architectural mistake.
+
+---
+
+<p align="center">
+  <em>The Singularity Workshop — edify, don't mystify.</em>
+</p>
