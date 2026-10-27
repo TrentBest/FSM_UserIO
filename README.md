@@ -251,7 +251,7 @@ GrammarAi can describe how those identities are structurally composed.
 
 GUI can mediate human-facing presentation and interaction with datum.
 
-FSM_COS can compose runtime capabilities.
+FSM_COS can compose runtime capabilities. Foundry owns the Hub's authoritative workflow execution pipeline; FSM_UserIO supplies interaction primitives and does not schedule workflows or own run state. GUI is an optional presentation manifestation when the Hub chooses to present itself.
 
 None of those relationships require FSM_UserIO to depend upward on them.
 
