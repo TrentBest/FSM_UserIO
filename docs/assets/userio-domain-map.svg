@@ -1,9 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="650" viewBox="0 0 1200 650" role="img" aria-labelledby="title desc">
   <title id="title">FSM_UserIO semantic interaction domain map</title>
-  <desc id="desc">The implemented Alpha 1 SemanticIntent value is the center of the UserIO core. Actor capabilities, observations, expressions, payloads, sessions, and feedback are conceptual or deferred. Adapters translate source-specific events. Host policy and execution, GUI presentation, ProtocolAi vocabulary, and FSM_COS runtime composition belong to neighboring layers.</desc>
+  <desc id="desc">The development source implements capability, observation, expression, intent, payload, correlation context, and feedback contracts. Actor models, adapters, host policy, execution, transport, and runtime composition remain outside core. Adapters translate source-specific events. Host policy and execution, GUI presentation, ProtocolAi vocabulary, and FSM_COS runtime composition belong to neighboring layers.</desc>
   <rect width="1200" height="650" rx="22" fill="#101827"/>
   <text x="48" y="54" fill="#f8fafc" font-family="Arial,sans-serif" font-size="29" font-weight="700">FSM_UserIO · semantic interaction boundary</text>
-  <text x="48" y="84" fill="#cbd5e1" font-family="Arial,sans-serif" font-size="16">Implementation map · Alpha 1 · conceptual scope is not an implemented API</text>
+  <text x="48" y="84" fill="#cbd5e1" font-family="Arial,sans-serif" font-size="16">Implementation map · development source · published Alpha 1 package remains SemanticIntent-only</text>
 
   <rect x="48" y="125" width="238" height="88" rx="12" fill="#263449" stroke="#94a3b8" stroke-width="3"/>
   <text x="167" y="160" text-anchor="middle" fill="#f8fafc" font-family="Arial,sans-serif" font-size="18" font-weight="700">Form / capabilities</text>
@@ -20,7 +20,7 @@
   <path d="M640 160 L650 169 L640 178" stroke="#94a3b8" stroke-width="4" fill="none"/>
 
   <rect x="650" y="113" width="300" height="112" rx="14" fill="#123d39" stroke="#2dd4bf" stroke-width="5"/>
-  <text x="800" y="151" text-anchor="middle" fill="#ccfbf1" font-family="Arial,sans-serif" font-size="17" font-weight="700">IMPLEMENTED · ALPHA 1</text>
+  <text x="800" y="151" text-anchor="middle" fill="#ccfbf1" font-family="Arial,sans-serif" font-size="17" font-weight="700">IMPLEMENTED · DEVELOPMENT</text>
   <text x="800" y="183" text-anchor="middle" fill="#ffffff" font-family="Arial,sans-serif" font-size="24" font-weight="700">SemanticIntent</text>
   <text x="800" y="205" text-anchor="middle" fill="#ccfbf1" font-family="Arial,sans-serif" font-size="14">Name + optional ProtocolId</text>
 
@@ -34,18 +34,18 @@
 
   <path d="M800 225 V278" stroke="#fbbf24" stroke-width="4" stroke-dasharray="9 8" fill="none"/>
   <path d="M791 268 L800 278 L809 268" stroke="#fbbf24" stroke-width="4" fill="none"/>
-  <text x="820" y="258" fill="#fde68a" font-family="Arial,sans-serif" font-size="14">Future contracts require consumer evidence</text>
+  <text x="820" y="258" fill="#fde68a" font-family="Arial,sans-serif" font-size="14">Host policy and execution stay outside UserIO</text>
 
-  <rect x="48" y="294" width="1104" height="156" rx="16" fill="#1e293b" stroke="#fbbf24" stroke-width="3" stroke-dasharray="10 8"/>
-  <text x="76" y="329" fill="#fde68a" font-family="Arial,sans-serif" font-size="19" font-weight="700">CONCEPTUAL / NOT IMPLEMENTED IN CORE</text>
+  <rect x="48" y="294" width="1104" height="156" rx="16" fill="#1e293b" stroke="#2dd4bf" stroke-width="3"/>
+  <text x="76" y="329" fill="#99f6e4" font-family="Arial,sans-serif" font-size="19" font-weight="700">IMPLEMENTED · SOURCE-NEUTRAL CONTRACTS</text>
   <g fill="#f8fafc" font-family="Arial,sans-serif" font-size="16">
     <rect x="76" y="350" width="180" height="56" rx="9" fill="#334155"/><text x="166" y="383" text-anchor="middle">Observation</text>
     <rect x="274" y="350" width="180" height="56" rx="9" fill="#334155"/><text x="364" y="383" text-anchor="middle">Expression / proposal</text>
-    <rect x="472" y="350" width="180" height="56" rx="9" fill="#334155"/><text x="562" y="383" text-anchor="middle">Interaction payload</text>
-    <rect x="670" y="350" width="180" height="56" rx="9" fill="#334155"/><text x="760" y="383" text-anchor="middle">Session / context</text>
-    <rect x="868" y="350" width="250" height="56" rx="9" fill="#334155"/><text x="993" y="383" text-anchor="middle">Feedback / result</text>
+    <rect x="472" y="350" width="180" height="56" rx="9" fill="#334155"/><text x="562" y="383" text-anchor="middle">Opaque payload</text>
+    <rect x="670" y="350" width="180" height="56" rx="9" fill="#334155"/><text x="760" y="383" text-anchor="middle">Correlation context</text>
+    <rect x="868" y="350" width="250" height="56" rx="9" fill="#334155"/><text x="993" y="383" text-anchor="middle">Semantic feedback</text>
   </g>
-  <text x="76" y="430" fill="#cbd5e1" font-family="Arial,sans-serif" font-size="14">Other open questions: provenance, ordering, cancellation, deduplication, adapter conformance, capability negotiation.</text>
+  <text x="76" y="430" fill="#cbd5e1" font-family="Arial,sans-serif" font-size="14">Still outside core: actor hierarchies, trusted provenance, ordering/replay, cancellation, transport, policy and execution.</text>
 
   <text x="48" y="492" fill="#cbd5e1" font-family="Arial,sans-serif" font-size="15" font-weight="700">NEIGHBORING OWNERSHIP · NOT USERIO CORE DEPENDENCIES</text>
   <g font-family="Arial,sans-serif" font-size="15" fill="#f8fafc">
@@ -58,5 +58,5 @@
     <rect x="858" y="511" width="294" height="67" rx="10" fill="#263449" stroke="#94a3b8" stroke-width="3"/>
     <text x="1005" y="540" text-anchor="middle" font-weight="700">FSM_COS</text><text x="1005" y="560" text-anchor="middle" fill="#cbd5e1" font-size="13">Runtime composition</text>
   </g>
-  <text x="48" y="620" fill="#94a3b8" font-family="Arial,sans-serif" font-size="13">Solid teal = implemented contract · dashed amber = conceptual/deferred · slate = neighboring ownership or boundary</text>
+  <text x="48" y="620" fill="#94a3b8" font-family="Arial,sans-serif" font-size="13">Teal = implemented source contract · amber = external/deferred responsibility · slate = neighboring ownership</text>
 </svg>
