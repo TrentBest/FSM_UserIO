@@ -133,17 +133,29 @@ public sealed class SemanticInteractionTests
     }
 
     [Fact]
-    public void Semantic_contract_records_use_value_equality()
+    public void Semantic_contract_records_use_value_equality_and_consistent_hash_codes()
     {
-        Assert.Equal(
+        AssertEqualWithHash(
+            new InteractionCapability("navigation.open", InteractionMode.Act),
+            new InteractionCapability("navigation.open", InteractionMode.Act));
+        AssertEqualWithHash(
             new SemanticObservation("signal", DateTimeOffset.UnixEpoch, "source", 0.5),
             new SemanticObservation("signal", DateTimeOffset.UnixEpoch, "source", 0.5));
-        Assert.Equal(
+        AssertEqualWithHash(
+            new SemanticExpression("open-settings", DateTimeOffset.UnixEpoch, "adapter"),
+            new SemanticExpression("open-settings", DateTimeOffset.UnixEpoch, "adapter"));
+        AssertEqualWithHash(
             new InteractionContext(Correlation, "actor"),
             new InteractionContext(Correlation, "actor"));
-        Assert.Equal(
+        AssertEqualWithHash(
             new SemanticFeedback(Correlation, FeedbackKind.Accepted, "queued"),
             new SemanticFeedback(Correlation, FeedbackKind.Accepted, "queued"));
+    }
+
+    private static void AssertEqualWithHash<T>(T first, T second)
+    {
+        Assert.Equal(first, second);
+        Assert.Equal(first!.GetHashCode(), second!.GetHashCode());
     }
 
     [Fact]
