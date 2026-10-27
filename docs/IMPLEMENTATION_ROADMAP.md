@@ -98,12 +98,12 @@ The current domain is the **semantic interaction crossing point** between a sour
 
 These are open decisions, not promises to add types.
 
-- [ ] **Observation vs. expression:** Does the package need separate contracts, or is the current intent carrier enough until a real consumer proves otherwise?
-- [ ] **Payload:** Is a name plus optional protocol identity sufficient? If payloads are needed, decide whether they belong in ProtocolAi, FSM_Serialization, or an application-specific envelope rather than duplicating ownership.
-- [ ] **Source and actor identity:** Does UserIO need actor/source/session identity, or should adapters/hosts carry that context?
+- [x] **Observation vs. expression:** `SemanticObservation` and `SemanticExpression` now exist as separate source-neutral values; host interpretation and trust remain external.
+- [x] **Opaque payload carrier:** `SemanticPayload` carries bytes with caller-defined media-type/schema labels. Serialization, schema validation, size limits, and domain interpretation remain with consumers and their chosen protocol/serialization owner.
+- [x] **Correlation metadata:** `InteractionContext` carries a non-empty correlation ID and optional participant/session labels. Authentication, actor trust, and session lifecycle remain external.
 - [ ] **Capability description:** Is there a reusable shared capability contract demonstrated by multiple consumers? Do not create a universal enum or ontology merely to enumerate examples.
 - [ ] **Result/response:** Does output need a semantic response contract, or is presentation correctly owned by GUI/host APIs?
-- [ ] **Time and ordering:** If observations need timestamps, sequence numbers, correlation, or causality, define who owns those semantics before adding fields.
+- [x] **Timestamp and correlation carriers:** observations carry producer-supplied timestamps and context carries correlation IDs. Sequence, ordering, deduplication, replay, and causality semantics remain undefined and outside the core.
 - [ ] **Trust and provenance:** If proposals need source attribution or confidence, define the trust model outside implicit booleans and do not treat provenance as authorization.
 - [ ] **Versioning:** Decide how contract evolution will be versioned before promising serialized/wire compatibility.
 - [ ] **Nullability and validation:** Define which invariants belong in constructors versus host-level validation.
