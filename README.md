@@ -14,6 +14,8 @@
 
 > **Platform-neutral contracts for user-facing input and output capabilities.**
 
+![FSM_UserIO semantic interaction domain map: implemented SemanticIntent, conceptual future contracts, and neighboring ownership boundaries](docs/assets/userio-domain-map.svg)
+
 **[Gallery](docs/GALLERY.md)** — semantic maps, contract examples, and proposed executable traces
 
 **[Audio Capture Lab](docs/demos/audio-capture-lab.html)** — interactive browser prototype for microphone/system-audio permissions, the green → magenta countdown → red recording border, capture, playback, and download. Requires HTTPS or localhost; source availability depends on browser and operating system.
