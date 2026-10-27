@@ -11,7 +11,7 @@
 
 A functionality gallery does not need to pretend that a package is a visual renderer. For FSM_UserIO, the useful pictures are **semantic maps and executable traces**: show what information crosses the boundary, what stays outside it, and which claims are implemented versus conceptual.
 
-The package currently exposes one public domain type: `SemanticIntent(Name, ProtocolId?)`. The SVG concepts below should be generated from the documented contract and test fixtures when implemented; they must not imply that future capabilities already exist.
+The `development` source exposes semantic capability, observation, expression, intent, payload, context, and feedback contracts. The published Alpha 1 package remains `SemanticIntent`-only. The SVG concepts below should be generated from the documented contract and test fixtures; they must not imply runtime behavior that the contracts do not provide.
 
 ## 01 — The semantic boundary
 
