@@ -13,13 +13,13 @@ This document defines what it means to finish FSM_UserIO as a package. “Comple
 
 **FSM_UserIO is complete when a consumer can carry an application-owned semantic intent across a source-independent boundary, understand exactly what the value guarantees, and retain full ownership of interpretation, policy, and effects.**
 
-Alpha 1 already implements the core value:
+The published Alpha 1 package implements the original core value; current `development` now implements the foundational interaction contracts described in the API reference. The original value is:
 
 ```csharp
 public sealed record SemanticIntent(string Name, ulong? ProtocolId = null);
 ```
 
-The remaining work is primarily evidence and release readiness. Additional runtime contracts are conditional: they are added only if real consumers prove a shared requirement that belongs in this package.
+The remaining work is now contract verification, consumer examples, traceability, and release readiness. Further extensions still require explicit ownership and invariant review; UserIO does not absorb platform adapters, transport, trust enforcement, authorization, or execution.
 
 ## What must be true to call the package complete
 
@@ -92,7 +92,7 @@ If any gate is missing, retain the concept in the domain inventory as an open qu
 
 ## Current assessment
 
-The semantic carrier is implemented, and the current documentation work defines the intended domain and non-ownership boundaries. The remaining path to completion is to verify the exact PR head, reconcile all release/readiness documents with the evidence, inspect the packed artifact, and obtain a real consumer integration beyond a documentation-only walkthrough.
+The foundational source-neutral contracts are implemented on `development`, and the API reference records their invariants and non-ownership boundaries. The remaining path to completion is to verify the exact branch head, reconcile all docs and diagrams, run CI on the final source, inspect the packed artifact, and prove the contracts in a compiled host-side consumer sample.
 
 The domain is not “unfinished” merely because deferred concepts have no types. It is unfinished only where the boundary, its evidence, or its release gates remain unresolved.
 
