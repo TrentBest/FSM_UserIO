@@ -46,13 +46,13 @@ Run each case in the browsers and operating systems you intend to support. Recor
 - [ ] **Both sources:** select both, grant/choose both, and verify the resulting recording contains the expected sources and mix.
 - [ ] **No source selected:** attempt to start and confirm the page explains that at least one source must be selected; no countdown or recording begins.
 - [ ] **Playback and download:** stop a recording, play it back, download the WebM, and verify the file is playable.
-- [ ] **Repeat sessions:** perform multiple start/stop cycles and confirm each session resets the timer, controls, source status, and output metrics without reusing stale recording data.
+- [ ] **Repeat sessions:** perform multiple start/stop cycles and confirm each session resets the timer, controls, source status, and output metrics without reusing stale recording data. While the prior session is finalizing, confirm Start remains disabled until the recorder stop event has released sources and finalized the local result.
 
 ### Denial, cancellation, and failure paths
 
 - [ ] **Preflight cancelled:** cancel the page's source-confirmation step and verify no browser capture request is made.
 - [ ] **Display picker dismissed:** dismiss the browser picker and confirm the page returns to a usable ready state with a clear message.
-- [ ] **Microphone denied or OS-blocked:** deny site access or use the OS privacy control to block it; confirm the message distinguishes the likely cause where the browser exposes enough information and gives recovery steps.
+- [ ] **Microphone denied or OS-blocked:** deny site access or use the OS privacy control to block it; confirm the message gives recovery steps. Some browsers report both permission denial and picker dismissal as `NotAllowedError`, so the page must not claim it can always distinguish those cases.
 - [ ] **Display selected without audio:** choose a surface that does not provide an audio track, or leave audio disabled when the picker offers that choice. Confirm the page reports that no usable audio track was supplied.
 - [ ] **One source fails when both are required:** force one selected source to fail. Confirm partial streams are released and the page does not silently record a different source combination.
 - [ ] **Source ends during capture:** stop sharing or disconnect the source where possible. Confirm the recording stops or returns to a safe state, and the user receives a clear explanation.
