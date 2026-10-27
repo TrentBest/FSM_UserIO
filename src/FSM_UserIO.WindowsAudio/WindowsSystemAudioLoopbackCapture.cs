@@ -8,6 +8,7 @@ namespace TheSingularityWorkshop.FSM_UserIO.WindowsAudio;
 public sealed class WindowsSystemAudioLoopbackCapture : IDisposable
 {
     private WasapiLoopbackCapture? _capture;
+    private readonly ManualResetEventSlim _stopSignal = new(false);
     private AudioCaptureSourceStatus _status = new(AudioCaptureSourceKind.SystemAudio, AudioCaptureSourceState.NotRequested);
     private bool _disposed;
 
@@ -40,6 +41,7 @@ public sealed class WindowsSystemAudioLoopbackCapture : IDisposable
             _capture = new WasapiLoopbackCapture();
             _capture.DataAvailable += OnDataAvailable;
             _capture.RecordingStopped += OnRecordingStopped;
+            _stopSignal.Reset();
             SetStatus(_status.TransitionTo(AudioCaptureSourceState.Ready));
             _capture.StartRecording();
             SetStatus(_status.TransitionTo(AudioCaptureSourceState.Capturing));
@@ -62,7 +64,11 @@ public sealed class WindowsSystemAudioLoopbackCapture : IDisposable
         if (_capture is null)
             return;
         if (_status.State == AudioCaptureSourceState.Capturing)
+        {
             _capture.StopRecording();
+            // NAudio signals completion asynchronously; allow its stop callback to settle before disposal.
+            _stopSignal.Wait(TimeSpan.FromSeconds(5));
+        }
         ReleaseCapture();
         if (_status.State == AudioCaptureSourceState.Capturing)
             SetStatus(_status.TransitionTo(AudioCaptureSourceState.Ready));
@@ -74,6 +80,7 @@ public sealed class WindowsSystemAudioLoopbackCapture : IDisposable
         if (_disposed)
             return;
         Stop();
+        _stopSignal.Dispose();
         _disposed = true;
         GC.SuppressFinalize(this);
     }
@@ -92,7 +99,7 @@ public sealed class WindowsSystemAudioLoopbackCapture : IDisposable
     private void OnRecordingStopped(object? sender, StoppedEventArgs args)
     {
         if (args.Exception is not null &&
-            _status.State is AudioCaptureSourceState.Capturing or AudioCaptureSourceState.Ready)
+            (_status.State is AudioCaptureSourceState.Capturing or AudioCaptureSourceState.Ready))
             SetStatus(_status.TransitionTo(AudioCaptureSourceState.Failed,
                 errorCode: "capture-failed",
                 recoveryGuidance: "Check the playback endpoint and retry the capture session."));
