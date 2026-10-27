@@ -17,13 +17,13 @@ The package must communicate a broader vision:
 
 ## Alpha 1 contract
 
-The implementation contains one semantic artifact:
+The published Alpha 1 package contains one semantic artifact:
 
 ```csharp
 SemanticIntent(string Name, ulong? ProtocolId = null)
 ```
 
-That is enough for Alpha 1 because the purpose of this release is to establish the boundary, not to freeze the entire future interaction model.
+That was enough for Alpha 1 because the purpose of that release was to establish the boundary, not freeze the future interaction model. The current `development` source has since added `InteractionCapability`, `SemanticObservation`, `SemanticExpression`, `SemanticPayload`, `InteractionContext`, and `SemanticFeedback`. Those additions are not present in the published Alpha 1 package; a future release decision must evaluate their tests, documentation, package contents, and compatibility.
 
 ## Documentation gate
 
