@@ -321,4 +321,6 @@ MIT. See [LICENSE.txt](LICENSE.txt).
   <strong>The Singularity Workshop</strong><br />
   <em>The Singularity Workshop — edify, don't mystify.</em><br />
   <a href="https://github.com/TrentBest">GitHub</a> · <a href="https://www.patreon.com/TheSingularityWorkshop">Support the Workshop</a>
+  <br />
+  <img src="docs/assets/Avatar.jpg" alt="The Singularity Workshop avatar" width="96" />
 </p>
