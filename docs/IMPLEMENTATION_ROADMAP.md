@@ -101,12 +101,12 @@ These are open decisions, not promises to add types.
 - [x] **Observation vs. expression:** `SemanticObservation` and `SemanticExpression` now exist as separate source-neutral values; host interpretation and trust remain external.
 - [x] **Opaque payload carrier:** `SemanticPayload` carries bytes with caller-defined media-type/schema labels. Serialization, schema validation, size limits, and domain interpretation remain with consumers and their chosen protocol/serialization owner.
 - [x] **Correlation metadata:** `InteractionContext` carries a non-empty correlation ID and optional participant/session labels. Authentication, actor trust, and session lifecycle remain external.
-- [ ] **Capability description:** Is there a reusable shared capability contract demonstrated by multiple consumers? Do not create a universal enum or ontology merely to enumerate examples.
+- [x] **Capability description:** `InteractionCapability` and `InteractionMode` provide a deliberately small descriptive contract. A universal capability ontology, discovery, and negotiation remain deferred; do not expand the enum merely to enumerate examples.
 - [ ] **Result/response:** Does output need a semantic response contract, or is presentation correctly owned by GUI/host APIs?
 - [x] **Timestamp and correlation carriers:** observations carry producer-supplied timestamps and context carries correlation IDs. Sequence, ordering, deduplication, replay, and causality semantics remain undefined and outside the core.
 - [ ] **Trust and provenance:** If proposals need source attribution or confidence, define the trust model outside implicit booleans and do not treat provenance as authorization.
 - [ ] **Versioning:** Decide how contract evolution will be versioned before promising serialized/wire compatibility.
-- [ ] **Nullability and validation:** Define which invariants belong in constructors versus host-level validation.
+- [x] **Core value validation:** Constructors validate the invariants documented in [API Contracts](API_CONTRACTS.md), with invalid-input tests. Domain validation, trust checks, and authorization remain host responsibilities.
 - [ ] **Adapter conformance:** Determine whether more than one real adapter can share a small, testable conformance contract.
 
 ## 05 — ProtocolAi and GrammarAi integration
