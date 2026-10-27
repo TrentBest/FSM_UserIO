@@ -9,7 +9,7 @@
 
 ## Decision status
 
-**Provisional implementation direction.** This note records the platform boundary and decisions that can be made without pretending that a real Windows endpoint has already been exercised. The adapter is not yet a verified capture implementation.
+**Implemented prototype; hardware verification pending.** A Windows-targeted adapter and runnable sample now exist on `development`. The Windows CI workflow is intended to verify compilation; no real-device capture run has been claimed.
 
 ## Decision
 
@@ -33,9 +33,9 @@ Neither path guarantees access to every sound. Protected content, endpoint confi
 ## Project and dependency boundary
 
 - Core remains the existing `net8.0` project and must not reference Windows SDK types, NAudio, WASAPI, or GUI/browser APIs.
-- The adapter should be a separate Windows-targeted project with an explicit Windows target framework and an explicit audio dependency. Confirm supported Windows versions and dependency licensing before choosing final package metadata.
+- The prototype is a separate `net8.0-windows` project using NAudio 2.2.1. The adapter currently uses the default multimedia render endpoint; explicit endpoint enumeration/selection and format conversion are not implemented.
 - Prefer a narrow adapter contract over exposing library-specific recorder, wave-format, endpoint, or COM types to consumers.
-- Keep endpoint enumeration/selection separate from capture construction so the host can choose policy and tests can inject a source.
+- The current prototype does not yet expose endpoint enumeration/selection or injectable capture-source construction; those remain follow-up work.
 - Do not add a Windows adapter reference to the core project or make the core package transitively platform-specific.
 
 ## Lifecycle and status mapping
@@ -83,7 +83,7 @@ Unit tests can prove state mapping, cancellation orchestration, format conversio
 
 ## Current evidence
 
-The shared source-neutral status contract and browser lab finalization guard are implemented on `development`. **This decision note is not evidence that native Windows capture works.** The Windows adapter, real endpoint test, and Windows-specific verification remain open work.
+On `development`, the source-neutral status contract, browser lab finalization guard, Windows-targeted adapter, runnable sample, and Windows-specific build workflow are present. The adapter emits copied buffers with the format reported by NAudio and maps basic start/stop/failure events to source-neutral status. The sample has not been run against a real output endpoint in this environment, and no green Windows workflow result has been confirmed. Device-removal behavior, cancellation during acquisition, bounded buffering, endpoint selection, and conversion remain unverified or unimplemented.
 
 ---
 
