@@ -81,7 +81,7 @@ var intent = new SemanticIntent("document.open", ProtocolId: null);
 
 `SemanticIntent` currently provides an application-defined, non-blank `Name` and an optional `ulong?` `ProtocolId`. The name is preserved exactly; equality is value-based and includes both properties. A missing protocol identity is valid.
 
-The core does not resolve IDs, normalize application vocabulary, infer intent from events, carry arbitrary payloads, authenticate producers, authorize requests, or execute commands. See [API Contracts](API_CONTRACTS.md) for the precise constructor and equality contract.
+The core does not resolve IDs, normalize application vocabulary, infer intent from events, authenticate producers, authorize requests, or execute commands. `SemanticPayload` carries opaque bytes without interpreting or validating their content. See [API Contracts](API_CONTRACTS.md) for the precise constructor, immutability, and equality contracts.
 
 ## 6. A safe host-side pattern
 
@@ -108,14 +108,13 @@ Therefore, do not add a universal response type merely to make the names symmetr
 
 ## 8. Questions to resolve only when consumers require them
 
-These concerns remain outside the current core contracts or are deferred:
+The foundational value carriers now exist on `development`; the following lifecycle semantics remain outside their guarantees and need concrete consumer evidence before they become core responsibilities:
 
-- **Provenance:** who or what produced a proposal, and how can the host assess that evidence?
-- **Ordering and correlation:** when multiple observations arrive, who owns timestamps, sequence, causality, and request correlation?
-- **Payload:** does a semantic interaction need data, and should that data belong to the domain, protocol, serialization layer, or an application envelope?
-- **Context:** who owns actor, session, experience, and capability context?
-- **Trust:** how are untrusted proposals represented and checked without confusing confidence with authorization?
-- **Feedback:** does a reusable response contract exist across real consumers, or is feedback correctly host/surface-specific?
+- **Provenance and trust:** source labels and confidence are descriptive metadata, not authenticated identity or authorization evidence.
+- **Ordering and causality:** timestamps are producer-supplied; sequence, ordering, deduplication, replay, and causality are not defined.
+- **Payload interpretation:** `SemanticPayload` does not serialize, validate schemas, enforce size limits, or interpret content. Choose the domain/protocol/serialization owner at the consuming boundary.
+- **Context lifecycle:** `InteractionContext` carries identifiers but does not own actor identity, session creation, expiration, or experience lifecycle.
+- **Feedback truth and result semantics:** `SemanticFeedback` is producer-reported and is not authenticated proof that work was accepted, completed, or executed.
 - **Adapter conformance:** do multiple real adapters need the same testable contract?
 
 For each proposed API addition, identify a real consumer, name the semantic owner, demonstrate platform-neutral meaning, and add tests for the invariant. If those conditions are not met, keep the concept documented rather than freezing it into the public API.
