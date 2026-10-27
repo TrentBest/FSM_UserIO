@@ -63,15 +63,30 @@ public sealed class WindowsSystemAudioLoopbackCapture : IDisposable
     {
         if (_capture is null)
             return;
-        if (_status.State == AudioCaptureSourceState.Capturing)
+
+        try
         {
-            _capture.StopRecording();
-            // NAudio signals completion asynchronously; allow its stop callback to settle before disposal.
-            _stopSignal.Task.Wait(TimeSpan.FromSeconds(5));
+            if (_status.State == AudioCaptureSourceState.Capturing)
+            {
+                _capture.StopRecording();
+                // NAudio signals completion asynchronously; allow its stop callback to settle before disposal.
+                _stopSignal.Task.Wait(TimeSpan.FromSeconds(5));
+            }
         }
-        ReleaseCapture();
-        if (_status.State == AudioCaptureSourceState.Capturing)
-            SetStatus(_status.TransitionTo(AudioCaptureSourceState.Ready));
+        catch
+        {
+            if (_status.State == AudioCaptureSourceState.Capturing)
+                SetStatus(_status.TransitionTo(AudioCaptureSourceState.Failed,
+                    errorCode: "capture-stop-failed",
+                    recoveryGuidance: "The capture session could not stop cleanly; dispose the adapter and retry."));
+            throw;
+        }
+        finally
+        {
+            ReleaseCapture();
+            if (_status.State == AudioCaptureSourceState.Capturing)
+                SetStatus(_status.TransitionTo(AudioCaptureSourceState.Ready));
+        }
     }
 
     /// <summary>Stops capture and releases native resources.</summary>
@@ -79,9 +94,15 @@ public sealed class WindowsSystemAudioLoopbackCapture : IDisposable
     {
         if (_disposed)
             return;
-        Stop();
-        _disposed = true;
-        GC.SuppressFinalize(this);
+        try
+        {
+            Stop();
+        }
+        finally
+        {
+            _disposed = true;
+            GC.SuppressFinalize(this);
+        }
     }
 
     private void OnDataAvailable(object? sender, WaveInEventArgs args)
