@@ -62,13 +62,13 @@ The core should remain usable by any computational environment capable of produc
                          v
                  host / application
                          |
-                policy + execution
+              policy / authorization
+                         |
+                         v
+              Foundry / Hub workflow run
                          |
                          v
                     computation
-                         |
-                         v
-                     FSM_COS
 ```
 
 The arrows describe responsibility and information flow. They do not imply direct package references.
@@ -91,6 +91,9 @@ platform / source adapters
           |
           v
        host policy
+          |
+          v
+  Foundry / Hub workflow
           |
           v
        execution
