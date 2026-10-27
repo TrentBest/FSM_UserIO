@@ -108,7 +108,7 @@ Therefore, do not add a universal response type merely to make the names symmetr
 
 ## 8. Questions to resolve only when consumers require them
 
-These are open domain questions, not implemented contracts:
+These concerns remain outside the current core contracts or are deferred:
 
 - **Provenance:** who or what produced a proposal, and how can the host assess that evidence?
 - **Ordering and correlation:** when multiple observations arrive, who owns timestamps, sequence, causality, and request correlation?
