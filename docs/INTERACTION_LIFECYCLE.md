@@ -28,7 +28,7 @@ flowchart TD
     R --> FB
 ```
 
-The `development` source implements `SemanticIntent`, `InteractionCapability`, `SemanticObservation`, `SemanticExpression`, `InteractionContext`, and `SemanticFeedback`. Policy, authorization, execution, device adapters, transport, and runtime composition remain outside core. The published Alpha 1 package still exposes only `SemanticIntent`.
+The `development` source implements `SemanticIntent`, `InteractionCapability`, `SemanticObservation`, `SemanticExpression`, `SemanticPayload`, `InteractionContext`, and `SemanticFeedback`. Policy, authorization, execution, device adapters, transport, and runtime composition remain outside core. The published Alpha 1 package still exposes only `SemanticIntent`.
 
 ## 2. Separate the concepts
 
@@ -138,7 +138,7 @@ These are ownership boundaries, not claims that the packages directly reference 
 - [README](../README.md) — purpose and entry point.
 - [Theory](THEORY.md) — the capability-first model.
 - [Architecture](ARCHITECTURE.md) — ownership and dependency direction.
-- [API Contracts](API_CONTRACTS.md) — the implemented public API.
+- [API Contracts](API_CONTRACTS.md) — the implemented source contracts, invariants, and release distinction.
 - [Roadmap](ROADMAP.md) — established work and unresolved decisions.
 - [Alpha readiness](ALPHA_READINESS.md) — release verification gates.
 
