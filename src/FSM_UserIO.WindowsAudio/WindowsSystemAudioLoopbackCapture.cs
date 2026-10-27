@@ -27,8 +27,8 @@ public sealed class WindowsSystemAudioLoopbackCapture : IDisposable
         if (!OperatingSystem.IsWindows())
         {
             SetStatus(new AudioCaptureSourceStatus(AudioCaptureSourceKind.SystemAudio,
-                AudioCaptureSourceState.Unsupported, errorCode: "platform-unsupported",
-                recoveryGuidance: "Use a Windows host for native system-audio loopback capture."));
+                AudioCaptureSourceState.Unsupported, ErrorCode: "platform-unsupported",
+                RecoveryGuidance: "Use a Windows host for native system-audio loopback capture."));
             throw new PlatformNotSupportedException("WASAPI loopback capture is supported only on Windows.");
         }
 
