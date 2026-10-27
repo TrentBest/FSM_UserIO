@@ -56,7 +56,7 @@ The lines in this diagram describe responsibility and possible information flow,
 
 - A repository link establishes the location of an owning package, not that an integration adapter already exists.
 - The integration walkthrough demonstrates the published Alpha 1 `SemanticIntent` path and identifies the expanded `development` contracts separately.
-- Any reusable adapter, observation, payload, session, or feedback API remains future work until its semantics and owner are demonstrated by a real consumer.
+- The foundational observation, payload, context, and feedback value carriers exist on `development`; production adapter conformance, trusted provenance, session lifecycle, payload interpretation, delivery guarantees, and universal result semantics remain future work until concrete consumers establish their requirements.
 
 
 ---
