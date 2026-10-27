@@ -128,4 +128,6 @@ Implementation: `SemanticIntent.cs` and `SemanticInteraction.cs`. Tests: `tests/
 
 <p align="center">
   <em>The Singularity Workshop — edify, don't mystify.</em>
+  <br />
+  <img src="assets/Avatar.jpg" alt="The Singularity Workshop avatar" width="96" />
 </p>
