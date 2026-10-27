@@ -37,7 +37,7 @@ Transitions are explicit and validated by `AudioCaptureSourceStatus.TransitionTo
 NotRequested -> RequestPending | Unsupported
 Unsupported  -> NotRequested | RequestPending
 RequestPending -> Ready | Unsupported | Denied | Unavailable | Cancelled | Failed
-Ready -> Capturing | RequestPending | NotRequested | Denied | Unavailable | Failed
+Ready -> Capturing | RequestPending | NotRequested | Denied | Unavailable | Cancelled | Failed
 Capturing -> Ready | Denied | Unavailable | Cancelled | Failed
 Denied | Unavailable | Cancelled | Failed -> RequestPending or NotRequested
 Unavailable -> Unsupported is also allowed
