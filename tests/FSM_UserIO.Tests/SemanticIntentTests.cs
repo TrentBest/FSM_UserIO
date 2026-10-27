@@ -64,4 +64,35 @@ public sealed class SemanticIntentTests
         Assert.NotEqual(new SemanticIntent("select", 42UL), new SemanticIntent("select", 43UL));
         Assert.NotEqual(new SemanticIntent("select", 42UL), new SemanticIntent("inspect", 42UL));
     }
+
+    [Fact]
+    public void Core_assembly_has_no_platform_or_upstream_product_references()
+    {
+        string[] forbiddenPrefixes =
+        [
+            "ProtocolAi",
+            "GrammarAi",
+            "FSM_COS",
+            "TheSingularityWorkshop.GUI",
+            "PresentationFramework",
+            "PresentationCore",
+            "WindowsBase",
+            "UnityEngine",
+            "Microsoft.AspNetCore.Components",
+            "Microsoft.Web.WebView2"
+        ];
+
+        var unexpectedReferences = typeof(SemanticIntent).Assembly
+            .GetReferencedAssemblies()
+            .Select(reference => reference.Name ?? string.Empty)
+            .Where(name => forbiddenPrefixes.Any(prefix =>
+                name.Equals(prefix, StringComparison.OrdinalIgnoreCase) ||
+                name.StartsWith(prefix + ".", StringComparison.OrdinalIgnoreCase)))
+            .OrderBy(name => name, StringComparer.OrdinalIgnoreCase)
+            .ToArray();
+
+        Assert.True(
+            unexpectedReferences.Length == 0,
+            $"The FSM_UserIO core assembly references forbidden platform or upstream assemblies: {string.Join(", ", unexpectedReferences)}");
+    }
 }
