@@ -18,6 +18,8 @@
 
 **[Audio Capture Lab](docs/demos/audio-capture-lab.html)** — interactive browser prototype for microphone/system-audio permissions, the green → magenta countdown → red recording border, capture, playback, and download. Requires HTTPS or localhost; source availability depends on browser and operating system.
 
+**[Audio Capture Lab verification guide](docs/demos/AUDIO_CAPTURE_TESTING.md)** — manual test matrix for normal capture, denial/cancellation, missing tracks, source loss, retries, and repeated sessions.
+
 User interaction is a capability boundary, not authority by itself. A host may collect input or present output while authorization and application decisions remain elsewhere.
 
 ```mermaid
