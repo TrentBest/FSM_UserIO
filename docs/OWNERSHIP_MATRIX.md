@@ -11,7 +11,7 @@ This matrix names the current architectural owner of each concern and links to t
 
 | Concern | Producer / consumer responsibility | Owner | UserIO relationship |
 |---|---|---|---|
-| Semantic intent value | Preserve an application-owned semantic name and optional numeric identity association | [FSM_UserIO](https://github.com/TrentBest/FSM_UserIO) | Implemented in Alpha 1 as `SemanticIntent` |
+| Semantic intent value | Preserve an application-owned semantic name and optional numeric identity association | [FSM_UserIO](https://github.com/TrentBest/FSM_UserIO) | Implemented as `SemanticIntent` in source; Alpha 1 package is older |\n| Source-neutral interaction values | Describe capability, observation, expression, opaque payload, correlation context, and feedback | [FSM_UserIO](https://github.com/TrentBest/FSM_UserIO) | Implemented on `development`; see [API Contracts](API_CONTRACTS.md) |
 | Deterministic symbol identity / vocabulary | Define and resolve application-owned symbols in a deterministic address space | [ProtocolAi](https://github.com/TrentBest/TheSingularityWorkshop.ProtocolAi) | Neighboring domain; UserIO's `ProtocolId` is only an optional value slot and does not resolve or allocate IDs |
 | Grammar / structural relationships | Define how protocol identities can be connected into grammar structure | [GrammarAi](https://github.com/TrentBest/TheSingularityWorkshop.GrammarAi) | Neighboring domain; UserIO does not define grammar or execution |
 | Semantic GUI tree and presentation manifestations | Describe GUI content neutrally and manifest it through appropriate presentation targets | [Workshop GUI](https://github.com/TrentBest/TheSingularityWorkshop.GUI) | Potential consumer/producer of semantic interactions; no direct integration is asserted here |
@@ -54,7 +54,7 @@ The lines in this diagram describe responsibility and possible information flow,
 ## Evidence discipline
 
 - A repository link establishes the location of an owning package, not that an integration adapter already exists.
-- The integration walkthrough is intentionally limited to the implemented `SemanticIntent` contract and local application code.
+- The integration walkthrough demonstrates the published Alpha 1 `SemanticIntent` path and identifies the expanded `development` contracts separately.
 - Any reusable adapter, observation, payload, session, or feedback API remains future work until its semantics and owner are demonstrated by a real consumer.
 
 
