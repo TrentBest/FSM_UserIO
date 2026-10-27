@@ -34,7 +34,7 @@ The `development` source implements the foundational source-neutral contracts li
 | Source observation | Source-neutral account of something observed, sensed, or received | **Implemented as `SemanticObservation`** | Name, producer-supplied timestamp, optional source label, optional confidence in `[0,1]`; no ordering or trust guarantee |
 | Expression / proposal | A form expresses or proposes something before interpretation | **Implemented as `SemanticExpression`** | Kept distinct from `SemanticIntent`; no automatic interpretation or authorization |
 | Interaction payload | Opaque bytes with application-defined content type and schema labels | **Implemented as `SemanticPayload`** | Defensive copies and byte-wise value equality; serialization and schema validation remain caller-owned |
-| Interaction context / session | Correlation across interactions with optional participant/session labels | **Implemented as `InteractionContext`** | Carries IDs only; does not create or manage session lifecycle |
+| Interaction payload | Opaque bytes with caller-defined content type and schema labels | **Implemented as `SemanticPayload`** | Defensive copies and byte-wise equality; no serializer or schema registry |\n| Interaction context / session | Correlation across interactions with optional participant/session labels | **Implemented as `InteractionContext`** | Carries IDs only; does not create or manage session lifecycle |
 | Feedback / semantic output | Non-authoritative status or explanatory feedback | **Implemented as `SemanticFeedback` + `FeedbackKind`** | Feedback is producer-reported and not independently verified by UserIO |
 | Capability discovery / negotiation | Discovering what a peer or form can do and agreeing on compatible interaction | **Not implemented** | Likely belongs in a bridge or protocol unless a shared, source-neutral core contract is demonstrated |
 | Policy / authorization / validation | Whether an interaction is allowed, valid, or appropriate | **Explicitly outside core** | Host/application owns the decision; capability or intent never grants permission |
@@ -56,12 +56,12 @@ The intended conceptual lifecycle is:
 1. A form has contextual capabilities, established by its environment and application.
 2. A source or surface adapter observes an event or receives an expression/proposal.
 3. The adapter translates the source-specific manifestation into a source-neutral representation when such a contract exists.
-4. A semantic interaction is represented. In Alpha 1, the implemented representation is `SemanticIntent`.
+4. The semantic interaction boundary carries an intent, with optional source-neutral observation, expression, payload, correlation context, and feedback values.
 5. The host interprets the intent and performs validation, authorization, and policy checks.
 6. The host may reject, request clarification, provide feedback, or execute a domain action.
 7. Any presentation, transport, persistence, or runtime composition is handled by its owning layer.
 
-Steps 1–3 and 5–7 are architectural responsibilities, not APIs supplied by Alpha 1. The only currently implemented UserIO step is the semantic-intent value in step 4.
+Native event acquisition, semantic interpretation, policy, authorization, execution, transport, and runtime composition remain owned by adapters and hosts. The core contracts provide source-neutral values without taking over those responsibilities.
 
 ## Dependency and non-ownership rules
 
@@ -90,7 +90,7 @@ Steps 1–3 and 5–7 are architectural responsibilities, not APIs supplied by A
 ### Contract decisions that need evidence before implementation
 
 - [ ] Observation contract: is a common representation needed across more than one independent consumer?
-- [ ] Expression/proposal contract: does it differ from observation and from `SemanticIntent` in a way consumers must preserve?
+- [x] Expression/proposal contract: `SemanticExpression` preserves an expression before host interpretation; it is distinct from `SemanticObservation` and `SemanticIntent`.
 - [ ] Payload: is `Name + ProtocolId` insufficient for a real scenario, and who owns payload schemas?
 - [ ] Context/session: which lifecycle/correlation facts are genuinely shared rather than host-specific?
 - [ ] Feedback/result: is a shared semantic result needed, distinct from GUI presentation and application errors?
