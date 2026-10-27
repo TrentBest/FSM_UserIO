@@ -95,4 +95,50 @@ public sealed class SemanticIntentTests
             unexpectedReferences.Length == 0,
             $"The FSM_UserIO core assembly references forbidden platform or upstream assemblies: {string.Join(", ", unexpectedReferences)}");
     }
+    [Theory]
+    [InlineData(0UL)]
+    [InlineData(ulong.MaxValue)]
+    public void Intent_preserves_protocol_identity_boundaries(ulong protocolId)
+    {
+        var intent = new SemanticIntent("boundary", protocolId);
+
+        Assert.Equal(protocolId, intent.ProtocolId);
+    }
+
+    [Fact]
+    public void Intent_explicitly_accepts_missing_protocol_identity()
+    {
+        var intent = new SemanticIntent("inspect", null);
+
+        Assert.Null(intent.ProtocolId);
+    }
+
+    [Theory]
+    [InlineData("\\r")]
+    [InlineData("\\v")]
+    [InlineData("\\f")]
+    [InlineData("\\u00A0")]
+    [InlineData("\\u2003")]
+    [InlineData("\\u3000")]
+    public void Intent_rejects_additional_unicode_whitespace_names(string name)
+    {
+        Assert.Throws<ArgumentException>(() => new SemanticIntent(name));
+    }
+
+    [Fact]
+    public void Intent_equal_values_have_equal_hash_codes()
+    {
+        var first = new SemanticIntent("select", 42UL);
+        var second = new SemanticIntent("select", 42UL);
+
+        Assert.Equal(first, second);
+        Assert.Equal(first.GetHashCode(), second.GetHashCode());
+    }
+
+    [Fact]
+    public void Intent_name_comparison_is_case_sensitive()
+    {
+        Assert.NotEqual(new SemanticIntent("select"), new SemanticIntent("Select"));
+    }
+
 }
