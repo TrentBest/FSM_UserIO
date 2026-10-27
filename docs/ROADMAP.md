@@ -25,7 +25,7 @@ The `development` source implements the foundational source-neutral contracts li
 
 ## Domain map
 
-| Domain area | Meaning / ownership | Alpha 1 status | Evidence or next decision |
+| Domain area | Meaning / ownership | Current source status | Evidence or next decision |
 |---|---|---|---|
 | Semantic intent | Application-owned semantic name, optionally associated with a numeric identity | **Implemented** | `SemanticIntent(string Name, ulong? ProtocolId = null)`; blank names rejected; value semantics covered by tests |
 | Protocol identity association | Optional numeric identity that can be resolved by an application protocol | **Implemented as a value slot only** | UserIO does not allocate IDs, define a vocabulary, or depend on ProtocolAi |
@@ -34,7 +34,6 @@ The `development` source implements the foundational source-neutral contracts li
 | Source observation | Source-neutral account of something observed, sensed, or received | **Implemented as `SemanticObservation`** | Name, producer-supplied timestamp, optional source label, optional confidence in `[0,1]`; no ordering or trust guarantee |
 | Expression / proposal | A form expresses or proposes something before interpretation | **Implemented as `SemanticExpression`** | Kept distinct from `SemanticIntent`; no automatic interpretation or authorization |
 | Interaction payload | Opaque bytes with application-defined content type and schema labels | **Implemented as `SemanticPayload`** | Defensive copies and byte-wise value equality; serialization and schema validation remain caller-owned |
-| Interaction payload | Opaque bytes with caller-defined content type and schema labels | **Implemented as `SemanticPayload`** | Defensive copies and byte-wise equality; no serializer or schema registry |
 | Interaction context / session | Correlation across interactions with optional participant/session labels | **Implemented as `InteractionContext`** | Carries IDs only; does not create or manage session lifecycle |
 | Feedback / semantic output | Non-authoritative status or explanatory feedback | **Implemented as `SemanticFeedback` + `FeedbackKind`** | Feedback is producer-reported and not independently verified by UserIO |
 | Capability discovery / negotiation | Discovering what a peer or form can do and agreeing on compatible interaction | **Not implemented** | Likely belongs in a bridge or protocol unless a shared, source-neutral core contract is demonstrated |
@@ -84,24 +83,24 @@ Native event acquisition, semantic interpretation, policy, authorization, execut
 - [x] Add a short API contract reference for `SemanticIntent`: constructor behavior, blank-name rejection, name preservation, optional `ProtocolId`, equality/value semantics, and explicit non-guarantees.
 - [x] Add a small integration walkthrough showing application-local adapter code producing an intent and a host rejecting or accepting it without UserIO performing execution: [Integration Walkthrough](INTEGRATION_WALKTHROUGH.md).
 - [x] Add a consumer/producer matrix mapping domain concepts to owning Workshop repositories and their READMEs: [Consumer / Producer Ownership Matrix](OWNERSHIP_MATRIX.md).
-- [x] Maintain a traceability table from each public contract to tests and package documentation. Alpha 1 currently has one public contract; see [API contracts](API_CONTRACTS.md).
+- [x] Maintain a traceability table from each public contract to tests and package documentation. The published Alpha 1 package has one public contract; the expanded source contract set is listed in [API contracts](API_CONTRACTS.md).
 - [x] Add an implementation-grounded domain map that marks implemented, conceptual/deferred, and neighboring ownership distinctly; keep it synchronized as the API changes.
 - [x] Define package-level completion criteria so deferred concepts are not mistaken for required implementation: [Domain Completion Criteria](DOMAIN_COMPLETION_CRITERIA.md).
 
 ### Contract decisions that need evidence before implementation
 
-- [ ] Observation contract: is a common representation needed across more than one independent consumer?
+- [x] Observation contract: `SemanticObservation` carries a source-neutral name, producer timestamp, optional source label, and bounded confidence; provenance trust and ordering remain external.
 - [x] Expression/proposal contract: `SemanticExpression` preserves an expression before host interpretation; it is distinct from `SemanticObservation` and `SemanticIntent`.
-- [ ] Payload: is `Name + ProtocolId` insufficient for a real scenario, and who owns payload schemas?
-- [ ] Context/session: which lifecycle/correlation facts are genuinely shared rather than host-specific?
-- [ ] Feedback/result: is a shared semantic result needed, distinct from GUI presentation and application errors?
+- [x] Payload carrier: `SemanticPayload` transports opaque bytes with caller-defined content/schema labels; serialization and schema validation remain application-owned.
+- [x] Correlation context: `InteractionContext` carries a non-empty correlation ID and optional participant/session IDs; session lifecycle remains host-owned.
+- [x] Feedback carrier: `SemanticFeedback` reports correlated status without validating its truth or replacing application error/result protocols.
 - [ ] Provenance/trust: what is identity metadata versus authentication or policy?
 - [ ] Delivery semantics: which layer owns ordering, replay, retries, cancellation, and deduplication?
 - [ ] Adapter conformance: what observable invariants can be tested without a physical device?
 - [ ] Capability discovery: can an existing host/bridge own it without expanding the semantic core?
 - [ ] Cross-consumer proof: which minimal scenario demonstrates the same semantic intent produced by a human-facing adapter, a software process, and an AI proposal?
 
-These are questions, not approved API additions. A question should become a contract only when a real consumer, ownership boundary, compatibility need, and testable invariant are identified.
+The implemented contracts intentionally stop at descriptive values. Remaining open questions concern enforcement or lifecycle guarantees that belong to hosts, adapters, or transport unless a concrete shared requirement proves otherwise.
 
 ## Release and completion gates
 
@@ -114,7 +113,7 @@ These are questions, not approved API additions. A question should become a cont
 
 ## Current conclusion
 
-Alpha 1 establishes a deliberately small semantic carrier, not a complete interaction protocol. The domain is broader than the current code. The next step is to document and prove the boundaries above—not to turn every row into a public type.
+The current development source establishes a foundational set of source-neutral values, not a complete interaction protocol. The next step is exact-head verification, a compiled consumer example, and evidence that distinct sources can map to the same semantic meaning. Trusted provenance, delivery semantics, adapter conformance, negotiation, authorization, and execution remain deliberately outside the core.
 
 
 ---
