@@ -1,3 +1,10 @@
+<!-- The Singularity Workshop moniker -->
+<p align="center">
+  <a href="https://github.com/TrentBest">
+    <img src="https://raw.githubusercontent.com/TrentBest/TheSingularityWorkshop.Visualize/development/docs/assets/moniker.svg" alt="The Singularity Workshop — animated workshop moniker" width="720" />
+  </a>
+</p>
+
 # Architecture
 
 ## Boundary statement
@@ -264,3 +271,9 @@ Before adding a contract, demonstrate:
 6. a reason the concept belongs in the core rather than a bridge or host.
 
 This is how the package can remain small while supporting a very large computational design space.
+
+---
+
+<p align="center">
+  <em>The Singularity Workshop — edify, don't mystify.</em>
+</p>
