@@ -19,7 +19,8 @@ header{display:flex;justify-content:space-between;gap:20px;align-items:flex-star
 <main class="app" id="app">
 <header><div><div class="eyebrow">The Singularity Workshop · FSM_UserIO</div><h1>Audio Capture Lab</h1><p>A real browser-based capture prototype with an always-visible state border.</p></div><div class="pill">LOCAL DEMO · NO UPLOAD</div></header>
 <section class="state" aria-live="polite"><span class="dot"></span><div style="flex:1"><strong id="stateTitle">READY · CHILLING</strong><small id="stateDescription">Green border — no audio is being recorded.</small></div><div class="count" id="count" hidden>3</div></section>
-<div class="notice" id="browserNote">Capture requires a secure context (HTTPS or localhost). Browser and operating-system support determines which audio sources are available. The browser will ask for permission when you start.</div>
+<div class="notice" id="browserNote">Capture requires a secure context (HTTPS or localhost). Browser and operating-system support determines which audio sources are available. Before the browser opens a picker or permission prompt, this lab will explain the selected sources. You remain in control of what you share.</div>
+<div class="notice" id="permissionGuide" role="status">Permission guide: computer/tab audio opens the browser's screen-sharing picker; choose a supported tab or screen and enable audio if offered. Microphone capture uses the browser's microphone permission and may also be blocked by operating-system privacy settings. This page cannot grant OS permissions for you.</div>
 <div class="grid">
 <section class="panel"><h2>01 · Choose sources</h2>
 <label class="choice"><input id="systemAudio" type="checkbox" checked><span><b>Computer / tab audio</b><small>Choose a screen or tab in the browser picker and enable its audio-sharing option. Availability varies by browser and OS.</small></span></label>
@@ -47,15 +48,25 @@ const wantsSystem=$('systemAudio').checked,wantsMic=$('microphone').checked;
 if(!wantsSystem&&!wantsMic)throw new Error('Choose at least one audio source.');
 const audioInputs=[];
 if(wantsSystem){
-if(!navigator.mediaDevices?.getDisplayMedia)throw new Error('This browser does not expose screen/tab audio capture. Try a current desktop browser over HTTPS or localhost.');
-const display=await navigator.mediaDevices.getDisplayMedia({video:true,audio:true});streams.push(display);
-const at=display.getAudioTracks();if(!at.length){display.getTracks().forEach(t=>t.stop());streams=streams.filter(s=>s!==display);throw new Error('The selected screen/tab did not provide audio. Retry and enable the audio-sharing option in the browser picker.');}
+if(!navigator.mediaDevices?.getDisplayMedia)throw new Error('Computer/tab audio is unsupported here. Try a current desktop browser over HTTPS or localhost; microphone capture may still be available.');
+let display;
+try{display=await navigator.mediaDevices.getDisplayMedia({video:true,audio:true});}
+catch(error){throw new Error(explainCaptureError(error,'system'));}
+streams.push(display);
+const at=display.getAudioTracks();if(!at.length){display.getTracks().forEach(t=>t.stop());streams=streams.filter(s=>s!==display);throw new Error('Computer/tab audio: the selected surface provided no audio track. Retry and enable the audio-sharing option in the browser picker, or choose a supported tab/surface.');}
 audioInputs.push(...at);
-display.getVideoTracks().forEach(t=>{t.addEventListener('ended',()=>{if(state==='recording')stopRecording('Screen/tab sharing ended.');});});
+for(const track of at){track.addEventListener('ended',()=>{if(state==='recording')stopRecording('Computer/tab audio source ended. Recording stopped.');});}
+display.getVideoTracks().forEach(t=>{t.addEventListener('ended',()=>{if(state==='recording')stopRecording('Screen/tab sharing ended. Recording stopped.');});});
 }
 if(wantsMic){
-if(!navigator.mediaDevices?.getUserMedia)throw new Error('This browser does not expose microphone capture.');
-const mic=await navigator.mediaDevices.getUserMedia({audio:true,video:false});streams.push(mic);audioInputs.push(...mic.getAudioTracks());
+if(!navigator.mediaDevices?.getUserMedia)throw new Error('Microphone: this browser does not expose microphone capture. Try a supported browser over HTTPS or localhost.');
+let mic;
+try{mic=await navigator.mediaDevices.getUserMedia({audio:true,video:false});}
+catch(error){throw new Error(explainCaptureError(error,'microphone'));}
+streams.push(mic);const micTracks=mic.getAudioTracks();
+if(!micTracks.length)throw new Error('Microphone: permission returned no usable audio track. Check device and privacy settings, then retry.');
+audioInputs.push(...micTracks);
+for(const track of micTracks){track.addEventListener('ended',()=>{if(state==='recording')stopRecording('Microphone source ended. Recording stopped.');});}
 }
 context=new (window.AudioContext||window.webkitAudioContext)();await context.resume();
 const destination=context.createMediaStreamDestination();
@@ -75,8 +86,8 @@ recorder.start(500);startedAt=Date.now();elapsedMs=0;elapsedTimer=setInterval(()
 async function start(){
 if(!window.isSecureContext){log('Blocked: use HTTPS or localhost for device permissions.');$('sourceStatus').textContent='Secure context required: open over HTTPS or localhost.';return;}
 if(!window.MediaRecorder){$('sourceStatus').textContent='MediaRecorder is not supported in this browser.';return;}
-$('start').disabled=true;$('sourceStatus').textContent='Requesting source permissions…';log('Starting source acquisition; browser permission prompts may appear.');
-try{const stream=await acquireSources();countValue=3;setState('countdown');$('count').hidden=false;$('count').textContent='3';log('Sources ready. Countdown started.');timer=setInterval(()=>{countValue--;if(countValue>0){$('count').textContent=String(countValue);}else{clearInterval(timer);timer=null;$('count').hidden=true;beginRecorder(stream);}},1000);}catch(e){releaseSources();$('count').hidden=true;setState('ready');$('sourceStatus').textContent=e.message||String(e);log('Could not start: '+(e.message||e));}}
+const selected=[];if($('systemAudio').checked)selected.push('• Computer/tab audio: a browser screen-sharing picker opens; choose a supported surface and enable audio if offered.');if($('microphone').checked)selected.push('• Microphone: the browser may request microphone access; operating-system privacy settings can also block it.');if(!selected.length){$('sourceStatus').textContent='Choose at least one source before starting.';return;}if(!window.confirm('Before continuing, review the access requests below. Nothing is recorded during permission setup.\\n\\n'+selected.join('\\n')+'\\n\\nAudio stays in this page; this demo does not upload it. Continue to browser permission/picker?')){log('Permission setup cancelled before requesting access.');$('sourceStatus').textContent='Cancelled before requesting access. No permission was requested.';return;}$('start').disabled=true;$('sourceStatus').textContent='Requesting selected sources…';log('Starting source acquisition; browser permission prompts may appear.');
+try{const stream=await acquireSources();countValue=3;setState('countdown');$('count').hidden=false;$('count').textContent='3';log('Sources ready. Countdown started.');timer=setInterval(()=>{countValue--;if(countValue>0){$('count').textContent=String(countValue);}else{clearInterval(timer);timer=null;$('count').hidden=true;beginRecorder(stream);}},1000);}catch(e){releaseSources();$('count').hidden=true;setState('ready');$('sourceStatus').textContent=e.message||String(e);log('Could not start: '+(e.message||e));$('tracks').textContent='0';$('start').disabled=false;}}
 function cancel(){if(timer){clearInterval(timer);timer=null;}$('count').hidden=true;releaseSources();setState('ready');$('sourceStatus').textContent='Countdown cancelled. No recording was created.';log('Countdown cancelled; acquired sources released.');}
 function stopRecording(reason){if(state==='countdown'){cancel();return;}if(state!=='recording'||!recorder)return;elapsedMs+=Date.now()-startedAt;clearInterval(elapsedTimer);elapsedTimer=null;$('elapsed').textContent=fmt(elapsedMs);setState('stopped');$('sourceStatus').textContent=reason||'Stopping and finalizing recording…';log(reason||'Stop requested.');if(recorder.state!=='inactive')recorder.stop();}
 $('start').addEventListener('click',start);$('cancel').addEventListener('click',cancel);$('stop').addEventListener('click',()=>stopRecording());$('download').addEventListener('click',()=>{if(!blob)return;const a=document.createElement('a');a.href=objectUrl;a.download='userio-audio-'+new Date().toISOString().replace(/[:.]/g,'-')+'.webm';document.body.appendChild(a);a.click();a.remove();log('Download requested.');});$('play').addEventListener('click',()=>{$('player').play().catch(e=>log('Playback could not start: '+e.message));});window.addEventListener('beforeunload',()=>{if(timer)clearInterval(timer);if(elapsedTimer)clearInterval(elapsedTimer);releaseSources();if(objectUrl)URL.revokeObjectURL(objectUrl);});
