@@ -10,6 +10,6 @@ public sealed record SemanticIntent(string Name, ulong? ProtocolId = null)
         ? throw new ArgumentException("An intent name is required.", nameof(Name))
         : Name;
 
-    /// <summary>Gets the optional deterministic ProtocolAi identity associated with this intent.</summary>
+    /// <summary>Gets the optional application protocol identity association associated with this intent.</summary>
     public ulong? ProtocolId { get; } = ProtocolId;
 }
