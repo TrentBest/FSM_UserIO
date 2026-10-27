@@ -27,8 +27,9 @@ The core should remain usable by any computational environment capable of produc
 | GrammarAi | Describes structure between protocol identities |
 | GUI | Presents and mediates human-facing interaction with datum |
 | Domain | Owns datum and domain meaning |
-| Host | Applies policy, authorization, validation, and execution |
-| FSM_COS | Composes runtime capabilities |
+| Host | Applies policy, authorization, validation, and delegates execution to the owning runtime |
+| Foundry / Hub host | Owns the authoritative Hub workflow execution pipeline and run state |
+| FSM_COS | Composes runtime capabilities; it is not a substitute for Foundry's Hub workflow lifecycle |
 | Platform / renderer | Provides native manifestation |
 
 ## The architectural flow
@@ -99,7 +100,7 @@ FSM_UserIO currently has **no runtime package dependencies**.
 
 That is intentional.
 
-ProtocolAi, GUI, and FSM_COS may consume or associate with UserIO concepts without UserIO depending upward on them.
+ProtocolAi, GUI, FSM_COS, and Foundry may consume or associate with UserIO concepts without UserIO depending upward on them. Foundry owns Hub workflow execution; GUI is optional.
 
 ## Actor/form
 
@@ -242,6 +243,7 @@ Only the host/application execution boundary decides what actually happens.
 
 FSM_UserIO does not own:
 
+- Hub workflow scheduling, workflow lifecycle, or run state (Foundry owns that pipeline);
 - the actor/form;
 - physical devices;
 - device discovery;
