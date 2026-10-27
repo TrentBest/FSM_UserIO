@@ -7,7 +7,7 @@
 
 # FSM_UserIO — Domain Definition and Implementation Roadmap
 
-> **Implementation update (2026-10-27):** `development` now compiles and tests `InteractionCapability`, `SemanticObservation`, `SemanticExpression`, `SemanticPayload`, `InteractionContext`, and `SemanticFeedback` alongside `SemanticIntent`. The published package remains `0.1.0-alpha.1`; do not publish the expanded source without explicit authorization. This roadmap contains historical Alpha 1 notes as well as remaining verification work, so use [API Contracts](API_CONTRACTS.md) as the current source API inventory.
+> **Implementation update (2026-10-27):** `development` now contains `InteractionCapability`, `SemanticObservation`, `SemanticExpression`, `SemanticPayload`, `InteractionContext`, and `SemanticFeedback` alongside `SemanticIntent`, with unit tests added for their invariants; exact-head CI remains the verification authority. The published package remains `0.1.0-alpha.1`; do not publish the expanded source without explicit authorization. This roadmap contains historical Alpha 1 notes as well as remaining verification work, so use [API Contracts](API_CONTRACTS.md) as the current source API inventory.
 
 > **Status:** active audit. This document separates the domain already established by source and documentation from proposed contracts that still require evidence and design decisions.
 
