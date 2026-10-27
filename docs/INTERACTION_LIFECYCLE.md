@@ -42,7 +42,8 @@ Only `SemanticIntent` is currently a public domain contract in this package. The
 | Semantic intent | What application-owned interaction is being identified? | Application vocabulary, carried by UserIO |
 | Protocol identity | Which application-defined symbol is associated with it? | Application / protocol; UserIO only carries an optional numeric value |
 | Validation and authorization | Is this interaction valid and permitted now? | Host / application |
-| Execution | What state change or operation actually occurs? | Host / runtime |
+| Workflow lifecycle | Which workflow is running, what state is it in, and how is it coordinated? | Foundry / Hub host |
+| Execution | What state change or operation actually occurs? | Host / runtime selected by Foundry / application policy |
 | Outcome / feedback | What happened, and what should the participant be told? | Host and presentation surface |
 
 Do not collapse these into one object simply because a first consumer can represent them with one string.
@@ -125,7 +126,9 @@ For each proposed API addition, identify a real consumer, name the semantic owne
 - **ProtocolAi:** can supply deterministic identity for application-owned symbols; UserIO does not require a runtime dependency on it.
 - **GrammarAi:** can describe structural relationships; structure is not authorization.
 - **GUI:** mediates human-facing presentation and interaction with domain datum.
-- **Host / application:** owns context, domain meaning, validation, authorization, and execution.
+- **Host / application:** owns context, domain meaning, validation, authorization, and the decision to execute.
+- **Foundry / Hub host:** owns the authoritative Hub workflow execution pipeline and run state. UserIO must not duplicate workflow scheduling or lifecycle.
+- **GUI:** is an optional presentation manifestation when the Hub chooses to present itself; it is not required by UserIO.
 - **FSM_COS:** composes runtime capabilities; it does not need to become a dependency of this semantic core.
 
 These are ownership boundaries, not claims that the packages directly reference one another.
