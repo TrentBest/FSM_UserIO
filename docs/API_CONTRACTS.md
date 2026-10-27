@@ -27,7 +27,7 @@ All record contracts are immutable sealed records with value equality. `Semantic
 
 The platform-neutral `AudioCaptureSourceStatus` contract describes microphone and system/output audio independently. It distinguishes unsupported, not requested, request pending, denied, unavailable, ready, capturing, cancelled, and failed states. State transitions are validated and immutable; direct observations are distinguishable from host-reported estimates. The contract carries source-neutral error codes and recovery guidance without importing browser or OS types.
 
-This contract does not acquire audio, manage device resources, mix sources, grant permission, or decide whether partial source availability satisfies the host's selected mode. See [Audio capture source contract](AUDIO_CAPTURE_CONTRACT.md) for the transition table and ownership rules.
+This contract does not acquire audio, manage device resources, mix sources, grant permission, or decide whether partial source availability satisfies the host's selected mode. See [Audio capture source contract](AUDIO_CAPTURE_CONTRACT.md) for the transition table and ownership rules. The [Windows system-audio loopback decision](WINDOWS_SYSTEM_AUDIO_LOOPBACK.md) records the native adapter boundary and the real-device verification gates.
 
 ## SemanticIntent
 
