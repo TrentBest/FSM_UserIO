@@ -26,5 +26,7 @@
     <None Include="README.md" Pack="true" PackagePath="" />
     <None Include="LICENSE.txt" Pack="true" PackagePath="" />
     <None Include="docs/**/*.md" Pack="true" PackagePath="docs/" />
+    <None Update="docs/assets/**/*.svg" Pack="true" PackagePath="docs/assets/" />
+    <None Update="docs/demos/**/*.html" Pack="true" PackagePath="docs/demos/" />
   </ItemGroup>
 </Project>
