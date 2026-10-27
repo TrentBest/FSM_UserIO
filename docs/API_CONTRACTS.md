@@ -85,7 +85,7 @@ public sealed record InteractionContext(
     Guid? SessionId = null);
 ```
 
-`CorrelationId` must not be `Guid.Empty`. Participant and session identifiers are optional application-owned labels; a session ID does not create, store, expire, or manage a session. The context does not prove who produced an interaction.
+`CorrelationId` must not be `Guid.Empty`. Participant and session identifiers are optional application-owned labels; if `SessionId` is supplied, it must not be `Guid.Empty`. A session ID does not create, store, expire, or manage a session. The context does not prove who produced an interaction.
 
 ## Semantic feedback
 
