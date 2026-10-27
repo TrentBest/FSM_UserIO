@@ -43,7 +43,34 @@ Describe the interaction capability separately from platform-specific UI, then c
 
 ## 🟢 04 See it in a minute
 
-Start with the capability abstraction and Alpha 1 boundary below, then run the repository's tests to see which contracts are currently enforced.
+Try the currently published Alpha 1 package in a clean .NET 8 console app. This demonstrates the implemented semantic-intent contract—not the broader capability model, which remains architectural direction.
+
+Create a console app and add the package:
+
+```powershell
+dotnet new console --framework net8.0
+dotnet add package TheSingularityWorkshop.FSM_UserIO --version 0.1.0-alpha.1
+```
+
+Replace `Program.cs` with:
+
+```csharp
+using TheSingularityWorkshop.FSM_UserIO;
+
+var intent = new SemanticIntent("open-settings");
+
+Console.WriteLine(intent.Name);
+Console.WriteLine(intent.ProtocolId is null ? "No protocol identity" : intent.ProtocolId);
+```
+
+Run it with `dotnet run`. Expected output:
+
+```text
+open-settings
+No protocol identity
+```
+
+The optional `ProtocolId` is an association value; it does not authenticate the sender or authorize the requested action. See the [API contract](docs/API_CONTRACTS.md) for validation and equality behavior.
 
 ## 🟪 05 Documentation and theory
 
