@@ -5,7 +5,7 @@
   </a>
 </p>
 
-# FSM_UserIO — Domain Definition and Implementation Roadmap
+# FSM_UserIO — Domain Definition and Implementation Roadmap\n\n> **Implementation update (2026-10-27):** `development` now compiles and tests `InteractionCapability`, `SemanticObservation`, `SemanticExpression`, `SemanticPayload`, `InteractionContext`, and `SemanticFeedback` alongside `SemanticIntent`. The published package remains `0.1.0-alpha.1`; do not publish the expanded source without explicit authorization. This roadmap contains historical Alpha 1 notes as well as remaining verification work, so use [API Contracts](API_CONTRACTS.md) as the current source API inventory.
 
 > **Status:** active audit. This document separates the domain already established by source and documentation from proposed contracts that still require evidence and design decisions.
 
@@ -27,12 +27,12 @@
 ## 00 — Definition of done
 
 - [x] Establish FSM_UserIO as a platform-neutral semantic interaction boundary.
-- [x] Establish `SemanticIntent` as the current public contract.
+- [x] Establish `SemanticIntent` as the original Alpha 1 contract.\n- [x] Add source-neutral capability, observation, expression, payload, context, and feedback contracts on `development`.
 - [x] Keep the core free of runtime package dependencies and platform-specific types.
 - [x] Separate capability from authority, semantic intent from domain meaning, and validation from execution.
 - [x] Document the intended relationship to ProtocolAi, GrammarAi, GUI, FSM_COS, and host/application policy.
 - [x] Add `docs/API_CONTRACTS.md` describing the implemented `SemanticIntent` constructor, property, equality, and non-guarantees; keep it traceable to source and tests.
-- [ ] Audit every public type/member against implementation, XML docs, tests, and package metadata.
+- [ ] Audit every public type/member against implementation, XML docs, tests, and package metadata, including the expanded interaction contracts.
 - [ ] Mark every roadmap claim as implemented, missing, intentionally out of scope, or awaiting a decision.
 - [ ] Run the complete release verification sequence and preserve evidence.
 - [x] Verify the packed package in a clean consumer project (run #139, exact commit above).
