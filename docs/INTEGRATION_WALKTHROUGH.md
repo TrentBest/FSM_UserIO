@@ -77,13 +77,52 @@ Host accepted: open-settings
 Host rejected: delete-account
 ```
 
+## Expanded source-contract example (development only)
+
+This example shows how source-neutral values can travel together without moving policy into UserIO. It requires the current repository source; it will not compile against the published Alpha 1 package.
+
+```csharp
+using System.Text;
+using TheSingularityWorkshop.FSM_UserIO;
+
+var capability = new InteractionCapability("navigation.open", InteractionMode.Act);
+var observation = new SemanticObservation(
+    "button-activated",
+    DateTimeOffset.UtcNow,
+    Source: "desktop-adapter",
+    Confidence: 1.0);
+var expression = new SemanticExpression(
+    "open-settings",
+    DateTimeOffset.UtcNow,
+    Source: "hotkey-adapter");
+var intent = new SemanticIntent("open-settings");
+var payload = new SemanticPayload(
+    "application/json",
+    "settings.v1",
+    Encoding.UTF8.GetBytes("{\"section\":\"display\"}"));
+var context = new InteractionContext(Guid.NewGuid(), ParticipantId: "operator-1");
+var feedback = new SemanticFeedback(
+    context.CorrelationId,
+    FeedbackKind.Informational,
+    "Received; host policy has not yet been evaluated.");
+
+// These values describe an interaction. They do not authorize or execute it.
+Console.WriteLine($"{capability.Name}: {capability.Mode}");
+Console.WriteLine($"{observation.Name} at {observation.ObservedAt:O}");
+Console.WriteLine($"{expression.Name} -> {intent.Name}");
+Console.WriteLine($"Payload bytes: {payload.Data.Length}; correlation: {context.CorrelationId}");
+Console.WriteLine(feedback.Message);
+```
+
+The adapter supplies source labels and timestamps. The host decides how to interpret the expression, validate the payload schema, authorize the intent, and execute any effect. Feedback is only a statement by its producer; UserIO does not verify that statement.
+
 ## Reading the boundary correctly
 
-| Step | Owner | What Alpha 1 provides |
+| Step | Owner | What the current source provides |
 |---|---|---|
 | Receive a native or UI event | Source / application adapter | Nothing; source events stay outside the core |
 | Translate source event to semantic meaning | Application adapter | The adapter can construct `SemanticIntent` |
-| Carry the intent value | FSM_UserIO | The implemented `SemanticIntent` type |
+| Carry semantic values | FSM_UserIO | `SemanticIntent`, `SemanticObservation`, `SemanticExpression`, `SemanticPayload`, `InteractionContext`, and `SemanticFeedback` |
 | Decide whether the request is permitted | Host / application | Nothing; UserIO does not authorize |
 | Perform the effect | Host / domain | Nothing; UserIO does not execute |
 
@@ -91,7 +130,7 @@ The sample is a **consumer walkthrough**, not evidence of an existing reusable a
 
 ## What this does not settle
 
-This minimal example does not define a shared observation or expression model, payload schema, actor/session identity, provenance, ordering, cancellation, retries, delivery guarantees, or feedback contract. Those remain open until a real producer and consumer establish the minimum shared semantics.
+The source-neutral values do not define a universal actor hierarchy, trusted provenance, global ordering, replay protection, cancellation, retries, delivery guarantees, schema registry, capability negotiation, authorization, or execution. Those remain owned by the host, adapter, or transport that can enforce the relevant guarantees.
 
 See the [domain completion roadmap](ROADMAP.md), [ownership matrix](OWNERSHIP_MATRIX.md), [API contracts](API_CONTRACTS.md), and [architecture](ARCHITECTURE.md).
 
