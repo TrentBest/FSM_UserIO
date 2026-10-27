@@ -80,7 +80,7 @@ jobs:
             exit 1
           fi
           entries="$(unzip -Z1 "$package")"
-          for required_path in "README.md" "LICENSE.txt" "docs/API_CONTRACTS.md"; do
+          for required_path in "README.md" "LICENSE.txt" "docs/API_CONTRACTS.md" "docs/assets/userio-domain-map.svg" "docs/assets/semantic-boundary.svg" "docs/assets/semantic-intent-contract.svg" "docs/demos/audio-capture-lab.html"; do
             if ! grep -Fxq "$required_path" <<< "$entries"; then
               echo "Expected package entry is missing: $required_path"
               printf '%s\n' "$entries"
