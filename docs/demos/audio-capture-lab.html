@@ -55,6 +55,7 @@ return prefix+': capture failed unexpectedly. Check browser and operating-system
 function setState(next){state=next;app.classList.toggle('countdown',next==='countdown');app.classList.toggle('recording',next==='recording');$('stateTitle').textContent=({ready:'READY · CHILLING',countdown:'GET READY · COUNTDOWN',recording:'RECORDING NOW',stopped:'RECORDING STOPPED'})[next];$('stateDescription').textContent=({ready:'Green border — no audio is being recorded.',countdown:'Magenta border — capture starts when the countdown finishes.',recording:'Red border — audio capture is active.',stopped:'Green border — capture has stopped; download or play the result.'})[next];$('start').disabled=next==='countdown'||next==='recording';$('cancel').disabled=next!=='countdown';$('stop').disabled=next!=='recording';}
 function fmt(ms){const sec=Math.floor(ms/1000);return String(Math.floor(sec/60)).padStart(2,'0')+':'+String(sec%60).padStart(2,'0');}
 function releaseSources(){for(const s of streams){for(const t of s.getTracks())t.stop();}streams=[];if(mixedStream){for(const t of mixedStream.getTracks())t.stop();mixedStream=null;}if(context){context.close().catch(()=>{});context=null;}}
+function handleSourceEnded(reason){if(state==='countdown'){cancel();$('sourceStatus').textContent=reason+' Countdown cancelled; reacquire sources before retrying.';log(reason+' Countdown cancelled.');}else if(state==='recording'){stopRecording(reason+' Recording stopped.');}}
 async function acquireSources(){
 const wantsSystem=$('systemAudio').checked,wantsMic=$('microphone').checked;
 if(!wantsSystem&&!wantsMic)throw new Error('Choose at least one audio source.');
@@ -67,8 +68,8 @@ catch(error){throw new Error(explainCaptureError(error,'system'));}
 streams.push(display);
 const at=display.getAudioTracks();if(!at.length){display.getTracks().forEach(t=>t.stop());streams=streams.filter(s=>s!==display);throw new Error('Computer/tab audio: the selected surface provided no audio track. Retry and enable the audio-sharing option in the browser picker, or choose a supported tab/surface.');}
 audioInputs.push(...at);
-for(const track of at){track.addEventListener('ended',()=>{if(state==='recording')stopRecording('Computer/tab audio source ended. Recording stopped.');});}
-display.getVideoTracks().forEach(t=>{t.addEventListener('ended',()=>{if(state==='recording')stopRecording('Screen/tab sharing ended. Recording stopped.');});});
+for(const track of at){track.addEventListener('ended',()=>{handleSourceEnded('Computer/tab audio source ended.');});}
+display.getVideoTracks().forEach(t=>{t.addEventListener('ended',()=>{handleSourceEnded('Screen/tab sharing ended.');});});
 }
 if(wantsMic){
 if(!navigator.mediaDevices?.getUserMedia)throw new Error('Microphone: this browser does not expose microphone capture. Try a supported browser over HTTPS or localhost.');
@@ -78,7 +79,7 @@ catch(error){throw new Error(explainCaptureError(error,'microphone'));}
 streams.push(mic);const micTracks=mic.getAudioTracks();
 if(!micTracks.length)throw new Error('Microphone: permission returned no usable audio track. Check device and privacy settings, then retry.');
 audioInputs.push(...micTracks);
-for(const track of micTracks){track.addEventListener('ended',()=>{if(state==='recording')stopRecording('Microphone source ended. Recording stopped.');});}
+for(const track of micTracks){track.addEventListener('ended',()=>{handleSourceEnded('Microphone source ended.');});}
 }
 context=new (window.AudioContext||window.webkitAudioContext)();await context.resume();
 const destination=context.createMediaStreamDestination();
