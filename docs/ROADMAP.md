@@ -12,10 +12,11 @@
 - [x] Keep FSM_UserIO free of runtime package dependencies.
 - [x] Add build, test, coverage, package, and publication-safety infrastructure.
 - [x] Document platform independence explicitly, including Unity, WPF, and Blazor boundaries.
+- [x] Document the end-to-end interaction lifecycle and explicitly distinguish conceptual stages from implemented API types in [Interaction Lifecycle](INTERACTION_LIFECYCLE.md).
 
 ## Alpha 1 — release-readiness work
 
-- [ ] Complete the full documentation review against the actor/capability model; cross-document alignment and link/content review remain in progress.
+- [ ] Complete the full documentation review against the actor/capability model; cross-document alignment, image/footer standard, and link/content review remain in progress.
 - [x] Maintain meaningful unit-test coverage for the implemented `SemanticIntent` behavior.
 - [x] Inspect the Alpha 1 package contents, XML documentation, README, license, version metadata, and declared NuGet dependencies; artifact identity and SHA-256 are recorded in the [implementation audit](IMPLEMENTATION_ROADMAP.md) from [CI run #139](https://github.com/TrentBest/FSM_UserIO/actions/runs/39320861310).
 - [x] Verify CI build, test, coverage, pack, clean-consumer build, and artifact generation; [run #143](https://github.com/TrentBest/FSM_UserIO/actions/runs/39321870262) passed on the exact action-pinning commit.
