@@ -26,8 +26,8 @@ User interaction is a capability boundary, not authority by itself. A host may c
 
 ```mermaid
 flowchart TD
-  U[User / external input] --> C[FSM_UserIO capability]
-  C --> H[Host policy and authority]
+  U[User / external input] --> C[FSM_UserIO semantic interaction]
+  C --> H[Host policy / Foundry workflow execution]
   H --> O[Output / next interaction]
 ```
 
