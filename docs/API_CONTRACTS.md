@@ -23,6 +23,12 @@ This page documents the public contracts compiled from the current `development`
 
 All record contracts are immutable sealed records with value equality. `SemanticPayload` is an immutable value object with byte-wise equality and defensive copies. Constructor validation rejects invalid values instead of silently normalizing them.
 
+## Audio capture source lifecycle
+
+The platform-neutral `AudioCaptureSourceStatus` contract describes microphone and system/output audio independently. It distinguishes unsupported, not requested, request pending, denied, unavailable, ready, capturing, cancelled, and failed states. State transitions are validated and immutable; direct observations are distinguishable from host-reported estimates. The contract carries source-neutral error codes and recovery guidance without importing browser or OS types.
+
+This contract does not acquire audio, manage device resources, mix sources, grant permission, or decide whether partial source availability satisfies the host's selected mode. See [Audio capture source contract](AUDIO_CAPTURE_CONTRACT.md) for the transition table and ownership rules.
+
 ## SemanticIntent
 
 ```csharp
