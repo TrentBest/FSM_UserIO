@@ -1,3 +1,10 @@
+<!-- The Singularity Workshop moniker -->
+<p align="center">
+  <a href="https://github.com/TrentBest">
+    <img src="https://raw.githubusercontent.com/TrentBest/TheSingularityWorkshop.Visualize/development/docs/assets/moniker.svg" alt="The Singularity Workshop — animated workshop moniker" width="720" />
+  </a>
+</p>
+
 # FSM_UserIO — Domain Definition and Implementation Roadmap
 
 > **Status:** active audit. This document separates the domain already established by source and documentation from proposed contracts that still require evidence and design decisions.
@@ -183,3 +190,9 @@ Prioritize real, small demonstrations. Mark each one implemented only when sourc
 | 2026-10-19 | Repaired the malformed package-verification workflow and required the README, license, and API contract file at their exact package paths. The clean-consumer build and all configured checks passed on the exact commit; publish job skipped. | [CI run #133](https://github.com/TrentBest/FSM_UserIO/actions/runs/39320150039) · [Verified commit](https://github.com/TrentBest/FSM_UserIO/commit/ec44a5c517d3e5412541f402880729cf1bd3330f) | 70% |
 
 > **Governing principle:** Define the smallest semantic boundary that serves the largest computational design space. Expand the API only when a real consumer and a test can prove the need.
+
+---
+
+<p align="center">
+  <em>The Singularity Workshop — edify, don't mystify.</em>
+</p>
