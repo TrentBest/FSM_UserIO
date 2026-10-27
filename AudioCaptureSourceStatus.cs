@@ -123,7 +123,7 @@ internal static class AudioCaptureTransitions
             AudioCaptureSourceState.Ready =>
                 next is AudioCaptureSourceState.NotRequested or AudioCaptureSourceState.RequestPending
                     or AudioCaptureSourceState.Denied or AudioCaptureSourceState.Unavailable
-                    or AudioCaptureSourceState.Capturing or AudioCaptureSourceState.Failed,
+                    or AudioCaptureSourceState.Capturing or AudioCaptureSourceState.Cancelled or AudioCaptureSourceState.Failed,
             AudioCaptureSourceState.Capturing =>
                 next is AudioCaptureSourceState.Ready or AudioCaptureSourceState.Denied
                     or AudioCaptureSourceState.Unavailable or AudioCaptureSourceState.Cancelled
