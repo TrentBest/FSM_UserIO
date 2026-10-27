@@ -23,6 +23,7 @@
   <ItemGroup>
     <Compile Include="SemanticIntent.cs" />
     <Compile Include="SemanticInteraction.cs" />
+    <Compile Include="AudioCaptureSourceStatus.cs" />
     <None Include="README.md" Pack="true" PackagePath="" />
     <None Include="LICENSE.txt" Pack="true" PackagePath="" />
     <None Include="docs/**/*.md" Pack="true" PackagePath="docs/" />
