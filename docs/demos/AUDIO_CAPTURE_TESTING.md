@@ -56,6 +56,7 @@ Run each case in the browsers and operating systems you intend to support. Recor
 - [ ] **Display selected without audio:** choose a surface that does not provide an audio track, or leave audio disabled when the picker offers that choice. Confirm the page reports that no usable audio track was supplied.
 - [ ] **One source fails when both are required:** force one selected source to fail. Confirm partial streams are released and the page does not silently record a different source combination.
 - [ ] **Source ends during capture:** stop sharing or disconnect the source where possible. Confirm the recording stops or returns to a safe state, and the user receives a clear explanation.
+- [ ] **Source ends during countdown:** start a capture countdown, then stop sharing or disconnect a selected source before it reaches zero. Confirm the countdown is cancelled, the page returns to ready, and the status/log explains that the source ended; reacquire sources before retrying.
 - [ ] **Retry after failure:** correct the permission/source problem and start again. Confirm the previous failure does not leave a countdown, active capture, disabled start button, or stale source status.
 - [ ] **Close or reload during capture:** confirm the page stops acquired tracks and clears active timers on unload.
 
