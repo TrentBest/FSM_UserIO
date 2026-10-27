@@ -152,7 +152,7 @@ AI model proposal  -> semantic proposal
 software message   -> observation/proposal
 ```
 
-These examples illustrate the boundary. They do not define Alpha 1 API types.
+These examples illustrate the boundary. The current `development` source now provides source-neutral contracts for capability descriptions, observations, expressions, opaque payloads, intent, correlation context, and feedback. They still do not define actor hierarchies or source-specific APIs.
 
 ## Semantic interaction
 
@@ -160,13 +160,13 @@ FSM_UserIO is the semantic middle.
 
 Its responsibility is to preserve application-owned interaction meaning without importing the implementation details of the source.
 
-The first alpha artifact is:
+The original Alpha 1 artifact is:
 
 ```csharp
 public sealed record SemanticIntent(string Name, ulong? ProtocolId = null);
 ```
 
-The optional numeric identity allows an application to associate the intent with a deterministic protocol symbol without requiring a ProtocolAi package reference.
+The optional numeric identity allows an application to associate the intent with a protocol symbol without requiring a ProtocolAi package reference. The expanded contracts are documented in [API Contracts](API_CONTRACTS.md); they carry values and metadata, not policy or authority.
 
 ## Platform adapters
 
@@ -262,7 +262,7 @@ FSM_UserIO does not own:
 - network transport;
 - runtime composition.
 
-If a future contract appears to require one of these, the ownership boundary must be revisited before the type is added.
+These remain outside UserIO. A descriptive contract may name a capability or carry a proposal, but it must not implement devices, rendering, datum, authorization, policy, execution, transport, or runtime composition.
 
 ## Alpha design discipline
 
