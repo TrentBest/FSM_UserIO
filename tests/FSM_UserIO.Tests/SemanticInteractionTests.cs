@@ -77,6 +77,26 @@ public sealed class SemanticInteractionTests
             new SemanticObservation("motion-detected", DateTimeOffset.UnixEpoch, source));
     }
 
+    [Theory]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData("   ")]
+    public void Observation_rejects_invalid_name(string? name)
+    {
+        Assert.Throws<ArgumentException>(() =>
+            new SemanticObservation(name!, DateTimeOffset.UnixEpoch));
+    }
+
+    [Theory]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData("   ")]
+    public void Expression_rejects_invalid_name(string? name)
+    {
+        Assert.Throws<ArgumentException>(() =>
+            new SemanticExpression(name!, DateTimeOffset.UnixEpoch));
+    }
+
     [Fact]
     public void Expression_is_not_an_intent_and_keeps_its_source_label()
     {
