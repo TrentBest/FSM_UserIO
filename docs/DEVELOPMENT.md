@@ -1,3 +1,10 @@
+<!-- The Singularity Workshop moniker -->
+<p align="center">
+  <a href="https://github.com/TrentBest">
+    <img src="https://raw.githubusercontent.com/TrentBest/TheSingularityWorkshop.Visualize/development/docs/assets/moniker.svg" alt="The Singularity Workshop — animated workshop moniker" width="720" />
+  </a>
+</p>
+
 # Development
 
 ## Build
@@ -111,3 +118,9 @@ See the Workshop [NuGet Publication Runbook](https://github.com/TrentBest/TheSin
 ## Architectural invariant
 
 > **FSM_UserIO carries semantic interaction across actor/form capabilities; it does not own the actor, the device, the GUI, the datum, policy, or execution.**
+
+---
+
+<p align="center">
+  <em>The Singularity Workshop — edify, don't mystify.</em>
+</p>
