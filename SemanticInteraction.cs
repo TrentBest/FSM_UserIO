@@ -125,6 +125,61 @@ public enum FeedbackKind
     Failed = 5
 }
 
+/// <summary>Opaque application-owned payload bytes with caller-defined media type and schema identifiers.</summary>
+/// <remarks>
+/// The payload does not prescribe a serializer, schema registry, or maximum size. Input bytes are copied,
+/// and the data accessor returns a copy-backed read-only view so callers cannot mutate the stored value.
+/// </remarks>
+public sealed class SemanticPayload : IEquatable<SemanticPayload>
+{
+    private readonly byte[] _data;
+
+    /// <summary>Creates a payload with application-defined content and schema labels.</summary>
+    /// <param name="mediaType">A non-whitespace media/content type label.</param>
+    /// <param name="schema">A non-whitespace application-defined schema identifier or version.</param>
+    /// <param name="data">Payload bytes; an empty payload is valid.</param>
+    public SemanticPayload(string mediaType, string schema, byte[] data)
+    {
+        MediaType = SemanticValueValidation.Required(mediaType, nameof(mediaType));
+        Schema = SemanticValueValidation.Required(schema, nameof(schema));
+        ArgumentNullException.ThrowIfNull(data);
+        _data = data.ToArray();
+    }
+
+    /// <summary>Gets the application-defined content/media type label.</summary>
+    public string MediaType { get; }
+
+    /// <summary>Gets the application-defined schema identifier or version.</summary>
+    public string Schema { get; }
+
+    /// <summary>Gets a read-only view over a defensive copy of the payload bytes.</summary>
+    public ReadOnlyMemory<byte> Data => _data.ToArray();
+
+    /// <inheritdoc />
+    public bool Equals(SemanticPayload? other) =>
+        other is not null
+        && StringComparer.Ordinal.Equals(MediaType, other.MediaType)
+        && StringComparer.Ordinal.Equals(Schema, other.Schema)
+        && _data.AsSpan().SequenceEqual(other._data);
+
+    /// <inheritdoc />
+    public override bool Equals(object? obj) => obj is SemanticPayload other && Equals(other);
+
+    /// <inheritdoc />
+    public override int GetHashCode()
+    {
+        var hash = new HashCode();
+        hash.Add(MediaType, StringComparer.Ordinal);
+        hash.Add(Schema, StringComparer.Ordinal);
+        foreach (var value in _data)
+        {
+            hash.Add(value);
+        }
+
+        return hash.ToHashCode();
+    }
+}
+
 internal static class SemanticValueValidation
 {
     internal static string Required(string? value, string parameterName) =>
