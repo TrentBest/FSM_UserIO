@@ -1,3 +1,10 @@
+<!-- The Singularity Workshop moniker -->
+<p align="center">
+  <a href="https://github.com/TrentBest">
+    <img src="https://raw.githubusercontent.com/TrentBest/TheSingularityWorkshop.Visualize/development/docs/assets/moniker.svg" alt="The Singularity Workshop — animated workshop moniker" width="720" />
+  </a>
+</p>
+
 ![The Singularity Workshop animated moniker](https://raw.githubusercontent.com/TrentBest/TheSingularityWorkshop.Renderer/development/docs/assets/moniker.svg)
 
 # Audio Capture Lab — manual verification guide
@@ -79,3 +86,9 @@ Do not attach private recordings or sensitive system audio unless you deliberate
 ---
 
 [Audio Capture Lab](audio-capture-lab.html) · [FSM_UserIO API contract](../API_CONTRACTS.md) · [Repository issues](https://github.com/TrentBest/FSM_UserIO/issues)
+
+---
+
+<p align="center">
+  <em>The Singularity Workshop — edify, don't mystify.</em>
+</p>
