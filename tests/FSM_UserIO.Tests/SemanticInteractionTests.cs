@@ -87,6 +87,13 @@ public sealed class SemanticInteractionTests
     }
 
     [Fact]
+    public void Expression_rejects_blank_source_when_supplied()
+    {
+        Assert.Throws<ArgumentException>(() =>
+            new SemanticExpression("open-settings", DateTimeOffset.UnixEpoch, " "));
+    }
+
+    [Fact]
     public void Context_allows_optional_participant_and_session_metadata()
     {
         var session = Guid.NewGuid();
