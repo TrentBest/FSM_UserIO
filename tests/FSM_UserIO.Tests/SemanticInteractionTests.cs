@@ -111,6 +111,7 @@ public sealed class SemanticInteractionTests
     {
         Assert.Throws<ArgumentException>(() => new InteractionContext(Guid.Empty));
         Assert.Throws<ArgumentException>(() => new InteractionContext(Correlation, " "));
+        Assert.Throws<ArgumentException>(() => new InteractionContext(Correlation, SessionId: Guid.Empty));
     }
 
     [Fact]
