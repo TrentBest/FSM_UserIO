@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FSM_UserIO · Audio Capture Lab</title>
+<style>
+:root{color-scheme:dark;--bg:#101018;--panel:#191925;--line:#343447;--text:#f6f4ff;--muted:#aaa8c0;--green:#22c55e;--magenta:#e879f9;--red:#ef4444;--accent:#a78bfa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#24213a 0,#101018 58%);font:16px/1.5 system-ui,-apple-system,Segoe UI,sans-serif;color:var(--text);min-height:100vh;display:grid;place-items:center;padding:24px}
+.app{width:min(100%,1000px);border:12px solid var(--green);border-radius:28px;padding:clamp(18px,4vw,36px);background:#101018;box-shadow:0 20px 80px #0008;transition:border-color .16s ease,box-shadow .16s ease}
+.app.countdown{border-color:var(--magenta);box-shadow:0 0 0 5px #e879f933,0 20px 80px #0008}.app.recording{border-color:var(--red);box-shadow:0 0 0 5px #ef444433,0 20px 80px #0008;animation:recordglow 2s infinite}
+@keyframes recordglow{50%{box-shadow:0 0 0 8px #ef444422,0 20px 80px #0008}}
+header{display:flex;justify-content:space-between;gap:20px;align-items:flex-start;flex-wrap:wrap}.eyebrow{text-transform:uppercase;letter-spacing:.14em;font-size:.75rem;color:var(--muted);font-weight:800}h1{font-size:clamp(1.8rem,5vw,3rem);line-height:1.05;margin:.45rem 0 .65rem}p{color:var(--muted);margin:.4rem 0}.pill{border:1px solid var(--line);border-radius:999px;padding:7px 12px;font-size:.8rem;color:var(--muted);white-space:nowrap}.state{display:flex;align-items:center;gap:12px;margin:26px 0 20px;padding:16px;border-radius:16px;background:var(--panel);border:1px solid var(--line)}.dot{width:14px;height:14px;border-radius:50%;background:var(--green);box-shadow:0 0 18px currentColor;flex:none}.countdown .dot{background:var(--magenta)}.recording .dot{background:var(--red)}.state strong{display:block;font-size:1.1rem}.state small{color:var(--muted)}.count{font-size:clamp(3rem,9vw,5.5rem);font-weight:900;line-height:1;color:var(--magenta);font-variant-numeric:tabular-nums}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.panel{padding:18px;border:1px solid var(--line);background:var(--panel);border-radius:18px}.panel h2{font-size:1rem;margin:0 0 12px}.choice{display:flex;gap:10px;align-items:flex-start;margin:12px 0;color:var(--text)}input[type=checkbox]{accent-color:var(--accent);width:18px;height:18px;margin-top:3px}label span{display:block}label small{display:block;color:var(--muted);font-size:.84rem}.actions{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0}.btn{border:1px solid var(--line);border-radius:12px;padding:12px 17px;background:#28283b;color:var(--text);font-weight:800;font-size:.95rem;cursor:pointer}.btn.primary{background:#ddd6fe;color:#21163d;border-color:#ddd6fe}.btn.danger{background:#7f1d1d;border-color:#b91c1c}.btn:disabled{opacity:.4;cursor:not-allowed}.metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:16px}.metric{padding:14px;border-radius:14px;background:#12121c;border:1px solid var(--line)}.metric small{display:block;color:var(--muted)}.metric strong{font-size:1.35rem;font-variant-numeric:tabular-nums}.log{white-space:pre-wrap;overflow-wrap:anywhere;max-height:140px;overflow:auto;font-size:.84rem;color:var(--muted);background:#101018;border:1px solid var(--line);padding:12px;border-radius:12px}.foot{font-size:.8rem;margin-top:20px}.notice{padding:12px 14px;border-radius:12px;background:#30260f;border:1px solid #806522;color:#f6dfa1;font-size:.9rem;margin:14px 0}
+@media(max-width:680px){.grid{grid-template-columns:1fr}.metrics{grid-template-columns:1fr}.app{border-width:9px;padding:17px}}
+</style>
+</head>
+<body>
+<main class="app" id="app">
+<header><div><div class="eyebrow">The Singularity Workshop · FSM_UserIO</div><h1>Audio Capture Lab</h1><p>A real browser-based capture prototype with an always-visible state border.</p></div><div class="pill">LOCAL DEMO · NO UPLOAD</div></header>
+<section class="state" aria-live="polite"><span class="dot"></span><div style="flex:1"><strong id="stateTitle">READY · CHILLING</strong><small id="stateDescription">Green border — no audio is being recorded.</small></div><div class="count" id="count" hidden>3</div></section>
+<div class="notice" id="browserNote">Capture requires a secure context (HTTPS or localhost). Browser and operating-system support determines which audio sources are available. The browser will ask for permission when you start.</div>
+<div class="grid">
+<section class="panel"><h2>01 · Choose sources</h2>
+<label class="choice"><input id="systemAudio" type="checkbox" checked><span><b>Computer / tab audio</b><small>Choose a screen or tab in the browser picker and enable its audio-sharing option. Availability varies by browser and OS.</small></span></label>
+<label class="choice"><input id="microphone" type="checkbox"><span><b>Microphone</b><small>Requests microphone permission and mixes it with any selected system audio.</small></span></label>
+<p id="sourceStatus">No permissions requested yet.</p>
+</section>
+<section class="panel"><h2>02 · Capture controls</h2><p>Countdown: 3 seconds. You can cancel before capture begins.</p>
+<div class="actions"><button class="btn primary" id="start">Start recording</button><button class="btn" id="cancel" disabled>Cancel countdown</button><button class="btn danger" id="stop" disabled>Stop recording</button></div>
+<div class="metrics"><div class="metric"><small>Elapsed</small><strong id="elapsed">00:00</strong></div><div class="metric"><small>Recorded data</small><strong id="size">0 KB</strong></div><div class="metric"><small>Audio tracks</small><strong id="tracks">0</strong></div></div>
+</section>
+</div>
+<section class="panel" style="margin-top:16px"><h2>03 · Recording output</h2><p id="outputStatus">Your recording stays in this browser session until you download it.</p><div class="actions"><button class="btn primary" id="download" disabled>Download recording (.webm)</button><button class="btn" id="play" disabled>Play back</button></div><audio id="player" controls hidden style="width:100%"></audio><h2 style="margin-top:20px">Activity</h2><div class="log" id="log" role="log">Ready. No device access has been requested.</div></section>
+<p class="foot">Prototype only. It does not transmit audio or use a server. Closing this page ends the session. Browser screen-sharing APIs may require selecting a video surface even when the saved result contains audio only. This is an adapter/demo, not a platform-neutral audio API.</p>
+</main>
+<script>
+(() => {
+const $ = id => document.getElementById(id);
+const app=$('app');let state='ready',timer=null,elapsedTimer=null,startedAt=0,elapsedMs=0,recorder=null,chunks=[],blob=null,objectUrl=null,mixedStream=null,context=null,streams=[],countValue=3;
+function log(message){const stamp=new Date().toLocaleTimeString();$('log').textContent='['+stamp+'] '+message+'\n'+$('log').textContent;}
+function setState(next){state=next;app.classList.toggle('countdown',next==='countdown');app.classList.toggle('recording',next==='recording');$('stateTitle').textContent=({ready:'READY · CHILLING',countdown:'GET READY · COUNTDOWN',recording:'RECORDING NOW',stopped:'RECORDING STOPPED'})[next];$('stateDescription').textContent=({ready:'Green border — no audio is being recorded.',countdown:'Magenta border — capture starts when the countdown finishes.',recording:'Red border — audio capture is active.',stopped:'Green border — capture has stopped; download or play the result.'})[next];$('start').disabled=next==='countdown'||next==='recording';$('cancel').disabled=next!=='countdown';$('stop').disabled=next!=='recording';}
+function fmt(ms){const sec=Math.floor(ms/1000);return String(Math.floor(sec/60)).padStart(2,'0')+':'+String(sec%60).padStart(2,'0');}
+function releaseSources(){for(const s of streams){for(const t of s.getTracks())t.stop();}streams=[];if(mixedStream){for(const t of mixedStream.getTracks())t.stop();mixedStream=null;}if(context){context.close().catch(()=>{});context=null;}}
+async function acquireSources(){
+const wantsSystem=$('systemAudio').checked,wantsMic=$('microphone').checked;
+if(!wantsSystem&&!wantsMic)throw new Error('Choose at least one audio source.');
+const audioInputs=[];
+if(wantsSystem){
+if(!navigator.mediaDevices?.getDisplayMedia)throw new Error('This browser does not expose screen/tab audio capture. Try a current desktop browser over HTTPS or localhost.');
+const display=await navigator.mediaDevices.getDisplayMedia({video:true,audio:true});streams.push(display);
+const at=display.getAudioTracks();if(!at.length){display.getTracks().forEach(t=>t.stop());streams=streams.filter(s=>s!==display);throw new Error('The selected screen/tab did not provide audio. Retry and enable the audio-sharing option in the browser picker.');}
+audioInputs.push(...at);
+display.getVideoTracks().forEach(t=>{t.addEventListener('ended',()=>{if(state==='recording')stopRecording('Screen/tab sharing ended.');});});
+}
+if(wantsMic){
+if(!navigator.mediaDevices?.getUserMedia)throw new Error('This browser does not expose microphone capture.');
+const mic=await navigator.mediaDevices.getUserMedia({audio:true,video:false});streams.push(mic);audioInputs.push(...mic.getAudioTracks());
+}
+context=new (window.AudioContext||window.webkitAudioContext)();await context.resume();
+const destination=context.createMediaStreamDestination();
+for(const track of audioInputs){const one=new MediaStream([track]);const source=context.createMediaStreamSource(one);source.connect(destination);}
+mixedStream=destination.stream;
+$('sourceStatus').textContent='Permission granted for '+audioInputs.length+' audio track(s).';
+$('tracks').textContent=String(audioInputs.length);
+return mixedStream;
+}
+function beginRecorder(stream){
+const mime=['audio/webm;codecs=opus','audio/webm','audio/ogg;codecs=opus'].find(t=>MediaRecorder.isTypeSupported(t));
+recorder=new MediaRecorder(stream,mime?{mimeType:mime}:undefined);chunks=[];blob=null;
+recorder.addEventListener('dataavailable',e=>{if(e.data&&e.data.size){chunks.push(e.data);const total=chunks.reduce((n,c)=>n+c.size,0);$('size').textContent=(total/1024).toFixed(0)+' KB';}});
+recorder.addEventListener('stop',()=>{blob=new Blob(chunks,{type:recorder.mimeType||'audio/webm'});if(objectUrl)URL.revokeObjectURL(objectUrl);objectUrl=URL.createObjectURL(blob);$('player').src=objectUrl;$('player').hidden=false;$('download').disabled=!blob.size;$('play').disabled=!blob.size;$('outputStatus').textContent='Recording ready: '+(blob.size/1024).toFixed(1)+' KB · '+blob.type;releaseSources();setState('stopped');log('Capture finalized: '+blob.size+' bytes. Download is available.');});
+recorder.start(500);startedAt=Date.now();elapsedMs=0;elapsedTimer=setInterval(()=>{$('elapsed').textContent=fmt(elapsedMs+Date.now()-startedAt);},250);setState('recording');$('sourceStatus').textContent='Capture active. Use Stop recording to finish and save.';log('Recording started ('+recorder.mimeType+').');
+}
+async function start(){
+if(!window.isSecureContext){log('Blocked: use HTTPS or localhost for device permissions.');$('sourceStatus').textContent='Secure context required: open over HTTPS or localhost.';return;}
+if(!window.MediaRecorder){$('sourceStatus').textContent='MediaRecorder is not supported in this browser.';return;}
+$('start').disabled=true;$('sourceStatus').textContent='Requesting source permissions…';log('Starting source acquisition; browser permission prompts may appear.');
+try{const stream=await acquireSources();countValue=3;setState('countdown');$('count').hidden=false;$('count').textContent='3';log('Sources ready. Countdown started.');timer=setInterval(()=>{countValue--;if(countValue>0){$('count').textContent=String(countValue);}else{clearInterval(timer);timer=null;$('count').hidden=true;beginRecorder(stream);}},1000);}catch(e){releaseSources();$('count').hidden=true;setState('ready');$('sourceStatus').textContent=e.message||String(e);log('Could not start: '+(e.message||e));}}
+function cancel(){if(timer){clearInterval(timer);timer=null;}$('count').hidden=true;releaseSources();setState('ready');$('sourceStatus').textContent='Countdown cancelled. No recording was created.';log('Countdown cancelled; acquired sources released.');}
+function stopRecording(reason){if(state==='countdown'){cancel();return;}if(state!=='recording'||!recorder)return;elapsedMs+=Date.now()-startedAt;clearInterval(elapsedTimer);elapsedTimer=null;$('elapsed').textContent=fmt(elapsedMs);setState('stopped');$('sourceStatus').textContent=reason||'Stopping and finalizing recording…';log(reason||'Stop requested.');if(recorder.state!=='inactive')recorder.stop();}
+$('start').addEventListener('click',start);$('cancel').addEventListener('click',cancel);$('stop').addEventListener('click',()=>stopRecording());$('download').addEventListener('click',()=>{if(!blob)return;const a=document.createElement('a');a.href=objectUrl;a.download='userio-audio-'+new Date().toISOString().replace(/[:.]/g,'-')+'.webm';document.body.appendChild(a);a.click();a.remove();log('Download requested.');});$('play').addEventListener('click',()=>{$('player').play().catch(e=>log('Playback could not start: '+e.message));});window.addEventListener('beforeunload',()=>{if(timer)clearInterval(timer);if(elapsedTimer)clearInterval(elapsedTimer);releaseSources();if(objectUrl)URL.revokeObjectURL(objectUrl);});
+if(!navigator.mediaDevices?.getDisplayMedia)$('browserNote').textContent='This browser does not expose desktop/tab capture here. Microphone capture may still work if supported. Use a current desktop browser over HTTPS or localhost.';
+})();
+</script>
+</body>
+</html>
