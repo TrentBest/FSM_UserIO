@@ -7,9 +7,9 @@
 
 # Integration Walkthrough: Adapter → Intent → Host Decision
 
-This walkthrough uses the published Alpha 1 contract and application-local functions. It deliberately does **not** invent a public UserIO adapter, observation, dispatcher, authorization service, or execution API.
+The first example uses the published Alpha 1 contract and application-local functions. It deliberately does **not** invent a public UserIO adapter, dispatcher, authorization service, or execution API. The expanded source contracts available on `development` are summarized separately below; they are not available from the published Alpha 1 package.
 
-## What this demonstrates
+## What the Alpha 1 sample demonstrates
 
 1. Source-specific input is translated by application-owned adapter code.
 2. The adapter creates the real `SemanticIntent` value.
