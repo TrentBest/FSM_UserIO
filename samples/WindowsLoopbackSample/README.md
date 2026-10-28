@@ -59,9 +59,5 @@ The Windows CI job validates compilation of the adapter and sample. It does not 
 
 ---
 
-![The Singularity Workshop](../../docs/assets/Avatar.jpg)
-
----
-
 <!-- THE SINGULARITY WORKSHOP FOOTER -->
 <p align="center"><img src="https://raw.githubusercontent.com/TrentBest/FSM_API/master/Documentation/Branding/TheSingularityWorkshop.png" alt="The Singularity Workshop avatar" width="200" /></p>
