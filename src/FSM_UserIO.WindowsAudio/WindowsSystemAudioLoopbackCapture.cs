@@ -35,21 +35,22 @@ public sealed class WindowsSystemAudioLoopbackCapture : IDisposable
         using var defaultEndpoint = enumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
         var devices = enumerator.EnumerateAudioEndPoints(DataFlow.Render, DeviceState.Active);
         var endpoints = new List<WindowsAudioOutputEndpoint>(devices.Count);
-        foreach (var device in devices)
+        try
         {
-            try
+            foreach (var device in devices)
             {
                 endpoints.Add(new WindowsAudioOutputEndpoint(
                     device.ID,
                     device.FriendlyName,
                     string.Equals(device.ID, defaultEndpoint.ID, StringComparison.OrdinalIgnoreCase)));
             }
-            finally
-            {
-                device.Dispose();
-            }
+            return endpoints;
         }
-        return endpoints;
+        finally
+        {
+            foreach (var device in devices)
+                device.Dispose();
+        }
     }
 
     /// <summary>Raised with a copied audio buffer and format metadata.</summary>
@@ -187,13 +188,14 @@ public sealed class WindowsSystemAudioLoopbackCapture : IDisposable
 
     private void ReleaseCapture()
     {
-        if (_capture is null)
-            return;
-        _capture.DataAvailable -= OnDataAvailable;
-        _capture.RecordingStopped -= OnRecordingStopped;
         try
         {
-            _capture.Dispose();
+            if (_capture is not null)
+            {
+                _capture.DataAvailable -= OnDataAvailable;
+                _capture.RecordingStopped -= OnRecordingStopped;
+                _capture.Dispose();
+            }
         }
         finally
         {
