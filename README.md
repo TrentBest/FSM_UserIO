@@ -29,6 +29,8 @@
 
 **[Audio Capture Lab verification guide](docs/demos/AUDIO_CAPTURE_TESTING.md)** — manual test matrix for normal capture, denial/cancellation, missing tracks, source loss, retries, and repeated sessions.
 
+**[Runnable SemanticIntent host sample](samples/SemanticIntentHostSample/README.md)** — published Alpha 1 package, keyboard-to-intent mapping, and host-owned denial path.
+
 User interaction is a capability boundary, not authority by itself. A host may collect input or present output while authorization and application decisions remain elsewhere.
 
 ```mermaid
@@ -300,6 +302,7 @@ Start with:
 - [Alpha 2 readiness](docs/0.1.0-alpha.2-READINESS.md) — provisional next-release gates; the package version remains Alpha 1 until separately approved.
 - [Domain completion criteria](docs/DOMAIN_COMPLETION_CRITERIA.md) — evidence required to call the package complete without inventing speculative API.
 - [Integration walkthrough](docs/INTEGRATION_WALKTHROUGH.md) — runnable adapter → intent → host-decision example using the published Alpha 1 contract.
+- [Runnable host sample](samples/SemanticIntentHostSample/README.md) — a build-verified console adapter and host-policy example using the published package.
 - [Ownership matrix](docs/OWNERSHIP_MATRIX.md) — which package, adapter, or host owns each neighboring concern.
 
 The documentation is part of the API. It exists to prevent future consumers from accidentally importing a game-engine or human-device interpretation into a package intended to remain computation-bound rather than platform-bound.
