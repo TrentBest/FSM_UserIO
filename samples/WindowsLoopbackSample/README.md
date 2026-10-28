@@ -3,13 +3,13 @@
 
 # Windows System-Audio Loopback Capture
 
-This sample exercises the optional Windows-specific adapter for capturing audio played through the default Windows multimedia output endpoint. It is separate from the platform-neutral FSM_UserIO core and does not capture microphone input or mix sources.
+This sample exercises the optional Windows-specific adapter for capturing audio played through either the default multimedia output endpoint or an explicitly selected active output endpoint. It is separate from the platform-neutral FSM_UserIO core and does not capture microphone input or mix sources.
 
 ## Requirements
 
 - Windows 10 or later with a usable playback endpoint.
 - .NET 8 SDK.
-- An output device selected as the default multimedia playback device.
+- A usable active Windows playback endpoint; the sample defaults to the multimedia endpoint unless an endpoint ID is supplied.
 - Audio that is permitted to be captured in the current application and environment.
 
 ## Run the sample
@@ -17,20 +17,28 @@ This sample exercises the optional Windows-specific adapter for capturing audio 
 From the repository root on Windows:
 
 ```powershell
+# List active output endpoints. The asterisk marks the default multimedia endpoint.
+dotnet run --project samples/WindowsLoopbackSample/WindowsLoopbackSample.csproj --configuration Release -- --list-endpoints
+
+# Capture the default multimedia output endpoint for ten seconds.
 dotnet run --project samples/WindowsLoopbackSample/WindowsLoopbackSample.csproj --configuration Release
+
+# Capture a specific endpoint using the ID shown by --list-endpoints.
+dotnet run --project samples/WindowsLoopbackSample/WindowsLoopbackSample.csproj --configuration Release -- --endpoint-id "{endpoint-id}"
 ```
 
-Start playback through the default output device when prompted. The sample reports observed capture format and received buffer sizes for ten seconds, then stops and disposes the capture object.
+Start non-protected playback through the selected output device. The sample reports observed capture format and received buffer sizes for ten seconds, then stops and disposes the capture object.
 
 ## What the adapter does
 
-- Uses WASAPI loopback through NAudio against the default multimedia render endpoint.
+- Enumerates active render endpoints and marks the default multimedia endpoint.
+- Uses WASAPI loopback through NAudio against the default or explicitly selected endpoint ID.
 - Emits copied audio buffers with sample rate, channel count, bit depth, and encoding metadata.
 - Reports source-neutral lifecycle states through `AudioCaptureSourceStatus`.
 - Keeps Windows/NAudio types out of the core public contract.
 - Does not combine microphone audio with system playback.
 
-The sample currently chooses the default endpoint. It does not yet expose endpoint enumeration or explicit endpoint selection. It also forwards the capture format as reported by the native library; it does not promise a particular sample rate or convert/resample buffers.
+The sample now exposes endpoint enumeration and explicit endpoint selection by ID. It forwards the capture format as reported by the native library; it does not promise a particular sample rate or convert/resample buffers.
 
 ## Privacy and reliability boundaries
 
@@ -39,8 +47,8 @@ Loopback capture is not microphone capture and should not be described as a univ
 ## Manual verification checklist
 
 1. Build and run on a real Windows machine.
-2. Play ordinary, non-protected audio through the default output endpoint.
-3. Confirm that buffers arrive and report non-zero byte counts and plausible format metadata.
+2. Run `--list-endpoints`, then play ordinary, non-protected audio through the default endpoint and, separately, a selected non-default endpoint where available.
+3. Confirm that buffers arrive and report non-zero byte counts and plausible format metadata for each selected endpoint.
 4. Stop playback and confirm capture stops without hanging.
 5. Repeat start/stop sessions and verify that the output endpoint remains usable.
 6. Disconnect or change the output device and observe the resulting error/status behavior.
