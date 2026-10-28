@@ -79,7 +79,7 @@ Unit tests can prove state mapping, cancellation orchestration, format conversio
 
 ## Current evidence
 
-On `development`, the source-neutral status contract, browser lab finalization guard, Windows-targeted adapter, endpoint enumeration/selection, runnable sample, and Windows-specific build workflow are present. The adapter emits copied buffers with the format reported by NAudio and maps basic start/stop/failure events to source-neutral status. The sample has not been run against a real output endpoint in this environment, and no real-device capture result is claimed. Device-removal behavior, cancellation during acquisition, and format conversion remain unverified or unimplemented. Capture data is delivered directly through events rather than an adapter-owned queue; consumer handlers should avoid blocking and should not retain unbounded numbers of copied buffers.
+On `development`, the source-neutral status contract, browser lab finalization guard, Windows-targeted adapter, endpoint enumeration/selection, runnable sample, and Windows-specific build workflow are present. The adapter emits copied buffers with the format reported by NAudio and maps basic start/stop/failure events to source-neutral status. The Windows adapter/sample build passed on the current `development` commit (`4b789c7`); this proves compilation only. The sample has not been run against a real output endpoint in this environment, and no real-device capture result is claimed. Device-removal behavior, cancellation during acquisition, and format conversion remain unverified or unimplemented. Capture data is delivered directly through events rather than an adapter-owned queue; consumer handlers should avoid blocking and should not retain unbounded numbers of copied buffers.
 
 ---
 
