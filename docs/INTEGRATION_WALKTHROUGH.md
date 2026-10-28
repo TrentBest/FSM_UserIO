@@ -1,9 +1,5 @@
 <!-- The Singularity Workshop moniker -->
-<p align="center">
-  <a href="https://github.com/TrentBest">
-    <img src="https://raw.githubusercontent.com/TrentBest/TheSingularityWorkshop.Renderer/development/docs/assets/moniker.svg" alt="The Singularity Workshop — animated workshop moniker" width="720" />
-  </a>
-</p>
+<p align="center"><a href="https://github.com/TrentBest"><img src="https://raw.githubusercontent.com/TrentBest/TheSingularityWorkshop.Renderer/development/docs/assets/moniker.svg" alt="The Singularity Workshop — animated workshop moniker" width="720" /></a></p>
 
 # Integration Walkthrough: Adapter → Intent → Host Decision
 
@@ -134,12 +130,7 @@ The source-neutral values do not define a universal actor hierarchy, trusted pro
 
 See the [domain completion roadmap](ROADMAP.md), [ownership matrix](OWNERSHIP_MATRIX.md), [API contracts](API_CONTRACTS.md), and [architecture](ARCHITECTURE.md).
 
-
 ---
 
-<p align="center">
-  <em>The Singularity Workshop — edify, don't mystify.</em><br />
-  <a href="https://github.com/TrentBest">GitHub</a> · <a href="https://www.patreon.com/TheSingularityWorkshop">Support the Workshop</a>
-  <br />
-  <img src="assets/Avatar.jpg" alt="The Singularity Workshop avatar" width="96" />
-</p>
+<!-- THE SINGULARITY WORKSHOP FOOTER -->
+<p align="center"><img src="https://raw.githubusercontent.com/TrentBest/FSM_API/master/Documentation/Branding/TheSingularityWorkshop.png" alt="The Singularity Workshop avatar" width="200" /></p>
