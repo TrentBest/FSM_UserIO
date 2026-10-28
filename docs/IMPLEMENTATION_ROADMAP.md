@@ -138,12 +138,12 @@ Prioritize real, small demonstrations. Mark each one implemented only when sourc
 - [x] Theory explains the capability-first model and the separation from authority.
 - [x] Roadmap records staged evolution and non-goals.
 - [ ] Review all docs against actual public source and package contents.
-- [ ] Ensure diagrams illustrate contracts that exist today and label proposed layers clearly.
+- [x] Ensure diagrams illustrate contracts that exist today and label conceptual responsibility maps separately from implemented API behavior. The Gallery now includes the proposal-versus-permission diagram and a SemanticIntent test-case trace; the trace is explicitly an authored summary, not generated test output.
 - [ ] Add a minimal compile-tested example around the actual `SemanticIntent` API.
 - [ ] Add a living integration example that uses real ProtocolAi/GrammarAi objects in a consumer project rather than simulating their behavior in a diagram.
 - [ ] Avoid giant catalogues of hypothetical actors/capabilities becoming accidental normative ontology.
 - [ ] Ensure the Alpha 1 / Alpha 2 readiness docs distinguish current source facts from future plans.
-- [ ] Check all links, SVGs, alt text, badge branch names, and documentation navigation.
+- [ ] Check all links, SVGs, alt text, badge branch names, and documentation navigation. New Gallery SVGs are now included in the NuGet package-content verification; the broader documentation and branding audit remains open.
 
 ## 08 — CI, package, and release gate
 
