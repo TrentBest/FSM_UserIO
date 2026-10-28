@@ -165,7 +165,7 @@ public sealed class WindowsSystemAudioLoopbackCapture : IDisposable
         var format = _capture.WaveFormat;
         var bytes = new byte[args.BytesRecorded];
         Buffer.BlockCopy(args.Buffer, 0, bytes, 0, args.BytesRecorded);
-        AudioDataAvailable?.Invoke(this, new AudioCapturePcmDataEventArgs(
+        AudioDataAvailable?.Invoke(this, new AudioCaptureBufferEventArgs(
             bytes, format.SampleRate, format.Channels, format.BitsPerSample, format.Encoding.ToString()));
     }
 
@@ -212,5 +212,5 @@ public sealed class WindowsSystemAudioLoopbackCapture : IDisposable
 /// <param name="Channels">Number of interleaved channels.</param>
 /// <param name="BitsPerSample">Bits per sample reported by the capture format.</param>
 /// <param name="Encoding">Encoding reported by the capture format.</param>
-public sealed record AudioCapturePcmDataEventArgs(
+public sealed record AudioCaptureBufferEventArgs(
     byte[] Buffer, int SampleRate, int Channels, int BitsPerSample, string Encoding);
