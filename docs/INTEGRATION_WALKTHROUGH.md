@@ -138,5 +138,8 @@ See the [domain completion roadmap](ROADMAP.md), [ownership matrix](OWNERSHIP_MA
 ---
 
 <p align="center">
-  <em>The Singularity Workshop — edify, don't mystify.</em>
+  <em>The Singularity Workshop — edify, don't mystify.</em><br />
+  <a href="https://github.com/TrentBest">GitHub</a> · <a href="https://www.patreon.com/TheSingularityWorkshop">Support the Workshop</a>
+  <br />
+  <img src="assets/Avatar.jpg" alt="The Singularity Workshop avatar" width="96" />
 </p>
