@@ -19,6 +19,21 @@ dotnet run --project samples/SemanticIntentHostSample/SemanticIntentHostSample.c
 
 The key-to-intent mapping and `HostAccepts` function are local sample code, not public FSM_UserIO APIs. The example intentionally demonstrates that a well-formed intent does not grant permission or execute an effect.
 
+For a deterministic, non-interactive verification of the same mapping and host-policy path:
+
+```powershell
+dotnet run --project samples/SemanticIntentHostSample/SemanticIntentHostSample.csproj --configuration Release -- --self-test
+```
+
+Expected output:
+
+```text
+Host accepted: open-settings
+Host denied: delete-account
+```
+
+CI builds the sample against the published Alpha 1 package and runs this self-test. It does not simulate physical keyboard input; the interactive keyboard path remains a manual usage check.
+
 ## What this proves—and does not prove
 
 The sample compiles against the published Alpha 1 package and demonstrates one concrete keyboard-to-semantic mapping plus a host-owned negative path. It is not a reusable platform adapter, authorization framework, accessibility integration, or cross-modal conformance test.
