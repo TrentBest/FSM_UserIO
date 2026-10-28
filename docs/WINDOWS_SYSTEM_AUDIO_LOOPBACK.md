@@ -88,5 +88,8 @@ On `development`, the source-neutral status contract, browser lab finalization g
 ---
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/TrentBest/TheSingularityWorkshop.Renderer/development/docs/assets/Avatar.jpg" alt="The Singularity Workshop avatar" width="96" />
+  <em>The Singularity Workshop — edify, don't mystify.</em><br />
+  <a href="https://github.com/TrentBest">GitHub</a> · <a href="https://www.patreon.com/TheSingularityWorkshop">Support the Workshop</a>
+  <br />
+  <img src="assets/Avatar.jpg" alt="The Singularity Workshop avatar" width="96" />
 </p>
