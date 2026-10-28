@@ -53,9 +53,9 @@ The exact status transition must follow the shared state machine. Do not label a
 
 ## Audio format, buffering, cancellation, and cleanup
 
-- Preserve the endpoint's reported format at the native boundary, then expose a documented stable sample representation to consumers. Conversion must be explicit; never assume all endpoints use the same sample rate, channel count, or sample encoding.
-- Make sample-rate/channel conversion a separate, testable stage. Document whether output is interleaved and the exact sample type/units before exposing buffers publicly.
-- Use bounded buffering and define what happens on consumer backpressure (for example, report dropped frames rather than growing memory without limit).
+- The current adapter copies each NAudio buffer and reports the native format's sample rate, channel count, bit depth, and encoding. It does not promise PCM integer samples or a stable format across endpoints; consumers must inspect the reported encoding.
+- The current event path delivers buffers directly from NAudio's capture callback and owns no queue. Consumers must return promptly. If asynchronous/queued delivery is introduced later, its queue must be bounded and its backpressure/drop policy explicit.
+- Sample-rate/channel conversion remains unimplemented. If a consumer requires a stable format, implement conversion as a separate, testable stage and specify interleaving, sample type, and units before exposing it.
 - Cancellation must stop acquisition and unblock pending reads; disposal must release the capture stream and all owned resources even when startup fails.
 - Device removal, stream failure, cancellation, and consumer exceptions must not leak native resources or leave the session reporting `Capturing`.
 - Mixing with microphone input is deliberately out of scope for the first adapter. A future mixer must define clock drift, resampling, channel mapping, and per-source failure behavior.
