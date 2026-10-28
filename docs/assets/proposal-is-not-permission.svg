@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="640" viewBox="0 0 1200 640" role="img" aria-labelledby="title desc">
+  <title id="title">A semantic proposal is not permission</title>
+  <desc id="desc">A proposal crosses the FSM UserIO boundary into host policy. The host can deny it, in which case execution is blocked, or authorize it according to application policy. UserIO does not authorize or execute the request.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#10172a"/><stop offset="1" stop-color="#202b45"/></linearGradient>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#cbd5e1"/></marker>
+    <marker id="redArrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#fb7185"/></marker>
+    <marker id="greenArrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#4ade80"/></marker>
+  </defs>
+  <rect width="1200" height="640" rx="28" fill="url(#bg)"/>
+  <text x="56" y="62" fill="#f8fafc" font-family="Segoe UI,Arial,sans-serif" font-size="30" font-weight="700">Proposal is not permission</text>
+  <text x="56" y="96" fill="#cbd5e1" font-family="Segoe UI,Arial,sans-serif" font-size="17">Information crosses the semantic boundary; authority remains with the host.</text>
+  <rect x="55" y="155" width="230" height="130" rx="18" fill="#24344f" stroke="#60a5fa" stroke-width="2"/>
+  <text x="170" y="190" fill="#93c5fd" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="15" font-weight="700">SOURCE / FORM</text>
+  <text x="170" y="225" fill="#f8fafc" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="700">Proposal</text>
+  <text x="170" y="253" fill="#cbd5e1" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="15">“open-settings”</text>
+  <path d="M285 220 H355" stroke="#cbd5e1" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="365" y="155" width="235" height="130" rx="18" fill="#3a2452" stroke="#c084fc" stroke-width="2"/>
+  <text x="482" y="190" fill="#e9d5ff" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="15" font-weight="700">FSM_UserIO</text>
+  <text x="482" y="225" fill="#f8fafc" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="700">Carry meaning</text>
+  <text x="482" y="253" fill="#e9d5ff" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="15">No authority granted</text>
+  <path d="M600 220 H670" stroke="#cbd5e1" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="680" y="155" width="250" height="130" rx="18" fill="#40331e" stroke="#fbbf24" stroke-width="2"/>
+  <text x="805" y="190" fill="#fde68a" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="15" font-weight="700">HOST / APPLICATION</text>
+  <text x="805" y="225" fill="#f8fafc" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="700">Policy decision</text>
+  <text x="805" y="253" fill="#fde68a" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="15">Validate · authorize</text>
+  <path d="M930 205 H980 V350 H1010" stroke="#4ade80" stroke-width="3" fill="none" marker-end="url(#greenArrow)"/>
+  <path d="M930 245 H960 V500 H1010" stroke="#fb7185" stroke-width="3" fill="none" marker-end="url(#redArrow)"/>
+  <rect x="1020" y="305" width="145" height="90" rx="15" fill="#163b2b" stroke="#4ade80" stroke-width="2"/>
+  <text x="1092" y="340" fill="#bbf7d0" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="17" font-weight="700">Allowed</text>
+  <text x="1092" y="367" fill="#dcfce7" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="14">Execution may run</text>
+  <rect x="1020" y="455" width="145" height="90" rx="15" fill="#4a202d" stroke="#fb7185" stroke-width="2"/>
+  <text x="1092" y="490" fill="#fecdd3" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="17" font-weight="700">Denied</text>
+  <text x="1092" y="517" fill="#ffe4e6" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="14">Execution blocked</text>
+  <rect x="55" y="360" width="875" height="170" rx="18" fill="#151e31" stroke="#64748b" stroke-dasharray="8 7"/>
+  <text x="85" y="398" fill="#cbd5e1" font-family="Segoe UI,Arial,sans-serif" font-size="16" font-weight="700">BOUNDARY GUARANTEE</text>
+  <text x="85" y="440" fill="#f8fafc" font-family="Segoe UI,Arial,sans-serif" font-size="21">A well-formed proposal is still only data.</text>
+  <text x="85" y="473" fill="#cbd5e1" font-family="Segoe UI,Arial,sans-serif" font-size="17">FSM_UserIO neither decides whether the request is permitted nor executes it.</text>
+  <text x="85" y="502" fill="#94a3b8" font-family="Segoe UI,Arial,sans-serif" font-size="14">Conceptual ownership diagram — not runtime telemetry or an authorization subsystem.</text>
+</svg>
