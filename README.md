@@ -15,7 +15,7 @@
 
 > **Platform-neutral contracts for user-facing input and output capabilities.**
 
-![FSM_UserIO semantic interaction domain map: implemented SemanticIntent, conceptual future contracts, and neighboring ownership boundaries](docs/assets/userio-domain-map.svg)
+![FSM_UserIO semantic interaction domain map: implemented development-source contracts, the published Alpha 1 boundary, and neighboring ownership responsibilities](docs/assets/userio-domain-map.svg)
 
 **[Gallery](docs/GALLERY.md)** — semantic maps, contract examples, and proposed executable traces
 
