@@ -88,7 +88,7 @@ The current domain is the **semantic interaction crossing point** between a sour
 - [x] Document that `ProtocolId = 0` is accepted and is not reserved by the current contract; tests also cover `0` and `ulong.MaxValue`.
 - [x] Document that equal numeric IDs from different protocol namespaces may be ambiguous unless the application supplies scope elsewhere; UserIO carries the number but does not define namespace scope.
 - [x] Confirm record value equality over `Name` and `ProtocolId` is documented and tested, including equal-value hash-code consistency. Serialization behavior is not promised by the current contract and remains out of scope until a consumer requires it.
-- [x] Expand edge-case tests for protocol-ID boundaries, explicit null identity, additional Unicode whitespace, case-sensitive names, and hash-code consistency. CI evidence for the expanded test set is pending.
+- [x] Expand edge-case tests for protocol-ID boundaries, explicit null identity, additional Unicode whitespace, case-sensitive names, and hash-code consistency. The expanded test set passed in [CI run 40650906380](https://github.com/TrentBest/FSM_UserIO/actions/runs/40650906380) on commit `d1ee5c3e61effc7c8129c6b6ea3da495cd3e377a`; the subsequent readiness-document edit still requires its own exact-head verification.
 
 ## 04 — Domain questions: decide before expanding the API
 
