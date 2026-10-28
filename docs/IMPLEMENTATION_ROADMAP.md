@@ -139,7 +139,7 @@ Prioritize real, small demonstrations. Mark each one implemented only when sourc
 - [x] Roadmap records staged evolution and non-goals.
 - [ ] Review all docs against actual public source and package contents.
 - [x] Ensure diagrams illustrate contracts that exist today and label conceptual responsibility maps separately from implemented API behavior. The Gallery now includes the proposal-versus-permission diagram and a SemanticIntent test-case trace; the trace is explicitly an authored summary, not generated test output.
-- [x] Add a minimal compile-tested example around the published `SemanticIntent` API. CI restores and builds `samples/SemanticIntentHostSample` against NuGet `0.1.0-alpha.1`.
+- [x] Add a minimal compile-tested example around the published `SemanticIntent` API. CI restores, builds, and runs the deterministic policy self-test in `samples/SemanticIntentHostSample` against NuGet `0.1.0-alpha.1`.
 - [ ] Add a living integration example that uses real ProtocolAi/GrammarAi objects in a consumer project rather than simulating their behavior in a diagram.
 - [ ] Avoid giant catalogues of hypothetical actors/capabilities becoming accidental normative ontology.
 - [ ] Ensure the Alpha 1 / Alpha 2 readiness docs distinguish current source facts from future plans; the remaining release-candidate and evidence review is still open.
