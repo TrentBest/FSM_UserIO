@@ -16,6 +16,11 @@ on:
         required: true
         default: false
         type: boolean
+      package_version:
+        description: "Exact package version to publish (required only when publish is true; e.g. 0.1.0-alpha.2)"
+        required: false
+        default: ""
+        type: string
 
 permissions:
   contents: read
@@ -95,8 +100,33 @@ jobs:
           fi
           printf '%s\n' "$actual"
 
-      - name: Pack
-        run: dotnet pack TheSingularityWorkshop.FSM_UserIO.csproj --configuration Release --no-build --output ./artifacts
+      - name: Pack isolated CI package or explicitly versioned release package
+        shell: bash
+        env:
+          INPUTS_PUBLISH: ${{ inputs.publish }}
+          INPUTS_PACKAGE_VERSION: ${{ inputs.package_version }}
+        run: |
+          set -euo pipefail
+          if [[ "${GITHUB_EVENT_NAME}" == "workflow_dispatch" && "${INPUTS_PUBLISH}" == "true" ]]; then
+            package_version="${INPUTS_PACKAGE_VERSION}"
+            if [[ -z "$package_version" ]]; then
+              echo "Publication was requested, but package_version was not supplied."
+              echo "Set an explicit release version, for example 0.1.0-alpha.2."
+              exit 1
+            fi
+            if [[ ! "$package_version" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?(\+[0-9A-Za-z.-]+)?$ ]]; then
+              echo "Invalid NuGet package version: $package_version"
+              exit 1
+            fi
+            if [[ "$package_version" == "0.1.0-alpha.1" ]]; then
+              echo "Refusing to publish the already-released Alpha 1 version."
+              exit 1
+            fi
+          else
+            package_version="0.1.0-ci.${GITHUB_RUN_NUMBER}"
+          fi
+          echo "Packing source as package version: $package_version"
+          dotnet pack TheSingularityWorkshop.FSM_UserIO.csproj --configuration Release --no-build --output ./artifacts -p:PackageVersion="$package_version"
 
       - name: Verify packaged documentation paths
         shell: bash
@@ -148,7 +178,7 @@ jobs:
   publish_nuget:
     needs: build-and-test
     runs-on: ubuntu-24.04
-    if: ${{ github.event_name == 'workflow_dispatch' && inputs.publish == true && github.ref == 'refs/heads/development' }}
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.publish == true && inputs.package_version != '' && github.ref == 'refs/heads/development' }}
     permissions:
       contents: read
       id-token: write
@@ -166,4 +196,4 @@ jobs:
           user: TheSingularityWorkshop
 
       - name: Publish package to NuGet.org
-        run: dotnet nuget push "./artifacts/*.nupkg" --source "https://api.nuget.org/v3/index.json" --api-key "${{ steps.login.outputs.NUGET_API_KEY }}" --skip-duplicate
+        run: dotnet nuget push "./artifacts/*.nupkg" --source "https://api.nuget.org/v3/index.json" --api-key "${{ steps.login.outputs.NUGET_API_KEY }}"
