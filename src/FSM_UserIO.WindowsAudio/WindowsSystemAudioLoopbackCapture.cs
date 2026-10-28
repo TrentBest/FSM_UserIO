@@ -1,3 +1,4 @@
+using NAudio.CoreAudioApi;
 using NAudio.Wave;
 using TheSingularityWorkshop.FSM_UserIO;
 
@@ -7,12 +8,51 @@ namespace TheSingularityWorkshop.FSM_UserIO.WindowsAudio;
 /// <remarks>Captures system playback only. The host remains responsible for disclosure and application-level authorization.</remarks>
 public sealed class WindowsSystemAudioLoopbackCapture : IDisposable
 {
+    private readonly string? _endpointId;
+    private MMDevice? _selectedDevice;
     private WasapiLoopbackCapture? _capture;
     private TaskCompletionSource _stopSignal = new(TaskCreationOptions.RunContinuationsAsynchronously);
     private AudioCaptureSourceStatus _status = new(AudioCaptureSourceKind.SystemAudio, AudioCaptureSourceState.NotRequested);
     private bool _disposed;
 
-    /// <summary>Raised with a copied PCM buffer and format metadata.</summary>
+    /// <summary>Creates a loopback capture for the default endpoint or a selected active output endpoint ID.</summary>
+    /// <param name="endpointId">Optional ID returned by <see cref="GetOutputEndpoints"/>. When omitted, the default multimedia output endpoint is used.</param>
+    public WindowsSystemAudioLoopbackCapture(string? endpointId = null)
+    {
+        if (endpointId is not null && string.IsNullOrWhiteSpace(endpointId))
+            throw new ArgumentException("An endpoint ID must be nonblank when supplied.", nameof(endpointId));
+        _endpointId = endpointId;
+    }
+
+    /// <summary>Lists active Windows render endpoints without exposing NAudio types to callers.</summary>
+    /// <exception cref="PlatformNotSupportedException">The current operating system is not Windows.</exception>
+    public static IReadOnlyList<WindowsAudioOutputEndpoint> GetOutputEndpoints()
+    {
+        if (!OperatingSystem.IsWindows())
+            throw new PlatformNotSupportedException("Windows output endpoint enumeration is supported only on Windows.");
+
+        using var enumerator = new MMDeviceEnumerator();
+        using var defaultEndpoint = enumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
+        var devices = enumerator.EnumerateAudioEndPoints(DataFlow.Render, DeviceState.Active);
+        var endpoints = new List<WindowsAudioOutputEndpoint>(devices.Count);
+        foreach (var device in devices)
+        {
+            try
+            {
+                endpoints.Add(new WindowsAudioOutputEndpoint(
+                    device.ID,
+                    device.FriendlyName,
+                    string.Equals(device.ID, defaultEndpoint.ID, StringComparison.OrdinalIgnoreCase)));
+            }
+            finally
+            {
+                device.Dispose();
+            }
+        }
+        return endpoints;
+    }
+
+    /// <summary>Raised with a copied audio buffer and format metadata.</summary>
     public event EventHandler<AudioCapturePcmDataEventArgs>? AudioDataAvailable;
     /// <summary>Raised when the source status changes.</summary>
     public event EventHandler<AudioCaptureSourceStatus>? StatusChanged;
@@ -38,7 +78,18 @@ public sealed class WindowsSystemAudioLoopbackCapture : IDisposable
         SetStatus(_status.TransitionTo(AudioCaptureSourceState.RequestPending));
         try
         {
-            _capture = new WasapiLoopbackCapture();
+            if (_endpointId is null)
+            {
+                _capture = new WasapiLoopbackCapture();
+            }
+            else
+            {
+                using var enumerator = new MMDeviceEnumerator();
+                _selectedDevice = enumerator.GetDevice(_endpointId);
+                if (_selectedDevice.State != DeviceState.Active)
+                    throw new InvalidOperationException("The selected Windows output endpoint is not active.");
+                _capture = new WasapiLoopbackCapture(_selectedDevice);
+            }
             _capture.DataAvailable += OnDataAvailable;
             _capture.RecordingStopped += OnRecordingStopped;
             _stopSignal = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
@@ -140,8 +191,16 @@ public sealed class WindowsSystemAudioLoopbackCapture : IDisposable
             return;
         _capture.DataAvailable -= OnDataAvailable;
         _capture.RecordingStopped -= OnRecordingStopped;
-        _capture.Dispose();
-        _capture = null;
+        try
+        {
+            _capture.Dispose();
+        }
+        finally
+        {
+            _capture = null;
+            _selectedDevice?.Dispose();
+            _selectedDevice = null;
+        }
     }
 }
 
