@@ -291,7 +291,7 @@ Start with:
 - [Theory](docs/THEORY.md) — the conceptual boundary and capability model.
 - [Interaction lifecycle](docs/INTERACTION_LIFECYCLE.md) — the path from observation to host policy, execution, and feedback.
 - [API contracts](docs/API_CONTRACTS.md) — source contracts, validation rules, release availability, and explicit non-guarantees.
-- [API contract](docs/API_CONTRACTS.md) — the exact behavior of the currently implemented `SemanticIntent` type.
+- [Gallery](docs/GALLERY.md) — semantic boundary diagrams and a tested-contract evidence trace.
 - [Architecture](docs/ARCHITECTURE.md) — ownership and dependency direction.
 - [Development](docs/DEVELOPMENT.md) — contribution and design rules.
 - [Roadmap](docs/ROADMAP.md) — deliberately staged API evolution.
