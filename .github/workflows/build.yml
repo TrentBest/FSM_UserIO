@@ -78,7 +78,23 @@ jobs:
           dotnet restore "$project"
           dotnet build "$project" --configuration Release --no-restore
           actual="$(dotnet run --project "$project" --configuration Release --no-build -- --self-test)"
-          expected=
+          if ! grep -Fxq "Host accepted: open-settings" <<< "$actual"; then
+            echo "Sample did not report the accepted intent."
+            printf '%s\n' "$actual"
+            exit 1
+          fi
+          if ! grep -Fxq "Host denied: delete-account" <<< "$actual"; then
+            echo "Sample did not report the denied intent."
+            printf '%s\n' "$actual"
+            exit 1
+          fi
+          if [[ "$(wc -l <<< "$actual")" -ne 2 ]]; then
+            echo "Sample produced unexpected extra output."
+            printf '%s\n' "$actual"
+            exit 1
+          fi
+          printf '%s\n' "$actual"
+
       - name: Pack
         run: dotnet pack TheSingularityWorkshop.FSM_UserIO.csproj --configuration Release --no-build --output ./artifacts
 
