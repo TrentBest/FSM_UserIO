@@ -1,6 +1,34 @@
 using TheSingularityWorkshop.FSM_UserIO.WindowsAudio;
 
-using var capture = new WindowsSystemAudioLoopbackCapture();
+if (args.Length == 1 && args[0] == "--list-endpoints")
+{
+    try
+    {
+        foreach (var endpoint in WindowsSystemAudioLoopbackCapture.GetOutputEndpoints())
+            Console.WriteLine($"{(endpoint.IsDefault ? "* " : "  ")}{endpoint.FriendlyName}\n    ID: {endpoint.Id}");
+        return;
+    }
+    catch (PlatformNotSupportedException ex)
+    {
+        Console.Error.WriteLine(ex.Message);
+        Environment.ExitCode = 2;
+        return;
+    }
+}
+
+string? endpointId = null;
+if (args.Length == 2 && args[0] == "--endpoint-id")
+{
+    endpointId = args[1];
+}
+else if (args.Length != 0)
+{
+    Console.Error.WriteLine("Usage: WindowsLoopbackSample [--list-endpoints | --endpoint-id <id>]");
+    Environment.ExitCode = 64;
+    return;
+}
+
+using var capture = new WindowsSystemAudioLoopbackCapture(endpointId);
 long totalBytes = 0;
 capture.StatusChanged += (_, status) =>
     Console.WriteLine($"Source status: {status.State} ({status.ErrorCode ?? "no error"})");
@@ -11,7 +39,7 @@ capture.AudioDataAvailable += (_, data) =>
 };
 
 Console.WriteLine("Windows system-audio loopback sample");
-Console.WriteLine("Play non-protected audio through the default Windows output device.");
+Console.WriteLine("Play non-protected audio through the selected Windows output device.");
 Console.WriteLine("Capturing for 10 seconds. Press Ctrl+C to stop the sample process.");
 try
 {
