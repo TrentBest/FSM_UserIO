@@ -5,6 +5,8 @@
 
 The first example uses the published Alpha 1 contract and application-local functions. It deliberately does **not** invent a public UserIO adapter, dispatcher, authorization service, or execution API. The expanded source contracts available on `development` are summarized separately below; they are not available from the published Alpha 1 package.
 
+A runnable version of the keyboard-to-intent and host-denial path is available in [SemanticIntent Host Sample](../samples/SemanticIntentHostSample/README.md). CI builds that sample against the published Alpha 1 package and runs its deterministic self-test; actual keyboard input remains interactive.
+
 ## What the Alpha 1 sample demonstrates
 
 1. Source-specific input is translated by application-owned adapter code.
