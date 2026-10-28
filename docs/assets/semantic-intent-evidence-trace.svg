@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">SemanticIntent contract evidence trace</title>
+  <desc id="desc">A visual summary of the tested SemanticIntent contract: valid names are preserved, optional protocol identity can be absent or present, blank names are rejected, and records compare by name and protocol identity. This is a test-trace summary, not output generated at runtime.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#10172a"/><stop offset="1" stop-color="#202b45"/></linearGradient>
+  </defs>
+  <rect width="1200" height="760" rx="28" fill="url(#bg)"/>
+  <text x="55" y="62" fill="#f8fafc" font-family="Segoe UI,Arial,sans-serif" font-size="30" font-weight="700">SemanticIntent — contract evidence trace</text>
+  <text x="55" y="96" fill="#cbd5e1" font-family="Segoe UI,Arial,sans-serif" font-size="17">Source-backed summary of public invariants; no GUI or runtime behavior is implied.</text>
+  <rect x="55" y="135" width="1090" height="112" rx="18" fill="#1d3c31" stroke="#4ade80" stroke-width="2"/>
+  <text x="85" y="174" fill="#bbf7d0" font-family="Segoe UI,Arial,sans-serif" font-size="17" font-weight="700">01 · VALID CONSTRUCTION</text>
+  <text x="85" y="210" fill="#f8fafc" font-family="Consolas,monospace" font-size="22">new SemanticIntent("open-settings")</text>
+  <text x="850" y="207" fill="#4ade80" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="700">ACCEPTED</text>
+  <rect x="55" y="270" width="1090" height="112" rx="18" fill="#40202d" stroke="#fb7185" stroke-width="2"/>
+  <text x="85" y="309" fill="#fecdd3" font-family="Segoe UI,Arial,sans-serif" font-size="17" font-weight="700">02 · INVALID CONSTRUCTION</text>
+  <text x="85" y="345" fill="#f8fafc" font-family="Consolas,monospace" font-size="22">null · "" · "   "</text>
+  <text x="850" y="342" fill="#fb7185" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="700">REJECTED</text>
+  <rect x="55" y="405" width="525" height="130" rx="18" fill="#24344f" stroke="#60a5fa" stroke-width="2"/>
+  <text x="85" y="445" fill="#93c5fd" font-family="Segoe UI,Arial,sans-serif" font-size="17" font-weight="700">03 · OPTIONAL IDENTITY</text>
+  <text x="85" y="480" fill="#f8fafc" font-family="Consolas,monospace" font-size="18">ProtocolId = null | 0 | ulong.MaxValue</text>
+  <text x="85" y="509" fill="#cbd5e1" font-family="Segoe UI,Arial,sans-serif" font-size="15">Value association only — no auth or resolution.</text>
+  <rect x="620" y="405" width="525" height="130" rx="18" fill="#3a2452" stroke="#c084fc" stroke-width="2"/>
+  <text x="650" y="445" fill="#e9d5ff" font-family="Segoe UI,Arial,sans-serif" font-size="17" font-weight="700">04 · VALUE EQUALITY</text>
+  <text x="650" y="480" fill="#f8fafc" font-family="Consolas,monospace" font-size="18">Name + ProtocolId</text>
+  <text x="650" y="509" fill="#e9d5ff" font-family="Segoe UI,Arial,sans-serif" font-size="15">Both properties participate in record equality.</text>
+  <path d="M600 555 V590" stroke="#cbd5e1" stroke-width="3"/>
+  <path d="M590 580 L600 592 L610 580" stroke="#cbd5e1" stroke-width="3" fill="none"/>
+  <rect x="55" y="605" width="1090" height="100" rx="18" fill="#151e31" stroke="#64748b" stroke-dasharray="8 7"/>
+  <text x="85" y="645" fill="#f8fafc" font-family="Segoe UI,Arial,sans-serif" font-size="20" font-weight="700">Evidence source</text>
+  <text x="85" y="676" fill="#cbd5e1" font-family="Segoe UI,Arial,sans-serif" font-size="16">SemanticIntentTests.cs — deterministic constructor and equality tests.</text>
+  <text x="850" y="676" fill="#94a3b8" font-family="Segoe UI,Arial,sans-serif" font-size="14">Illustrative summary</text>
+</svg>
