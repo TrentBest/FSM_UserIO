@@ -72,7 +72,7 @@ The current domain is the **semantic interaction crossing point** between a sour
 - [x] Keep capability distinct from authorization and execution.
 - [ ] Independently review the project-file, package metadata, and complete compiled assembly reference list to confirm they match the documented boundary.
 - [x] Add a repeatable test that inspects the compiled core assembly's references and rejects known upstream-product and platform-specific assembly prefixes; CI run #183 passed. This is a guardrail, not a complete inventory of every reference.
-- [ ] Add an adapter guidance example showing native events translated into semantic interaction without leaking platform types into the core.
+- [x] Add an adapter guidance example showing native events translated into semantic interaction without leaking platform types into the core. The console keyboard sample is application-local example code, not a reusable native adapter.
 - [ ] Confirm any future cross-package examples remain consumer/integration tests rather than upward dependencies.
 
 ## 03 — SemanticIntent contract and tests
@@ -86,7 +86,7 @@ The current domain is the **semantic interaction crossing point** between a sour
 - [x] Test preservation of meaningful leading/trailing whitespace; names are preserved exactly and are not silently normalized.
 - [x] Test equality for same name/different protocol IDs and different names/same ID.
 - [x] Document that `ProtocolId = 0` is accepted and is not reserved by the current contract; tests also cover `0` and `ulong.MaxValue`.
-- [ ] Document that equal numeric IDs from different protocol namespaces may be ambiguous unless the application supplies scope elsewhere.
+- [x] Document that equal numeric IDs from different protocol namespaces may be ambiguous unless the application supplies scope elsewhere; UserIO carries the number but does not define namespace scope.
 - [x] Confirm record value equality over `Name` and `ProtocolId` is documented and tested, including equal-value hash-code consistency. Serialization behavior is not promised by the current contract and remains out of scope until a consumer requires it.
 - [x] Expand edge-case tests for protocol-ID boundaries, explicit null identity, additional Unicode whitespace, case-sensitive names, and hash-code consistency. CI evidence for the expanded test set is pending.
 
@@ -123,7 +123,7 @@ Prioritize real, small demonstrations. Mark each one implemented only when sourc
 
 - [x] AnyApp carries `SemanticIntent` through its host-owned semantic exchange and manifest surface (consumer evidence must remain linked from the ecosystem map).
 - [x] WebPage has a composition-level test for ProtocolAi/GrammarAi through FSM_COS; this is not, by itself, proof of a direct package reference in the main application project.
-- [ ] Human-facing adapter example: native input becomes a semantic intent; host policy independently decides what to do.
+- [x] Human-facing keyboard example: console key input becomes a semantic intent; host policy independently accepts or denies it. This is a runnable teaching sample, not a reusable OS-level adapter.
 - [ ] Accessibility example: alternate input produces the same semantic contract without device assumptions in core.
 - [ ] Software-process example: a service/event produces a semantic interaction without pretending to be a human.
 - [ ] AI-proposal example: untrusted proposed intent is parsed/resolved, structurally checked if applicable, then authorized by the host.
@@ -139,10 +139,10 @@ Prioritize real, small demonstrations. Mark each one implemented only when sourc
 - [x] Roadmap records staged evolution and non-goals.
 - [ ] Review all docs against actual public source and package contents.
 - [x] Ensure diagrams illustrate contracts that exist today and label conceptual responsibility maps separately from implemented API behavior. The Gallery now includes the proposal-versus-permission diagram and a SemanticIntent test-case trace; the trace is explicitly an authored summary, not generated test output.
-- [ ] Add a minimal compile-tested example around the actual `SemanticIntent` API.
+- [x] Add a minimal compile-tested example around the published `SemanticIntent` API. CI restores and builds `samples/SemanticIntentHostSample` against NuGet `0.1.0-alpha.1`.
 - [ ] Add a living integration example that uses real ProtocolAi/GrammarAi objects in a consumer project rather than simulating their behavior in a diagram.
 - [ ] Avoid giant catalogues of hypothetical actors/capabilities becoming accidental normative ontology.
-- [ ] Ensure the Alpha 1 / Alpha 2 readiness docs distinguish current source facts from future plans.
+- [ ] Ensure the Alpha 1 / Alpha 2 readiness docs distinguish current source facts from future plans; the remaining release-candidate and evidence review is still open.
 - [ ] Check all links, SVGs, alt text, badge branch names, and documentation navigation. New Gallery SVGs are now included in the NuGet package-content verification; the broader documentation and branding audit remains open.
 
 ## 08 — CI, package, and release gate
