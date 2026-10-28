@@ -35,6 +35,7 @@ public sealed record SemanticIntent(string Name, ulong? ProtocolId = null);
 - `ProtocolId` is optional. Zero and `ulong.MaxValue` are valid values.
 - Equality includes both `Name` and `ProtocolId`.
 - The ID is an association only. UserIO does not allocate, resolve, namespace, authenticate, or authorize it.
+- Numeric IDs are not globally unique across arbitrary protocol namespaces. If an application uses multiple namespaces, it must carry the relevant scope elsewhere; UserIO does not define that namespace model.
 
 ## Capability and interaction mode
 
