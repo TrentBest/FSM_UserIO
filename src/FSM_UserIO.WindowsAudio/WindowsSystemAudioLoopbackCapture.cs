@@ -54,7 +54,7 @@ public sealed class WindowsSystemAudioLoopbackCapture : IDisposable
     }
 
     /// <summary>Raised with a copied audio buffer and format metadata.</summary>
-    public event EventHandler<AudioCapturePcmDataEventArgs>? AudioDataAvailable;
+    public event EventHandler<AudioCaptureBufferEventArgs>? AudioDataAvailable;
     /// <summary>Raised when the source status changes.</summary>
     public event EventHandler<AudioCaptureSourceStatus>? StatusChanged;
     /// <summary>Gets the latest source-neutral lifecycle status.</summary>
@@ -206,7 +206,7 @@ public sealed class WindowsSystemAudioLoopbackCapture : IDisposable
     }
 }
 
-/// <summary>A copied audio buffer and format metadata from the loopback source.</summary>
+/// <summary>A copied native-format audio buffer and its reported format metadata from the loopback source.</summary>
 /// <param name="Buffer">The captured bytes owned by the event consumer.</param>
 /// <param name="SampleRate">Samples per second.</param>
 /// <param name="Channels">Number of interleaved channels.</param>
