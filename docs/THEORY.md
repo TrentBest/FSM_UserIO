@@ -158,7 +158,7 @@ That is not sufficient.
 
 A form can express a semantic action through many modalities, and an application can also expose meaningful output or feedback.
 
-For Alpha 1, the package does not yet freeze an observation/output object model. The theory establishes the direction without prematurely inventing contracts.
+The published Alpha 1 package does not include an observation/output object model; it exposes only `SemanticIntent`. The current `development` source now includes reviewed source-neutral value contracts for observations, expressions, opaque payloads, correlation context, semantic feedback, and audio-capture source status. Those contracts describe values and reported state only; they do not introduce device acquisition, trusted provenance, session management, policy, or execution. Alpha 2 inclusion remains a separate release-scope decision.
 
 ## User is not human
 
@@ -277,11 +277,11 @@ If Unity and another environment share a capability, the same principle applies.
 
 The platform is an adapter. The semantic boundary remains platform-neutral.
 
-## Why Alpha 1 is intentionally tiny
+## Why the published Alpha 1 package is intentionally tiny
 
 A new repository is a discovery of a boundary, not permission to invent an ontology.
 
-Alpha 1 contains only `SemanticIntent`.
+The published `0.1.0-alpha.1` package contains only `SemanticIntent`. This is a historical statement about the released artifact, not a description of the current `development` source, which now has additional source-neutral interaction value contracts. Those additional contracts are documented in [API Contracts](API_CONTRACTS.md) and remain unreleased until a future release is reviewed and explicitly authorized.
 
 That type establishes a useful fact:
 
