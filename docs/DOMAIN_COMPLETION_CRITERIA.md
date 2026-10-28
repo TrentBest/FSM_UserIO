@@ -67,7 +67,7 @@ The following are not automatic blockers and must not be implemented merely to m
 
 - universal actor, user, animal, robot, or AI-agent class hierarchies;
 - universal capability descriptors or capability negotiation;
-- source observation or expression/proposal objects without a demonstrated shared consumer contract;
+- additional source observation/expression/proposal contracts beyond the value carriers already implemented in `development`, unless a demonstrated shared consumer contract justifies the extension;
 - payload, session, feedback, result, or error abstractions without a stable ownership and lifecycle;
 - device-specific APIs, GUI widgets, native event types, transport clients, or runtime composition;
 - authentication, authorization, execution, or delivery guarantees that belong to hosts, adapters, or transport layers.
