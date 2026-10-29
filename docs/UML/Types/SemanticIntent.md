@@ -4,7 +4,7 @@
 # Type reference: `SemanticIntent`
 
 **Evidence classification:** source-derived contract, human-authored explanation.  
-**Source:** [`SemanticIntent.cs`](../../../../SemanticIntent.cs) · **Tests:** [`SemanticIntentTests.cs`](../../../../tests/FSM_UserIO.Tests/SemanticIntentTests.cs)  
+**Source:** [`SemanticIntent.cs`](../../../SemanticIntent.cs) · **Tests:** [`SemanticIntentTests.cs`](../../../tests/FSM_UserIO.Tests/SemanticIntentTests.cs)  
 **Published boundary:** package `0.1.0-alpha.1` includes this contract; this page describes the source contract on `development`.  
 **Scope checked:** source and tests at `development`; this page does not claim reflection-generated coverage.
 
