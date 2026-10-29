@@ -313,7 +313,7 @@ The documentation is part of the API. It exists to prevent future consumers from
 
 Alpha 1 (`0.1.0-alpha.1`) is published on NuGet; see the [package page](https://www.nuget.org/packages/TheSingularityWorkshop.FSM_UserIO/0.1.0-alpha.1).
 
-Future publication remains opt-in. The workflow can publish only when manually dispatched on `development` with the `publish` input explicitly set to `true`, after the verification job succeeds. Ordinary pushes and pull requests build, test, measure coverage, package, and verify a clean consumer without publishing. A successful CI run or package artifact is not publication authorization.
+Future publication is **hard-gated off** in the workflow with an explicit `&& false` condition. Ordinary pushes and pull requests build, test, measure coverage, package, and verify a clean consumer without publishing. A manual dispatch, a green CI run, or a package artifact is not publication authorization. Do not remove the hard gate unless Trent explicitly authorizes the release.
 
 The release procedure is documented in the Workshop's [NuGet Publication Runbook](https://github.com/TrentBest/TheSingularityWorkshop.FSM_COS/blob/master/docs/RELEASING.md).
 
