@@ -73,9 +73,9 @@ NuGet publication remains disabled until an explicit release decision.
 
 ## Publication gate
 
-The publish job is opt-in and requires all of the following: a manually dispatched workflow, the `publish` input explicitly set to `true`, the `development` branch, and a successful build/test/package-verification job. Ordinary pushes and pull requests cannot publish. A green CI run or a package artifact is not publication authorization.
+The publish job is **hard-gated off** by an explicit `&& false` condition. Manual dispatch inputs, a successful build/test/package-verification job, a green CI run, or a package artifact cannot bypass that hard gate or authorize publication.
 
-Do not dispatch with `publish: true` until the owner has explicitly authorized the release. The workflow gate and the human release decision are separate safeguards.
+Do not remove the hard gate unless Trent explicitly authorizes the release. The technical gate and the human release decision are separate safeguards.
 
 See the Workshop NuGet Publication Runbook for the full procedure.
 
