@@ -41,6 +41,15 @@ These pages are manually authored against the current source and named tests; th
 
 The multi-type \`SemanticInteraction.cs\` file still needs one page per declared public type; these two pages are the first increment, not full type coverage.
 
+- [InteractionCapability](Types/InteractionCapability.md) — named capability and its non-authoritative boundary.
+- [InteractionMode](Types/InteractionMode.md) — Observe, Express, and Act classifications.
+- [SemanticObservation](Types/SemanticObservation.md) — source-neutral observations and confidence validation.
+- [SemanticExpression](Types/SemanticExpression.md) — proposals before interpretation or authorization.
+- [InteractionContext](Types/InteractionContext.md) — correlation and optional participant/session metadata.
+- [SemanticFeedback](Types/SemanticFeedback.md) — non-authoritative host feedback.
+- [FeedbackKind](Types/FeedbackKind.md) — feedback classifications and limits.
+- [SemanticPayload](Types/SemanticPayload.md) — opaque payload ownership, equality, and copy costs.
+
 ## Evidence and completion rules
 
 - Label each artifact **Source-derived**, **Reflection-derived**, **Runtime-captured**, **Human-authored**, or **Conceptual**; mixed artifacts identify which statements use which evidence.
