@@ -304,6 +304,7 @@ Start with:
 - [Integration walkthrough](docs/INTEGRATION_WALKTHROUGH.md) — runnable adapter → intent → host-decision example using the published Alpha 1 contract.
 - [Runnable host sample](samples/SemanticIntentHostSample/README.md) — a build-verified console adapter and host-policy example using the published package.
 - [Ownership matrix](docs/OWNERSHIP_MATRIX.md) — which package, adapter, or host owns each neighboring concern.
+- [README badge audit](docs/BADGE_AUDIT.md) — badge order, branch alignment, applicability, and items not independently verified.
 
 The documentation is part of the API. It exists to prevent future consumers from accidentally importing a game-engine or human-device interpretation into a package intended to remain computation-bound rather than platform-bound.
 
