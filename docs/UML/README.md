@@ -50,6 +50,9 @@ The multi-type \`SemanticInteraction.cs\` file still needs one page per declared
 - [FeedbackKind](Types/FeedbackKind.md) — feedback classifications and limits.
 - [SemanticPayload](Types/SemanticPayload.md) — opaque payload ownership, equality, and copy costs.
 - [SemanticValueValidation](Types/SemanticValueValidation.md) — internal shared validation rules and their limits.
+- [AudioCaptureSourceKind](Types/AudioCaptureSourceKind.md) — source category vocabulary.
+- [AudioCaptureSourceState](Types/AudioCaptureSourceState.md) — lifecycle states and permitted transitions.
+- [AudioCaptureStateEvidence](Types/AudioCaptureStateEvidence.md) — direct observation versus host estimate.
 
 ## Evidence and completion rules
 
