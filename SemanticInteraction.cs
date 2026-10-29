@@ -155,17 +155,22 @@ public sealed class SemanticPayload : IEquatable<SemanticPayload>
     /// <summary>Gets a read-only view over a defensive copy of the payload bytes.</summary>
     public ReadOnlyMemory<byte> Data => _data.ToArray();
 
-    /// <inheritdoc />
+    /// <summary>Determines whether this payload has the same labels and bytes as another payload.</summary>
+    /// <param name="other">The payload to compare with this instance.</param>
+    /// <returns><see langword="true" /> when the labels and payload bytes match; otherwise, <see langword="false" />.</returns>
     public bool Equals(SemanticPayload? other) =>
         other is not null
         && StringComparer.Ordinal.Equals(MediaType, other.MediaType)
         && StringComparer.Ordinal.Equals(Schema, other.Schema)
         && _data.AsSpan().SequenceEqual(other._data);
 
-    /// <inheritdoc />
+    /// <summary>Determines whether this payload equals the specified object.</summary>
+    /// <param name="obj">The object to compare with this instance.</param>
+    /// <returns><see langword="true" /> when <paramref name="obj" /> is an equal <see cref="SemanticPayload" />; otherwise, <see langword="false" />.</returns>
     public override bool Equals(object? obj) => obj is SemanticPayload other && Equals(other);
 
-    /// <inheritdoc />
+    /// <summary>Returns a hash code based on the media type, schema identifier, and payload bytes.</summary>
+    /// <returns>A hash code for this payload.</returns>
     public override int GetHashCode()
     {
         var hash = new HashCode();
