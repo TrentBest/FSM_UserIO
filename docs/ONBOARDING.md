@@ -22,8 +22,9 @@ The currently published package is **`TheSingularityWorkshop.FSM_UserIO 0.1.0-al
 Create a .NET 8 console application and install the published version:
 
 ```powershell
+mkdir UserIOQuickstart
+cd UserIOQuickstart
 dotnet new console --framework net8.0
-cd <your-project-directory>
 dotnet add package TheSingularityWorkshop.FSM_UserIO --version 0.1.0-alpha.1
 ```
 
