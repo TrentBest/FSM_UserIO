@@ -10,9 +10,9 @@ This is the initial source-backed inventory for FSM_UserIO, aligned with the Wor
 ## Scope
 
 - Repository: `TrentBest/FSM_UserIO`
-- Branch/revision checked: `development` at `8f8dfaa1b18f2b6ffaca0e684bd8678e7c5ec038`
+- Initial inventory baseline: `development` at `8f8dfaa1b18f2b6ffaca0e684bd8678e7c5ec038`; individual type pages are checked incrementally against the current `development` source and link to source/test paths.
 - Scope: tracked C# declarations, projects, tests, samples, public package boundary, and the current documented integration surfaces.
-- Evidence methods: source/file inventory and existing tests/docs; no reflection scan or runtime trace was performed for this inventory.
+- Evidence methods: source/file inventory and existing tests/docs; no reflection scan or runtime trace was performed for this inventory. The inventory is not a pinned-revision generated report.
 - Core source declarations currently visible: `SemanticIntent`, `SemanticInteraction`, `AudioCaptureSourceStatus`, `WindowsSystemAudioLoopbackCapture`, and `WindowsAudioOutputEndpoint`. Tests and samples are consumers/evidence, not automatically public package contracts.
 
 ## Required-view inventory
@@ -49,6 +49,7 @@ The multi-type \`SemanticInteraction.cs\` file still needs one page per declared
 - [SemanticFeedback](Types/SemanticFeedback.md) — non-authoritative host feedback.
 - [FeedbackKind](Types/FeedbackKind.md) — feedback classifications and limits.
 - [SemanticPayload](Types/SemanticPayload.md) — opaque payload ownership, equality, and copy costs.
+- [SemanticValueValidation](Types/SemanticValueValidation.md) — internal shared validation rules and their limits.
 
 ## Evidence and completion rules
 
