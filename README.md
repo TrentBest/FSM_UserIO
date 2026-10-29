@@ -295,7 +295,7 @@ Start with:
 - [API contracts](docs/API_CONTRACTS.md) — source contracts, validation rules, release availability, and explicit non-guarantees.
 - [Gallery](docs/GALLERY.md) — semantic boundary diagrams and a tested-contract evidence trace.
 - [Architecture](docs/ARCHITECTURE.md)
-- [UML and source-documentation inventory](docs/UML/README.md) — required views, evidence scope, and current coverage gaps. — ownership and dependency direction.
+- [UML and source-documentation inventory](docs/UML/README.md) — required views, evidence scope, and current coverage gaps.
 - [Development](docs/DEVELOPMENT.md) — contribution and design rules.
 - [Roadmap](docs/ROADMAP.md) — deliberately staged API evolution.
 - [Implementation roadmap](docs/IMPLEMENTATION_ROADMAP.md) — domain definition, open decisions, integration opportunities, and release checklist.
