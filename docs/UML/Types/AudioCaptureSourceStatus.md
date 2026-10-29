@@ -4,7 +4,7 @@
 # Type reference: `AudioCaptureSourceStatus`
 
 **Evidence classification:** source-derived contract and transition table, human-authored explanation.  
-**Source:** [`AudioCaptureSourceStatus.cs`](../../../../AudioCaptureSourceStatus.cs) · **Tests:** [`AudioCaptureSourceStatusTests.cs`](../../../../tests/FSM_UserIO.Tests/AudioCaptureSourceStatusTests.cs)  
+**Source:** [`AudioCaptureSourceStatus.cs`](../../../AudioCaptureSourceStatus.cs) · **Tests:** [`AudioCaptureSourceStatusTests.cs`](../../../tests/FSM_UserIO.Tests/AudioCaptureSourceStatusTests.cs)  
 **Scope checked:** source and tests at `development`; this page is not generated UML and does not claim runtime-captured evidence.
 
 ## Purpose
