@@ -32,6 +32,15 @@ This is the initial source-backed inventory for FSM_UserIO, aligned with the Wor
 | Requirement/test traceability | **Required — partial** | Tests exist for semantic intent, semantic interaction, and audio source status; map each public contract/invariant to test names and evidence. |
 | Decision/constraint records | **Required — partial** | [Theory](../THEORY.md), [Architecture](../ARCHITECTURE.md), and [Domain completion criteria](../DOMAIN_COMPLETION_CRITERIA.md) describe constraints, but a linked invariant/decision index is still needed. |
 
+## Initial source-linked type pages
+
+These pages are manually authored against the current source and named tests; they are not generator output:
+
+- [\`SemanticIntent\`](Types/SemanticIntent.md) — semantic identity, validation, equality, and authority boundary.
+- [\`AudioCaptureSourceStatus\`](Types/AudioCaptureSourceStatus.md) — source lifecycle states, allowed transitions, diagnostics, and tests.
+
+The multi-type \`SemanticInteraction.cs\` file still needs one page per declared public type; these two pages are the first increment, not full type coverage.
+
 ## Evidence and completion rules
 
 - Label each artifact **Source-derived**, **Reflection-derived**, **Runtime-captured**, **Human-authored**, or **Conceptual**; mixed artifacts identify which statements use which evidence.
