@@ -54,6 +54,7 @@ The multi-type \`SemanticInteraction.cs\` file still needs one page per declared
 - [AudioCaptureSourceState](Types/AudioCaptureSourceState.md) — lifecycle states and permitted transitions.
 - [AudioCaptureStateEvidence](Types/AudioCaptureStateEvidence.md) — direct observation versus host estimate.
 - [WindowsAudioOutputEndpoint](Types/WindowsAudioOutputEndpoint.md) — opaque endpoint selection metadata and its snapshot/authority limits.
+- [AudioCaptureBufferEventArgs](Types/AudioCaptureBufferEventArgs.md) — copied native-format callback payload, mutable array ownership, and format limits.
 
 ## Initial class neighborhoods
 
