@@ -3,6 +3,8 @@
 
 # FSM_UserIO Theory
 
+> **Learn this domain progressively:** start with the [Theory Learning Path](THEORY/README.md), beginning with [01 — What Is Semantic Interaction?](THEORY/01-SEMANTIC-INTERACTION.md). This page remains the broad conceptual overview.
+
 ## The missing boundary
 
 FSM_UserIO exists at a boundary that is easy to misidentify.
