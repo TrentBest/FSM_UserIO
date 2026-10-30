@@ -19,6 +19,8 @@
 
 **[Start here: onboarding](docs/ONBOARDING.md)** — install the published package, run a working consumer, and distinguish released APIs from development-only contracts
 
+**[Theory learning path](docs/THEORY/README.md)** — progressive chapters connecting semantic-interaction theory to source, tests, and implementation limits
+
 **[Audio Capture Lab](docs/demos/audio-capture-lab.html)** — interactive browser prototype for microphone/system-audio permissions, the green → magenta countdown → red recording border, capture, playback, and download. Requires HTTPS or localhost; source availability depends on browser and operating system.
 
 **[Audio capture source contract](docs/AUDIO_CAPTURE_CONTRACT.md)** — source-neutral lifecycle states and transition rules.
