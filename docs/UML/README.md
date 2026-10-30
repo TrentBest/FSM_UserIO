@@ -54,6 +54,10 @@ The multi-type \`SemanticInteraction.cs\` file still needs one page per declared
 - [AudioCaptureSourceState](Types/AudioCaptureSourceState.md) — lifecycle states and permitted transitions.
 - [AudioCaptureStateEvidence](Types/AudioCaptureStateEvidence.md) — direct observation versus host estimate.
 
+## Initial class neighborhoods
+
+- [AudioCaptureSourceStatus neighborhood](Neighborhoods/AudioCaptureSourceStatus.md) — test consumer above the focal immutable record; validation and transition-table dependencies below. The Windows adapter is intentionally excluded until its direct source relationship is verified.
+
 ## Evidence and completion rules
 
 - Label each artifact **Source-derived**, **Reflection-derived**, **Runtime-captured**, **Human-authored**, or **Conceptual**; mixed artifacts identify which statements use which evidence.
