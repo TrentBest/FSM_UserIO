@@ -25,7 +25,7 @@ The chapter's implementation section describes the current `development` source 
 | Chapter | Subject | Status |
 |---|---|---|
 | [01 — What Is Semantic Interaction?](01-SEMANTIC-INTERACTION.md) | Why source events and application meaning are different things | **Available** |
-| 02 — Actors, Forms, and Contextual Capabilities | The interacting form, what it can do, and why devices are only manifestations | Planned |
+| [02 — Actors, Forms, and Contextual Capabilities](02-ACTORS-FORMS-CAPABILITIES.md) | The interacting form, what it can do, and why devices are only manifestations | **Available** |
 | 03 — Observation, Expression, Interpretation, and Intent | The stages between a source event and application-owned meaning | Planned |
 | 04 — Capability Is Not Authority | Host policy, validation, authorization, and execution ownership | Planned |
 | 05 — Protocol Identity, Grammar, and Application Meaning | How ProtocolAi and GrammarAi relate without taking ownership of interaction | Planned |
