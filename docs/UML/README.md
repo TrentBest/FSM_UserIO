@@ -29,7 +29,7 @@ This is the initial source-backed inventory for FSM_UserIO, aligned with the Wor
 | Deployment/runtime topology | **Not applicable to core library; conditional for Windows integration** | Core semantic contracts have no deployment topology. Windows loopback docs should describe the actual OS/runtime boundary without implying a hosted service or network topology. |
 | Data models/flow/lineage | **Required — partial** | Existing [API contracts](../API_CONTRACTS.md), [Interaction lifecycle](../INTERACTION_LIFECYCLE.md), and [Audio capture contract](../AUDIO_CAPTURE_CONTRACT.md) describe important boundaries; add source-linked data-flow views and ownership/mutability details. |
 | MicroBundles/manifests | **Not applicable** | FSM_UserIO does not currently define or compose MicroBundles or manifests. Reassess if this changes. |
-| Requirement/test traceability | **Required — partial** | Tests exist for semantic intent, semantic interaction, and audio source status; map each public contract/invariant to test names and evidence. |
+| Requirement/test traceability | **Required — partial** | [Requirement-to-test traceability](TEST_TRACEABILITY.md) maps the currently reviewed semantic intent, semantic interaction, payload, and audio status contracts to named tests; broader repository coverage remains open. |
 | Decision/constraint records | **Required — partial** | [Theory](../THEORY.md), [Architecture](../ARCHITECTURE.md), and [Domain completion criteria](../DOMAIN_COMPLETION_CRITERIA.md) describe constraints, but a linked invariant/decision index is still needed. |
 
 ## Initial source-linked type pages
@@ -71,7 +71,7 @@ The multi-type \`SemanticInteraction.cs\` file still needs one page per declared
 
 1. Complete per-type pages for the public semantic contracts and audio contracts.
 2. Add source-linked class neighborhoods and key interaction/capture sequences.
-3. Add use-case files and requirement-to-test traceability.
+3. Expand [requirement-to-test traceability](TEST_TRACEABILITY.md) to the remaining public contracts, then add use-case files.
 4. Validate local links and branding, then add deterministic coverage/freshness checks only when their actual scope can be verified.
 
 <!-- THE SINGULARITY WORKSHOP FOOTER -->
