@@ -13,7 +13,7 @@ This is the initial source-backed inventory for FSM_UserIO, aligned with the Wor
 - Initial inventory baseline: `development` at `8f8dfaa1b18f2b6ffaca0e684bd8678e7c5ec038`; individual type pages are checked incrementally against the current `development` source and link to source/test paths.
 - Scope: tracked C# declarations, projects, tests, samples, public package boundary, and the current documented integration surfaces.
 - Evidence methods: source/file inventory and existing tests/docs; no reflection scan or runtime trace was performed for this inventory. The inventory is not a pinned-revision generated report.
-- Core source declarations currently visible: `SemanticIntent`, `SemanticInteraction`, `AudioCaptureSourceStatus`, `WindowsSystemAudioLoopbackCapture`, and `WindowsAudioOutputEndpoint`. Tests and samples are consumers/evidence, not automatically public package contracts.
+- Source declarations currently in scope span the platform-neutral core (`SemanticIntent`, `SemanticInteraction`, `AudioCaptureSourceStatus`) and the separate Windows adapter (`WindowsSystemAudioLoopbackCapture`, `WindowsAudioOutputEndpoint`). The Windows adapter is in `src/FSM_UserIO.WindowsAudio`; it is not part of the core project. Tests and samples are consumers/evidence, not automatically public package contracts.
 
 ## Required-view inventory
 
@@ -56,7 +56,8 @@ The multi-type \`SemanticInteraction.cs\` file still needs one page per declared
 
 ## Initial class neighborhoods
 
-- [AudioCaptureSourceStatus neighborhood](Neighborhoods/AudioCaptureSourceStatus.md) — test consumer above the focal immutable record; validation and transition-table dependencies below. The Windows adapter is intentionally excluded until its direct source relationship is verified.
+- [AudioCaptureSourceStatus neighborhood](Neighborhoods/AudioCaptureSourceStatus.md) — test consumer above the focal immutable record; validation and transition-table dependencies below.
+- [WindowsSystemAudioLoopbackCapture neighborhood](Neighborhoods/WindowsSystemAudioLoopbackCapture.md) — host consumer, source-neutral status contract, endpoint metadata, NAudio/WASAPI dependencies, and separate Windows project boundary.
 
 ## Evidence and completion rules
 
