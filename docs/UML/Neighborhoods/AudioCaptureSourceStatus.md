@@ -9,11 +9,12 @@
 
 ## Neighborhood
 
-The focal type is centered. Its test suite is shown above as a consumer. Its direct validation and transition collaborators are below. The diagram intentionally does not place the Windows adapter here: its source-level use of this type must be verified before asserting that relationship.
+The focal type is centered. Its test suite is shown above as a consumer. Its direct validation and transition collaborators are below. The Windows adapter is now included as a second consumer because its implementation directly constructs, exposes, and publishes this status type.
 
 ```mermaid
 flowchart TB
     T["AudioCaptureSourceStatusTests<br/>tests/FSM_UserIO.Tests/AudioCaptureSourceStatusTests.cs"]
+    W["WindowsSystemAudioLoopbackCapture<br/>Windows adapter"]
     subgraph Focus["YOU ARE HERE"]
       direction TB
       S["AudioCaptureSourceStatus<br/>public immutable record"]
@@ -22,6 +23,7 @@ flowchart TB
     X["AudioCaptureTransitions<br/>internal allowed-transition table"]
 
     T -->|"constructs and exercises"| S
+    W -->|"publishes source status"| S
     S -->|"validates source, state, evidence, metadata"| V
     S -->|"checks TransitionTo edges"| X
 ```
@@ -31,6 +33,7 @@ flowchart TB
 | Position | Type / artifact | Relationship | Evidence |
 |---|---|---|---|
 | Consumer | `AudioCaptureSourceStatusTests` | Constructs statuses, calls `TransitionTo`, and asserts lifecycle, immutability, validation, and failure behavior. | [Test source](../../../tests/FSM_UserIO.Tests/AudioCaptureSourceStatusTests.cs) |
+| Consumer | `WindowsSystemAudioLoopbackCapture` | Constructs the system-audio status, exposes it through `Status`, and raises `StatusChanged` as lifecycle changes. | [Windows adapter source](../../../src/FSM_UserIO.WindowsAudio/WindowsSystemAudioLoopbackCapture.cs) |
 | Focal type | `AudioCaptureSourceStatus` | Public sealed record; retains source identity and returns a new value for an allowed transition. | [Implementation](../../../AudioCaptureSourceStatus.cs) |
 | Dependency | `SemanticValueValidation` | Validates defined enum values and optional non-whitespace metadata. | [Implementation](../../../AudioCaptureSourceStatus.cs) |
 | Dependency | `AudioCaptureTransitions` | Internal finite transition table used by `TransitionTo`. | [Implementation](../../../AudioCaptureSourceStatus.cs) |
@@ -42,6 +45,7 @@ flowchart TB
 - `Observed` and `HostReportedEstimate` distinguish evidence quality. An estimate does not prove that acquisition will succeed.
 - A `Ready` or `Capturing` state is not application authorization.
 - The record contains no native endpoint, operating-system handle, browser object, stream, or buffer ownership.
+- The Windows adapter consumes this contract but owns all NAudio/WASAPI resources in its separate `net8.0-windows` project.
 - The transition table is finite and independent of collection size. No latency or runtime benchmark is implied by this diagram.
 
 ## Related views
