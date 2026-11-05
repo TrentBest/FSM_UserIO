@@ -11,6 +11,7 @@
 [![License](https://img.shields.io/github/license/TrentBest/FSM_UserIO?style=flat-square)](LICENSE.txt)
 
 
+[![Sith Policy](assets/sith-policy.svg)](https://github.com/TrentBest/FSM_UserIO/actions/workflows/sith-policy.yml)
 > **Platform-neutral contracts for user-facing input and output capabilities.**
 
 ![FSM_UserIO semantic interaction domain map: implemented development-source contracts, the published Alpha 1 boundary, and neighboring ownership responsibilities](docs/assets/userio-domain-map.svg)
