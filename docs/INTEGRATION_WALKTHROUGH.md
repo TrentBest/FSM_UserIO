@@ -3,9 +3,15 @@
 
 # Integration Walkthrough: Adapter → Intent → Host Decision
 
-The first example uses the published Alpha 1 contract and application-local functions. It deliberately does **not** invent a public UserIO adapter, dispatcher, authorization service, or execution API. The expanded source contracts available on `development` are summarized separately below; they are not available from the published Alpha 1 package.
+The first example uses the published Alpha 1 contract and application-local functions. It deliberately does **not** invent a public UserIO adapter, dispatcher, authorization service, or execution API. The expanded source contracts available on `development` are summarized separately below; they are not available from the published Alpha 1 package. The development-only `SemanticInteraction` envelope groups an interpreted intent, correlation context, and optional source evidence for a host policy boundary.
 
 A runnable version of the keyboard-to-intent and host-denial path is available in [SemanticIntent Host Sample](../samples/SemanticIntentHostSample/README.md). CI builds that sample against the published Alpha 1 package and runs its deterministic self-test; actual keyboard input remains interactive.
+
+## Development-source interaction envelope
+
+A host adapter can create a single `SemanticInteraction` after translating a native event into an application-owned intent. For example, a browser adapter may preserve a source observation such as `keyboard.key-down` while exposing the stable intent `workshop.navigation.move-north`. The host receives the semantic value and applies its own policy; the browser event itself never becomes domain authority.
+
+This contract is currently available only from the `development` source. It is not part of the published Alpha 1 package, and no package version or publication is implied.
 
 ## What the Alpha 1 sample demonstrates
 
