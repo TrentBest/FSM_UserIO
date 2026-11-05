@@ -1,0 +1,17 @@
+{
+  "repository": "TrentBest/FSM_UserIO",
+  "policy": "exactly-master-and-development",
+  "required_branches": [
+    "development",
+    "master"
+  ],
+  "actual_branches": [
+    "development",
+    "master"
+  ],
+  "branch_count": 2,
+  "status": "COMPLIANT",
+  "evaluated_at": "2026-11-05T04:27:41Z",
+  "workflow_run": "https://github.com/TrentBest/FSM_UserIO/actions/runs/41967932301",
+  "triggering_commit": "3741aaa187087b44355ae72a76e890ed314594b0"
+}
