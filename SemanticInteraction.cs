@@ -221,3 +221,40 @@ internal static class SemanticValueValidation
             ? value
             : throw new ArgumentOutOfRangeException(parameterName, value, "The value is not a defined member.");
 }
+
+
+/// <summary>
+/// Groups an interpreted semantic intent with its correlation context and optional source evidence.
+/// </summary>
+/// <remarks>
+/// This is a source-neutral interaction value, not an event listener, queue, dispatcher, authorization
+/// decision, or command. Adapters translate native observations or expressions into semantic values;
+/// the host remains responsible for interpretation, validation, authorization, and execution.
+/// </remarks>
+/// <param name="Intent">The application-owned semantic intent.</param>
+/// <param name="Context">Correlation and optional participant/session metadata.</param>
+/// <param name="Observation">Optional source observation associated with the interaction.</param>
+/// <param name="Expression">Optional source expression or proposal associated with the interaction.</param>
+/// <param name="Payload">Optional opaque application-owned interaction data.</param>
+public sealed record SemanticInteraction(
+    SemanticIntent Intent,
+    InteractionContext Context,
+    SemanticObservation? Observation = null,
+    SemanticExpression? Expression = null,
+    SemanticPayload? Payload = null)
+{
+    /// <summary>Gets the interpreted application-owned intent.</summary>
+    public SemanticIntent Intent { get; } = Intent ?? throw new ArgumentNullException(nameof(Intent));
+
+    /// <summary>Gets the correlation context for this interaction.</summary>
+    public InteractionContext Context { get; } = Context ?? throw new ArgumentNullException(nameof(Context));
+
+    /// <summary>Gets optional source observation evidence.</summary>
+    public SemanticObservation? Observation { get; } = Observation;
+
+    /// <summary>Gets an optional expression or proposal that accompanied interpretation.</summary>
+    public SemanticExpression? Expression { get; } = Expression;
+
+    /// <summary>Gets optional opaque application-owned data.</summary>
+    public SemanticPayload? Payload { get; } = Payload;
+}
