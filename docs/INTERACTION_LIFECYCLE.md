@@ -24,7 +24,7 @@ flowchart TD
     R --> FB
 ```
 
-The `development` source implements `SemanticIntent`, `InteractionCapability`, `SemanticObservation`, `SemanticExpression`, `SemanticPayload`, `InteractionContext`, and `SemanticFeedback`. Policy, authorization, execution, device adapters, transport, and runtime composition remain outside core. The published Alpha 1 package still exposes only `SemanticIntent`.
+The `development` source implements `SemanticIntent`, the `SemanticInteraction` envelope, `InteractionCapability`, `SemanticObservation`, `SemanticExpression`, `SemanticPayload`, `InteractionContext`, and `SemanticFeedback`. Policy, authorization, execution, device adapters, transport, and runtime composition remain outside core. The published Alpha 1 package still exposes only `SemanticIntent`.
 
 ## 2. Separate the concepts
 
@@ -77,7 +77,18 @@ var intent = new SemanticIntent("document.open", ProtocolId: null);
 
 `SemanticIntent` currently provides an application-defined, non-blank `Name` and an optional `ulong?` `ProtocolId`. The name is preserved exactly; equality is value-based and includes both properties. A missing protocol identity is valid.
 
-The core does not resolve IDs, normalize application vocabulary, infer intent from events, authenticate producers, authorize requests, or execute commands. `SemanticPayload` carries opaque bytes without interpreting or validating their content. See [API Contracts](API_CONTRACTS.md) for the precise constructor, immutability, and equality contracts.
+The core does not resolve IDs, normalize application vocabulary, infer intent from events, authenticate producers, authorize requests, or execute commands. `SemanticInteraction` groups the interpreted intent with correlation context and optional source evidence so the host can handle one source-neutral value. It does not subscribe to events, queue, or dispatch them. `SemanticPayload` carries opaque bytes without interpreting or validating their content. See [API Contracts](API_CONTRACTS.md) for the precise constructor, immutability, and equality contracts.
+
+A development-source host adapter can assemble the envelope after interpreting a source event:
+
+```csharp
+var interaction = new SemanticInteraction(
+    new SemanticIntent("workshop.navigation.move-north"),
+    new InteractionContext(Guid.NewGuid()),
+    new SemanticObservation("keyboard.key-down", DateTimeOffset.UtcNow, "browser-adapter"));
+```
+
+The application chooses the semantic name. UserIO does not infer that `ArrowUp` means movement, and the host still validates and authorizes the resulting interaction.
 
 ## 6. A safe host-side pattern
 
