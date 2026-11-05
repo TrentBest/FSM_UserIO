@@ -10,6 +10,7 @@ This page documents the public contracts compiled from the current `development`
 | Contract | Responsibility | Key invariant |
 |---|---|---|
 | `SemanticIntent` | Application-owned semantic meaning | Required non-whitespace name; optional `ulong` association |
+| `SemanticInteraction` | Groups an interpreted intent, correlation context, and optional source evidence | Requires intent and context; carries values but does not dispatch or authorize |
 | `InteractionCapability` / `InteractionMode` | Describe what a form can observe, express, or do | A capability is descriptive, not permission |
 | `SemanticObservation` | Record a source-neutral observation | Timestamp is source-supplied; optional confidence is finite and within `[0, 1]` |
 | `SemanticExpression` | Carry an expression or proposal before interpretation | Not itself an intent, authorization, or command |
@@ -36,6 +37,21 @@ public sealed record SemanticIntent(string Name, ulong? ProtocolId = null);
 - Equality includes both `Name` and `ProtocolId`.
 - The ID is an association only. UserIO does not allocate, resolve, namespace, authenticate, or authorize it.
 - Numeric IDs are not globally unique across arbitrary protocol namespaces. If an application uses multiple namespaces, it must carry the relevant scope elsewhere; UserIO does not define that namespace model.
+
+## Semantic interaction envelope
+
+`SemanticInteraction` groups one interpreted `SemanticIntent` with its required `InteractionContext` and optional `SemanticObservation`, `SemanticExpression`, and `SemanticPayload` values. This gives a host a single source-neutral value to pass through its policy boundary regardless of whether the originating adapter observed a keyboard, pointer, touch surface, voice expression, accessibility control, or software message.
+
+The envelope does not subscribe to input, map native events, infer intent, queue or dispatch interactions, validate domain rules, authorize requests, or execute commands. Adapters still own source-specific conversion; the host/application owns interpretation and policy. Optional source details are evidence supplied by the producer, not authenticated provenance.
+
+```csharp
+public sealed record SemanticInteraction(
+    SemanticIntent Intent,
+    InteractionContext Context,
+    SemanticObservation? Observation = null,
+    SemanticExpression? Expression = null,
+    SemanticPayload? Payload = null);
+```
 
 ## Capability and interaction mode
 
@@ -119,7 +135,7 @@ The core remains dependency-free and platform-neutral. It does not define transp
 
 ## Verification and release status
 
-Implementation: `SemanticIntent.cs` and `SemanticInteraction.cs`. Tests: `tests/FSM_UserIO.Tests/SemanticIntentTests.cs` and `tests/FSM_UserIO.Tests/SemanticInteractionTests.cs`. The build workflow verifies compilation, tests/coverage, package contents, and a clean consumer build. Only a successful run for the exact commit verifies that commit. Package version remains `0.1.0-alpha.1`; publication requires explicit owner authorization.
+Implementation: `SemanticIntent.cs`, `SemanticInteraction.cs` (including the `SemanticInteraction` envelope), and `AudioCaptureSourceStatus.cs`. Tests: `tests/FSM_UserIO.Tests/SemanticIntentTests.cs` and `tests/FSM_UserIO.Tests/SemanticInteractionTests.cs`. The build workflow verifies compilation, tests/coverage, package contents, and a clean consumer build. Only a successful run for the exact commit verifies that commit. Package version remains `0.1.0-alpha.1`; publication requires explicit owner authorization.
 
 ---
 
