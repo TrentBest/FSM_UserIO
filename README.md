@@ -16,6 +16,8 @@
 [![GitHub issues](https://img.shields.io/github/issues/TrentBest/FSM_UserIO?style=flat-square)](https://github.com/TrentBest/FSM_UserIO/issues)
 [![.NET 8](https://img.shields.io/badge/.NET-8.0-512BD4?logo=dotnet&logoColor=white)](https://dotnet.microsoft.com/)
 
+[![Sith Policy](assets/sith-policy.svg)](https://github.com/TrentBest/FSM_UserIO/actions/workflows/sith-policy.yml)
+
 **The Singularity Workshop UserIO boundary: semantic interaction across forms, capabilities, observations, expression, and computation.**
 
 FSM_UserIO is a platform-neutral semantic interaction boundary. It is not a human-input library, a game-engine input layer, or a GUI event abstraction.
@@ -25,7 +27,6 @@ The package begins from a more fundamental question:
 > **What can the interacting form sense, express, or perform, and what semantic interaction does that capability produce?**
 
 A human is one possible form. A dog is another. A robot, VR avatar, accessibility system, AI agent, remote operator, or software process can also be an interacting form. The common abstraction is not anatomy and it is not a device. It is **capability**.
-
 
 This README follows the Workshop's shared [Documentation Standard](https://github.com/TrentBest/TheSingularityWorkshop.FSM_COS/blob/master/DOCUMENTATION_STANDARD.md), while keeping this repository's own purpose and implementation authoritative.
 
@@ -243,7 +244,6 @@ MIT. See [LICENSE.txt](LICENSE.txt).
 <p align="center">
   <em>The Singularity Workshop — edify, don't mystify.</em>
 </p>
-
 
 ## Deterministic identity with ProtocolAi
 
