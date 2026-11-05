@@ -179,6 +179,60 @@ public sealed class SemanticInteractionTests
             new SemanticFeedback(Correlation, FeedbackKind.Accepted, "queued"));
     }
 
+
+    [Fact]
+    public void Semantic_interaction_groups_intent_context_and_optional_source_evidence()
+    {
+        var intent = new SemanticIntent("workshop.navigation.move-north");
+        var context = new InteractionContext(Correlation, "visitor-1");
+        var observation = new SemanticObservation("keyboard.key-down", DateTimeOffset.UnixEpoch, "browser-adapter");
+        var expression = new SemanticExpression("move-north", DateTimeOffset.UnixEpoch, "browser-adapter");
+        var payload = new SemanticPayload("application/json", "workshop.navigation.v1", new byte[] { 1, 2 });
+
+        var interaction = new SemanticInteraction(intent, context, observation, expression, payload);
+
+        Assert.Same(intent, interaction.Intent);
+        Assert.Same(context, interaction.Context);
+        Assert.Same(observation, interaction.Observation);
+        Assert.Same(expression, interaction.Expression);
+        Assert.Same(payload, interaction.Payload);
+    }
+
+    [Fact]
+    public void Semantic_interaction_allows_intent_and_context_without_source_details()
+    {
+        var interaction = new SemanticInteraction(new SemanticIntent("settings.open"), new InteractionContext(Correlation));
+
+        Assert.Null(interaction.Observation);
+        Assert.Null(interaction.Expression);
+        Assert.Null(interaction.Payload);
+    }
+
+    [Fact]
+    public void Semantic_interaction_requires_intent_and_context()
+    {
+        var context = new InteractionContext(Correlation);
+        var intent = new SemanticIntent("settings.open");
+
+        Assert.Throws<ArgumentNullException>(() => new SemanticInteraction(null!, context));
+        Assert.Throws<ArgumentNullException>(() => new SemanticInteraction(intent, null!));
+    }
+
+    [Fact]
+    public void Semantic_interaction_has_value_equality()
+    {
+        var first = new SemanticInteraction(
+            new SemanticIntent("settings.open"),
+            new InteractionContext(Correlation),
+            new SemanticObservation("button.activate", DateTimeOffset.UnixEpoch, "web-adapter"));
+        var second = new SemanticInteraction(
+            new SemanticIntent("settings.open"),
+            new InteractionContext(Correlation),
+            new SemanticObservation("button.activate", DateTimeOffset.UnixEpoch, "web-adapter"));
+
+        AssertEqualWithHash(first, second);
+    }
+
     private static void AssertEqualWithHash<T>(T first, T second)
     {
         Assert.Equal(first, second);
