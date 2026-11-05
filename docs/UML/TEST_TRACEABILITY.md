@@ -33,6 +33,9 @@ Tests: [SemanticInteractionTests.cs](../../tests/FSM_UserIO.Tests/SemanticIntera
 
 | Contract / requirement | Test evidence | What the test establishes |
 |---|---|---|
+| `SemanticInteraction` requires an intent and correlation context | `Semantic_interaction_requires_intent_and_context` | Null intent or context is rejected. |
+| `SemanticInteraction` groups intent, context, and optional source evidence without rewriting the supplied values | `Semantic_interaction_groups_intent_context_and_optional_source_evidence`, `Semantic_interaction_allows_intent_and_context_without_source_details` | All optional evidence can be retained, or omitted when only intent/context are needed. |
+| `SemanticInteraction` provides record value equality and consistent hashes | `Semantic_interaction_has_value_equality` | Equivalent envelopes compare equal and produce equal hash codes. |
 | Capabilities preserve a name and a defined interaction mode | `Capability_preserves_name_and_defined_mode`, `Capability_rejects_invalid_name`, `Capability_rejects_undefined_mode` | Valid values are retained; blank names and undefined enum values are rejected. |
 | Observation confidence is finite and within the inclusive range [0, 1] | `Observation_accepts_confidence_inclusive_range`, `Observation_rejects_invalid_confidence` | Boundary values are accepted; out-of-range, NaN, and infinities are rejected. |
 | Observation preserves supplied timestamp/source/name values | `Observation_preserves_timestamp_and_source_and_does_not_normalize` | Timestamp and labels are retained without normalization. |
