@@ -28,7 +28,7 @@
 
 **[Windows system-audio loopback decision](docs/WINDOWS_SYSTEM_AUDIO_LOOPBACK.md)** — adapter boundary, privacy constraints, lifecycle mapping, and verification gates.
 
-**[Windows loopback sample](samples/WindowsLoopbackSample/README.md)** — runnable .NET 8 sample and real-device verification checklist.
+**[Windows loopback sample](samples/WindowsLoopbackSample/README.md)** — runnable .NET 10 sample and real-device verification checklist.
 
 **[Audio Capture Lab verification guide](docs/demos/AUDIO_CAPTURE_TESTING.md)** — manual test matrix for normal capture, denial/cancellation, missing tracks, source loss, retries, and repeated sessions.
 
