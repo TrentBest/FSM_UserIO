@@ -302,6 +302,7 @@ Start with:
 - [Development](docs/DEVELOPMENT.md) — contribution and design rules.
 - [Roadmap](docs/ROADMAP.md) — deliberately staged API evolution.
 - [Implementation roadmap](docs/IMPLEMENTATION_ROADMAP.md) — domain definition, open decisions, integration opportunities, and release checklist.
+- [Release readiness checklist](docs/RELEASE_READINESS.md) — comprehensive release gate and final owner-approval criteria.
 - [Alpha readiness](docs/ALPHA_READINESS.md) — the Alpha 1 release gate.
 - [Alpha 2 readiness](docs/0.1.0-alpha.2-READINESS.md) — provisional next-release gates; the package version remains Alpha 1 until separately approved.
 - [Domain completion criteria](docs/DOMAIN_COMPLETION_CRITERIA.md) — evidence required to call the package complete without inventing speculative API.
