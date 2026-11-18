@@ -45,7 +45,7 @@ flowchart TB
 - `Observed` and `HostReportedEstimate` distinguish evidence quality. An estimate does not prove that acquisition will succeed.
 - A `Ready` or `Capturing` state is not application authorization.
 - The record contains no native endpoint, operating-system handle, browser object, stream, or buffer ownership.
-- The Windows adapter consumes this contract but owns all NAudio/WASAPI resources in its separate `net8.0-windows` project.
+- The Windows adapter consumes this contract but owns all NAudio/WASAPI resources in its separate `net10.0-windows` project.
 - The transition table is finite and independent of collection size. No latency or runtime benchmark is implied by this diagram.
 
 ## Related views

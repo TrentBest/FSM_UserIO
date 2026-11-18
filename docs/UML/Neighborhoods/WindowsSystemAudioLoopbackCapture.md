@@ -21,8 +21,8 @@ flowchart TB
     S["AudioCaptureSourceStatus<br/>platform-neutral lifecycle contract"]
     E["WindowsAudioOutputEndpoint<br/>endpoint metadata"]
     N["NAudio / WASAPI<br/>MMDevice, MMDeviceEnumerator,<br/>WasapiLoopbackCapture"]
-    P["FSM_UserIO.WindowsAudio project<br/>net8.0-windows"]
-    C["FSM_UserIO core project<br/>net8.0"]
+    P["FSM_UserIO.WindowsAudio project<br/>net10.0-windows"]
+    C["FSM_UserIO core project<br/>net10.0"]
 
     H -->|"constructs, subscribes, calls Start / Stop / Dispose"| W
     W -->|"publishes Status and StatusChanged"| S

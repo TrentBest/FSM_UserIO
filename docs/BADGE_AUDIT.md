@@ -19,7 +19,7 @@
 | Last commit | Previously targeted `master` while the README being edited was on `development`. | Corrected to `development`; retained fifth. |
 | License | Points to the repository's `LICENSE.txt`. | Retained last. |
 | GitHub issues | Extra badge outside the shared default set; no unique release-readiness evidence. | Removed from the compact row. |
-| .NET 8 | Target framework is useful information but does not need a badge; the project file and onboarding explain the runtime requirement. | Removed from the compact row. |
+| .NET 10 | Target framework is useful information but does not need a badge; the project file and onboarding explain the runtime requirement. | Removed from the compact row. |
 
 ## Limits
 
