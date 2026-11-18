@@ -51,7 +51,7 @@ The type performs no I/O and maintains no shared state. Construction validates t
 
 ## Verification evidence
 
-The source-linked tests cover application-owned identity, omitted protocol identity, additional Unicode whitespace rejection, value equality/hash consistency, and case-sensitive name comparison. These tests establish the listed behaviors, not authorization safety of a consuming application.
+The source-linked tests cover application-owned identity, omitted protocol identity, null/blank rejection with the `Name` parameter, exact preservation of meaningful surrounding whitespace, `0` and `ulong.MaxValue` protocol-ID boundaries, additional Unicode whitespace rejection, value equality/hash consistency, equality distinctions across names and IDs, and case-sensitive name comparison. These tests establish the listed behaviors, not authorization safety of a consuming application.
 
 ## Related contracts
 
