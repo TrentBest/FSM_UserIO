@@ -9,6 +9,9 @@ on:
       - "src/FSM_UserIO.WindowsAudio/**"
       - "samples/WindowsLoopbackSample/**"
       - "TheSingularityWorkshop.FSM_UserIO.csproj"
+      - "AudioCaptureSourceStatus.cs"
+      - "SemanticInteraction.cs"
+      - "global.json"
       - ".github/workflows/windows-audio.yml"
   pull_request:
     branches:
@@ -18,6 +21,9 @@ on:
       - "src/FSM_UserIO.WindowsAudio/**"
       - "samples/WindowsLoopbackSample/**"
       - "TheSingularityWorkshop.FSM_UserIO.csproj"
+      - "AudioCaptureSourceStatus.cs"
+      - "SemanticInteraction.cs"
+      - "global.json"
       - ".github/workflows/windows-audio.yml"
   workflow_dispatch:
 
