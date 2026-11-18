@@ -10,7 +10,7 @@
 - **Active source of truth:** `development`.
 - **Current published baseline:** `0.1.0-alpha.1` (the published package does not contain the expanded development API).
 - **Candidate version:** decide explicitly after the API and compatibility review; never infer it from the current project version.
-- **Readiness state:** NOT YET VERIFIED for the current exact `development` head.
+- **Readiness state:** NOT RELEASE-READY. The exact current head has passing CI, but the release-critical API, compatibility, package, adapter, and owner-approval audits remain open.
 - **Final authority:** Trent Best.
 - **Publication state:** hard-disabled in GitHub Actions with a final `&& false` condition.
 
@@ -31,7 +31,7 @@ Do not use a percentage as a substitute for evidence. Every release-critical ite
 
 Audit **every** public type, constructor, property, enum, and method against source, XML documentation, tests, README, API contract documentation, samples, and package contents.
 
-- [ ] Verify `SemanticIntent` validation, exact name preservation, optional `ProtocolId`, equality/hash behavior, null/blank handling, and numeric boundary behavior.
+- [x] Verify `SemanticIntent` validation, exact name preservation, optional `ProtocolId`, equality/hash behavior, null/blank handling, and numeric boundary behavior. Direct edge tests were added and passed in exact-head CI run [#44206746823](https://github.com/TrentBest/FSM_UserIO/actions/runs/44206746823).
 - [ ] Verify `SemanticInteraction` composition and immutability/value semantics.
 - [ ] Verify `InteractionCapability` and `InteractionMode` semantics and ensure no universal capability ontology is implied.
 - [ ] Verify `SemanticObservation` timestamps/source metadata are descriptive and do not imply authenticated provenance, ordering, or trust.
@@ -74,7 +74,7 @@ Audit **every** public type, constructor, property, enum, and method against sou
 
 - [ ] Decide explicitly whether audio capture is part of this package's release scope or only a demonstration of an external adapter.
 - [ ] Keep browser capture APIs, permission prompts, audio streams, recording, playback, and platform lifecycle outside the platform-neutral core.
-- [ ] Verify the Audio Capture Lab states and transitions against the source contract, including permission denied, cancellation, unavailable source, missing tracks, source loss, retry, and repeated sessions.
+- [ ] Verify the Audio Capture Lab states and transitions against the source contract, including permission denied, cancellation, unavailable source, missing tracks, source loss, retry, and repeated sessions.\n- [ ] Review Windows adapter callback/stop/disposal behavior, including unexpected `RecordingStopped`, concurrent `Start`/`Stop`/`Dispose`, event-handler exceptions, and ownership/mutability of shared buffer payloads; add deterministic adapter tests where feasible.
 - [ ] Verify privacy behavior: no capture without an explicit user action/permission; no hidden persistence or transmission; clear recording/stop state.
 - [ ] Verify supported browser/OS combinations and document known limitations.
 - [ ] Run the manual browser/device matrix on real supported environments; CI cannot prove real microphone/system-audio behavior.
@@ -98,27 +98,27 @@ Audit **every** public type, constructor, property, enum, and method against sou
 ## 7. Build, CI, and supply-chain verification
 
 - [ ] Verify the documented SDK/target framework is intentional and matches the package's supported consumer matrix.
-- [ ] Restore and build the solution in Release configuration from a clean checkout.
-- [ ] Run tests with coverage and verify the coverage report is actually generated.
-- [ ] Verify Codecov upload behavior and required secret handling; no secret value may appear in logs.
-- [ ] Verify the branding/documentation validation script passes.
-- [ ] Verify the published-package host sample builds and its deterministic self-test produces exactly the expected accept/deny results.
+- [x] Restore and build the solution in Release configuration from a clean checkout; exact-head CI run [#44206746823](https://github.com/TrentBest/FSM_UserIO/actions/runs/44206746823) passed.
+- [x] Run tests with coverage and verify the coverage report is actually generated; exact-head CI run [#44206746823](https://github.com/TrentBest/FSM_UserIO/actions/runs/44206746823) passed.
+- [x] Verify Codecov upload behavior and required secret handling; the exact-head CI upload succeeded in run [#44206746823](https://github.com/TrentBest/FSM_UserIO/actions/runs/44206746823). Secret-value exposure still requires log review.
+- [x] Verify the branding/documentation validation script passes; exact-head CI run [#44206746823](https://github.com/TrentBest/FSM_UserIO/actions/runs/44206746823) passed.
+- [x] Verify the published-package host sample builds and its deterministic self-test produces exactly the expected accept/deny results; exact-head CI run [#44206746823](https://github.com/TrentBest/FSM_UserIO/actions/runs/44206746823) passed.
 - [ ] Pack the exact candidate and inspect the resulting `.nupkg`, `.nuspec`, README, license, XML docs, assembly, dependency metadata, and all required documentation/demo entries.
 - [ ] Install the exact package artifact into a fresh consumer project with no project reference to the source tree, then compile and run a minimal use case.
 - [ ] Verify CI action references are pinned to full commit SHAs and permissions follow least privilege.
 - [ ] Verify the workflow triggers only on the intended `master` and `development` branches.
-- [ ] Verify the publish job remains impossible to run while the hard `&& false` gate is present.
+- [x] Verify the publish job remains impossible to run while the hard `&& false` gate is present; `publish_nuget` was skipped in exact-head CI run [#44206746823](https://github.com/TrentBest/FSM_UserIO/actions/runs/44206746823).
 - [ ] Record the exact candidate commit SHA, workflow run URL, package filename, package version, and SHA-256.
 - [ ] Re-run the complete verification after the final source/documentation change; evidence from an earlier SHA is not evidence for the candidate head.
 
 ## 8. Repository and release-branch hygiene
 
-- [ ] Confirm the only long-lived branches are exactly `master` and `development`.
+- [x] Confirm the only long-lived branches are exactly `master` and `development`; [Sith Policy run #44206746847](https://github.com/TrentBest/FSM_UserIO/actions/runs/44206746847) reports COMPLIANT with `branch_count: 2`.
 - [ ] Confirm all intended work is committed to `development` and its working tree/candidate state is understood.
 - [ ] Review the full diff from the last released state; explain every file addition, modification, and deletion.
 - [ ] Confirm `master` remains the last released/NuGet-aligned state until the owner approves the release flow.
 - [ ] Prepare the release candidate so that, after approval, `master` can be aligned with the verified `development` state using the Workshop release procedure.
-- [ ] Reconcile the known branch divergence before release alignment: `development` is 396 commits ahead and `master` is 39 commits ahead of common ancestor `9752b3e4375bdab52fedf639b2257f0917e8ebce`. The 39 master-only commits include Alpha 1 publication history and later publication-gate/Sith changes. Review and preserve that history; do not assume fast-forward is possible or force-reset either branch.
+- [ ] Reconcile the known branch divergence before release alignment: `development` is 398 commits ahead and `master` is 39 commits ahead of common ancestor `9752b3e4375bdab52fedf639b2257f0917e8ebce`. The 39 master-only commits include Alpha 1 publication history and later publication-gate/Sith changes. Review and preserve that history; do not assume fast-forward is possible or force-reset either branch.
 - [ ] Re-run build/test/package verification against the exact release-aligned state as required by the Workshop release process.
 - [ ] Confirm Sith policy reports exactly two branches and the live badge/evidence is current.
 - [ ] Do not delete branches, merge, tag, or alter release refs without the owner's explicit authorization.
@@ -159,7 +159,7 @@ After this gate, stop and request Trent's explicit decision. Approval to call th
 |---|---|---|---|
 | 2026-11-15 | TBD | Initial comprehensive release gate created on `development`; current exact-head evidence still to be collected. | NOT YET VERIFIED |
 | 2026-11-17 | `3bcb523201f429192fca63d3a59b5b38e8f5b41e` | Source audit confirmed that the expanded semantic contracts are grouped in the explicitly compiled root-level `SemanticInteraction.cs`; the project compile list is intentional, not a missing-`src/` defect. The audit found missing direct `SemanticIntent` tests for null/blank names, exact whitespace preservation, protocol-ID boundaries, and equality distinctions; those tests were added. Exact-head CI and the remaining API/docs/package audits are still pending. | NOT YET VERIFIED |
-| 2026-11-17 | `508294ccdef1e1c07338ba97a461f6c98a54f1ac` | Added the missing `SemanticIntent` edge tests and synchronized the UML test traceability. Updated active .NET guidance to .NET 10 across the README, onboarding, integration walkthrough, Windows adapter/sample docs, host sample, badge audit, and UML neighborhoods; historical Alpha 2 .NET 8 artifact references are explicitly labeled historical. [Core CI run](https://github.com/TrentBest/FSM_UserIO/actions/runs/44206579173) passed build, tests/coverage, Codecov, host sample, package checks, and clean-consumer build; publication was skipped. [Windows adapter CI run](https://github.com/TrentBest/FSM_UserIO/actions/runs/44206484790) passed after its path filters were expanded to include the core contracts and SDK pin. Branch comparison exposed the 396/39 divergence described above. A later Sith-evidence refresh advanced `development` to `8b3e44a153fb833e5510f3c732c1ac0a76976611`; exact-head verification and the remaining API/docs/package audits are still pending. | NOT YET VERIFIED |
+| 2026-11-17 | `4e23f383a6e5c332ea80483c6447c901946f0dee` | Completed the first source/API and framework-guidance audit. Added direct `SemanticIntent` edge tests and synchronized the UML traceability. Updated active .NET guidance to .NET 10; historical Alpha 2 .NET 8 artifact references are explicitly labeled historical. Exact-head [Core CI run #44206746823](https://github.com/TrentBest/FSM_UserIO/actions/runs/44206746823) passed Release build, tests/coverage, Codecov upload, host sample, package-path verification, and clean-consumer build; `publish_nuget` was skipped. [Sith Policy run #44206746847](https://github.com/TrentBest/FSM_UserIO/actions/runs/44206746847) confirms exactly two branches. [Windows adapter CI run #44206484790](https://github.com/TrentBest/FSM_UserIO/actions/runs/44206484790) passed after its path filters were expanded to include core contracts and `global.json`. Current comparison is 398 commits ahead on `development`, 39 commits unique to `master`, from merge base `9752b3e4375bdab52fedf639b2257f0917e8ebce`; the master-only Alpha 1 release history must be preserved during future reconciliation. Full API/docs/package review, Windows hardware verification, branch reconciliation, and owner decisions remain open. | NOT RELEASE-READY |
 
 ---
 
