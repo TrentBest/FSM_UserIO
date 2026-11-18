@@ -3,7 +3,7 @@
 
 # SemanticIntent Host Sample
 
-This runnable .NET 8 console sample uses the **published** `TheSingularityWorkshop.FSM_UserIO 0.1.0-alpha.1` package. It demonstrates a human-facing keyboard source, application-owned mapping to `SemanticIntent`, and a separate host policy decision.
+This runnable .NET 10 console sample uses the **published** `TheSingularityWorkshop.FSM_UserIO 0.1.0-alpha.1` package. It demonstrates a human-facing keyboard source, application-owned mapping to `SemanticIntent`, and a separate host policy decision.
 
 ## Run it
 
