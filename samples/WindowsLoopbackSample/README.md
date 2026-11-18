@@ -8,7 +8,7 @@ This sample exercises the optional Windows-specific adapter for capturing audio 
 ## Requirements
 
 - Windows 10 or later with a usable playback endpoint.
-- .NET 8 SDK.
+- .NET 10 SDK.
 - A usable active Windows playback endpoint; the sample defaults to the multimedia endpoint unless an endpoint ID is supplied.
 - Audio that is permitted to be captured in the current application and environment.
 

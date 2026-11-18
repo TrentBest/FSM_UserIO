@@ -57,12 +57,12 @@ Describe the interaction capability separately from platform-specific UI, then c
 
 ## 🟢 04 See it in a minute
 
-Try the currently published Alpha 1 package in a clean .NET 8 console app. This demonstrates the API actually available from NuGet today; the expanded contracts are present in `development` source and will not be available to package consumers until a separately authorized release.
+Try the currently published Alpha 1 package in a clean .NET 10 console app. This demonstrates the API actually available from NuGet today; the expanded contracts are present in `development` source and will not be available to package consumers until a separately authorized release.
 
 Create a console app and add the package:
 
 ```powershell
-dotnet new console --framework net8.0
+dotnet new console --framework net10.0
 dotnet add package TheSingularityWorkshop.FSM_UserIO --version 0.1.0-alpha.1
 ```
 

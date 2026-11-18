@@ -28,8 +28,8 @@ Neither path guarantees access to every sound. Protected content, endpoint confi
 
 ## Project and dependency boundary
 
-- Core remains the existing `net8.0` project and must not reference Windows SDK types, NAudio, WASAPI, or GUI/browser APIs.
-- The adapter is a separate `net8.0-windows` project using NAudio 2.2.1. It enumerates active render endpoints and can capture either the default multimedia endpoint or an explicitly selected endpoint ID. Format conversion is not implemented; the reported native format is forwarded unchanged.
+- Core remains the existing `net10.0` project and must not reference Windows SDK types, NAudio, WASAPI, or GUI/browser APIs.
+- The adapter is a separate `net10.0-windows` project using NAudio 2.2.1. It enumerates active render endpoints and can capture either the default multimedia endpoint or an explicitly selected endpoint ID. Format conversion is not implemented; the reported native format is forwarded unchanged.
 - Prefer a narrow adapter contract over exposing library-specific recorder, wave-format, endpoint, or COM types to consumers.
 - Endpoint enumeration and explicit endpoint-ID selection are implemented. Injectable capture-source construction remains a possible testability improvement, not a public core contract.
 - Do not add a Windows adapter reference to the core project or make the core package transitively platform-specific.

@@ -19,12 +19,12 @@ A keyboard event, microphone observation, accessibility action, software message
 
 The currently published package is **`TheSingularityWorkshop.FSM_UserIO 0.1.0-alpha.1`**. That release exposes `SemanticIntent`; the additional contracts documented on the development branch are not available from that published package yet.
 
-Create a .NET 8 console application and install the published version:
+Create a .NET 10 console application and install the published version:
 
 ```powershell
 mkdir UserIOQuickstart
 cd UserIOQuickstart
-dotnet new console --framework net8.0
+dotnet new console --framework net10.0
 dotnet add package TheSingularityWorkshop.FSM_UserIO --version 0.1.0-alpha.1
 ```
 
