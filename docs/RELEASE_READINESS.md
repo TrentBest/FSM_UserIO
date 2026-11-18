@@ -1,3 +1,6 @@
+<!-- The Singularity Workshop moniker -->
+<p align="center"><a href="https://github.com/TrentBest"><img src="https://raw.githubusercontent.com/TrentBest/TheSingularityWorkshop.Renderer/development/docs/assets/moniker.svg" alt="The Singularity Workshop — animated workshop moniker" width="720" /></a></p>
+
 # FSM_UserIO Release Readiness Checklist
 
 > **Purpose:** This is the living, repository-level release gate for FSM_UserIO. It defines the evidence required before the repository may be presented to Trent as release-ready. A completed checklist means **ready for final owner approval**; it does not authorize a merge, tag, deployment, or NuGet publication.
@@ -154,7 +157,13 @@ After this gate, stop and request Trent's explicit decision. Approval to call th
 | Date | Candidate SHA | Work / evidence | Status |
 |---|---|---|---|
 | 2026-11-15 | TBD | Initial comprehensive release gate created on `development`; current exact-head evidence still to be collected. | NOT YET VERIFIED |
+| 2026-11-17 | `3bcb523201f429192fca63d3a59b5b38e8f5b41e` | Source audit confirmed that the expanded semantic contracts are grouped in the explicitly compiled root-level `SemanticInteraction.cs`; the project compile list is intentional, not a missing-`src/` defect. The audit found missing direct `SemanticIntent` tests for null/blank names, exact whitespace preservation, protocol-ID boundaries, and equality distinctions; those tests were added. Exact-head CI and the remaining API/docs/package audits are still pending. | NOT YET VERIFIED |
 
 ---
 
 **Governing principle:** define the smallest semantic boundary that serves the largest computational design space; release only what the implementation, tests, package, and documentation can prove.
+
+---
+
+<!-- THE SINGULARITY WORKSHOP FOOTER -->
+<p align="center"><img src="https://raw.githubusercontent.com/TrentBest/FSM_API/master/Documentation/Branding/TheSingularityWorkshop.png" alt="The Singularity Workshop avatar" width="200" /></p>
