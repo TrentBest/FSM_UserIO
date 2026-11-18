@@ -22,10 +22,10 @@ This contract is currently available only from the `development` source. It is n
 
 ## Example
 
-Create a .NET 8 console application and install the published Alpha 1 package:
+Create a .NET 10 console application and install the published Alpha 1 package:
 
 ```powershell
-dotnet new console --framework net8.0
+dotnet new console --framework net10.0
 dotnet add package TheSingularityWorkshop.FSM_UserIO --version 0.1.0-alpha.1
 ```
 
