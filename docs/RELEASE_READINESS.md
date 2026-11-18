@@ -118,6 +118,7 @@ Audit **every** public type, constructor, property, enum, and method against sou
 - [ ] Review the full diff from the last released state; explain every file addition, modification, and deletion.
 - [ ] Confirm `master` remains the last released/NuGet-aligned state until the owner approves the release flow.
 - [ ] Prepare the release candidate so that, after approval, `master` can be aligned with the verified `development` state using the Workshop release procedure.
+- [ ] Reconcile the known branch divergence before release alignment: `development` is 396 commits ahead and `master` is 39 commits ahead of common ancestor `9752b3e4375bdab52fedf639b2257f0917e8ebce`. The 39 master-only commits include Alpha 1 publication history and later publication-gate/Sith changes. Review and preserve that history; do not assume fast-forward is possible or force-reset either branch.
 - [ ] Re-run build/test/package verification against the exact release-aligned state as required by the Workshop release process.
 - [ ] Confirm Sith policy reports exactly two branches and the live badge/evidence is current.
 - [ ] Do not delete branches, merge, tag, or alter release refs without the owner's explicit authorization.
@@ -158,6 +159,7 @@ After this gate, stop and request Trent's explicit decision. Approval to call th
 |---|---|---|---|
 | 2026-11-15 | TBD | Initial comprehensive release gate created on `development`; current exact-head evidence still to be collected. | NOT YET VERIFIED |
 | 2026-11-17 | `3bcb523201f429192fca63d3a59b5b38e8f5b41e` | Source audit confirmed that the expanded semantic contracts are grouped in the explicitly compiled root-level `SemanticInteraction.cs`; the project compile list is intentional, not a missing-`src/` defect. The audit found missing direct `SemanticIntent` tests for null/blank names, exact whitespace preservation, protocol-ID boundaries, and equality distinctions; those tests were added. Exact-head CI and the remaining API/docs/package audits are still pending. | NOT YET VERIFIED |
+| 2026-11-17 | `508294ccdef1e1c07338ba97a461f6c98a54f1ac` | Added the missing `SemanticIntent` edge tests and synchronized the UML test traceability. Updated active .NET guidance to .NET 10 across the README, onboarding, integration walkthrough, Windows adapter/sample docs, host sample, badge audit, and UML neighborhoods; historical Alpha 2 .NET 8 artifact references are explicitly labeled historical. [Core CI run](https://github.com/TrentBest/FSM_UserIO/actions/runs/44206579173) passed build, tests/coverage, Codecov, host sample, package checks, and clean-consumer build; publication was skipped. [Windows adapter CI run](https://github.com/TrentBest/FSM_UserIO/actions/runs/44206484790) passed after its path filters were expanded to include the core contracts and SDK pin. Branch comparison exposed the 396/39 divergence described above. A later Sith-evidence refresh advanced `development` to `8b3e44a153fb833e5510f3c732c1ac0a76976611`; exact-head verification and the remaining API/docs/package audits are still pending. | NOT YET VERIFIED |
 
 ---
 
