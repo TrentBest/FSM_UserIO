@@ -107,9 +107,6 @@ jobs:
           jq -n \
             --arg repository "$GH_REPO" \
             --arg status "$status" \
-            --arg evaluated_at "$evaluated_at" \
-            --arg workflow_run "https://github.com/$GH_REPO/actions/runs/$GITHUB_RUN_ID" \
-            --arg commit "$GITHUB_SHA" \
             --argjson branch_count "$branch_count_json" \
             --argjson branches "$branch_json" \
             '{
@@ -118,10 +115,7 @@ jobs:
               required_branches: ["development", "master"],
               actual_branches: $branches,
               branch_count: $branch_count,
-              status: $status,
-              evaluated_at: $evaluated_at,
-              workflow_run: $workflow_run,
-              triggering_commit: $commit
+              status: $status
             }' > assets/sith-policy.json
 
           cat > assets/sith-policy.svg <<SVG
