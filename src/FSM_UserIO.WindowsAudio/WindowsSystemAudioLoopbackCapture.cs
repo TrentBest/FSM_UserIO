@@ -76,6 +76,11 @@ public sealed class WindowsSystemAudioLoopbackCapture : IDisposable
         if (_status.State == AudioCaptureSourceState.Capturing)
             return _status;
 
+        // A capture can stop independently (for example, when its endpoint disappears).
+        // Dispose that completed session before replacing it with a retry.
+        if (_capture is not null)
+            ReleaseCapture();
+
         SetStatus(_status.TransitionTo(AudioCaptureSourceState.RequestPending));
         try
         {
@@ -173,11 +178,21 @@ public sealed class WindowsSystemAudioLoopbackCapture : IDisposable
     {
         _stopSignal.TrySetResult();
 
-        if (args.Exception is not null &&
-            (_status.State is AudioCaptureSourceState.Capturing or AudioCaptureSourceState.Ready))
+        if (_status.State is not (AudioCaptureSourceState.Capturing or AudioCaptureSourceState.Ready))
+            return;
+
+        if (args.Exception is not null)
+        {
             SetStatus(_status.TransitionTo(AudioCaptureSourceState.Failed,
                 errorCode: "capture-failed",
                 recoveryGuidance: "Check the playback endpoint and retry the capture session."));
+            return;
+        }
+
+        // RecordingStopped is authoritative even when the stop was initiated outside this adapter.
+        // Keep the session restartable; Start() releases the completed native capture before retrying.
+        if (_status.State == AudioCaptureSourceState.Capturing)
+            SetStatus(_status.TransitionTo(AudioCaptureSourceState.Ready));
     }
 
     private void SetStatus(AudioCaptureSourceStatus status)
