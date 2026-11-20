@@ -156,6 +156,36 @@ The repository may be presented as **READY FOR TRENT'S FINAL APPROVAL** only whe
 
 After this gate, stop and request Trent's explicit decision. Approval to call the repository ready is **not** approval to merge, tag, release, or publish. NuGet publication requires a separate explicit authorization for the specific package version.
 
+## 11. Focused audit findings — 2026-11-19
+
+The following findings were confirmed by direct source and test inspection on `development` at branch head `61372d852665913a623f071e4a98fdfd4353c74e`. They are release gates, not assumptions about behavior.
+
+### Core semantic contracts
+
+- [x] `SemanticInteraction` requires non-null intent/context, keeps optional observation/expression/payload distinct, and has record value semantics; direct composition, null-guard, and equality tests exist.
+- [x] `InteractionCapability`, `SemanticObservation`, `SemanticExpression`, `InteractionContext`, and `SemanticFeedback` validate required values, defined enum values, optional labels, identifiers, and confidence range. Tests cover the principal valid/invalid paths.
+- [x] `SemanticPayload` defensively copies constructor bytes and returns a copy-backed `ReadOnlyMemory<byte>`; equality compares labels and bytes. Tests verify input/output mutation isolation and byte-level equality.
+- [ ] Finish public API review against the published Alpha 1 package/API surface; source and current tests alone do not establish compatibility.
+- [ ] Add explicit tests for all promised hash/equality edge cases where the public contract relies on them, including payload hash consistency and distinctions across each record's fields.
+
+### Windows WASAPI loopback adapter
+
+Direct inspection of `src/FSM_UserIO.WindowsAudio/WindowsSystemAudioLoopbackCapture.cs` found:
+
+- [ ] **Unexpected stop state can become stale.** `OnRecordingStopped` signals the stop task, but only transitions status when `StoppedEventArgs.Exception` is non-null. A normal stop initiated outside this instance can leave `Status.State == Capturing` even though capture has ended.
+- [ ] **Lifecycle operations are not synchronized.** `Start`, `Stop`, and `Dispose` mutate `_capture`, `_selectedDevice`, `_status`, and `_disposed` without a concurrency protocol. Concurrent calls can race resource release and callback delivery. Add deterministic concurrency tests and define whether calls are serialized or rejected.
+- [ ] **User event handlers execute inline.** `AudioDataAvailable` and `StatusChanged` subscribers are invoked directly on adapter/native callback paths. A subscriber exception can escape the callback and interfere with NAudio's callback thread or a lifecycle operation. Define exception isolation/dispatch semantics and test throwing subscribers.
+- [x] **Audio buffer ownership is explicit.** The adapter copies the NAudio buffer before raising `AudioDataAvailable`; the consumer owns the event payload. The payload is a mutable `byte[]`, so the contract must continue to state that each event consumer may mutate its own copy and must not expect a read-only view.
+- [ ] Add a dedicated Windows adapter test project with an injectable capture/device seam so lifecycle and callback behavior can be tested without physical audio hardware.
+- [ ] Perform real-device Windows verification for endpoint enumeration, selected/default endpoint capture, endpoint removal, and stop/disposal behavior. CI compilation is not device evidence.
+
+### Repository and exact-head controls
+
+- [x] Live branch inventory contains exactly `development` and `master`.
+- [ ] Both branches currently report `protected: false` and disabled required status checks. Decide whether repository rulesets/branch protection should enforce the release workflow; do not treat a two-branch count as equivalent to protected release controls.
+- [ ] Core CI run [#44207156682](https://github.com/TrentBest/FSM_UserIO/actions/runs/44207156682) passed all build/test/coverage/Codecov/sample/package/clean-consumer steps on `c2bdf671bb87c03c3cb00de7b82a7d23f2236374`; `publish_nuget` was skipped. The current branch head is the later Sith evidence commit `61372d852665913a623f071e4a98fdfd4353c74e`, so rerun/obtain exact-head CI before marking current-head verification complete.
+- [ ] Review and resolve the confirmed adapter lifecycle findings before including Windows loopback in a release. Alternatively, explicitly defer the adapter from the release scope and keep its status separate from core package readiness.
+
 ## Progress log
 
 | Date | Candidate SHA | Work / evidence | Status |
@@ -172,3 +202,4 @@ After this gate, stop and request Trent's explicit decision. Approval to call th
 
 <!-- THE SINGULARITY WORKSHOP FOOTER -->
 <p align="center"><img src="https://raw.githubusercontent.com/TrentBest/FSM_API/master/Documentation/Branding/TheSingularityWorkshop.png" alt="The Singularity Workshop avatar" width="200" /></p>
+
