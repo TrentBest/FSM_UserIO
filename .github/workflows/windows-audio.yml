@@ -20,6 +20,7 @@ on:
       - development
     paths:
       - "src/FSM_UserIO.WindowsAudio/**"
+      - "tests/FSM_UserIO.WindowsAudio.Tests/**"
       - "samples/WindowsLoopbackSample/**"
       - "TheSingularityWorkshop.FSM_UserIO.csproj"
       - "AudioCaptureSourceStatus.cs"
