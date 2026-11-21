@@ -7,6 +7,7 @@ on:
       - development
     paths:
       - "src/FSM_UserIO.WindowsAudio/**"
+      - "tests/FSM_UserIO.WindowsAudio.Tests/**"
       - "samples/WindowsLoopbackSample/**"
       - "TheSingularityWorkshop.FSM_UserIO.csproj"
       - "AudioCaptureSourceStatus.cs"
@@ -42,8 +43,11 @@ jobs:
         with:
           dotnet-version: 10.0.x
 
-      - name: Restore Windows sample and adapter
-        run: dotnet restore samples/WindowsLoopbackSample/WindowsLoopbackSample.csproj
+      - name: Restore Windows sample and adapter tests
+        run: dotnet restore tests/FSM_UserIO.WindowsAudio.Tests/FSM_UserIO.WindowsAudio.Tests.csproj
 
-      - name: Build Windows sample and adapter
-        run: dotnet build samples/WindowsLoopbackSample/WindowsLoopbackSample.csproj --configuration Release --no-restore
+      - name: Build Windows sample
+        run: dotnet build samples/WindowsLoopbackSample/WindowsLoopbackSample.csproj --configuration Release
+
+      - name: Run deterministic adapter tests
+        run: dotnet test tests/FSM_UserIO.WindowsAudio.Tests/FSM_UserIO.WindowsAudio.Tests.csproj --configuration Release --no-restore
