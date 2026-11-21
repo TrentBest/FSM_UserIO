@@ -9,8 +9,8 @@ namespace TheSingularityWorkshop.FSM_UserIO.WindowsAudio;
 public sealed class WindowsSystemAudioLoopbackCapture : IDisposable
 {
     private readonly string? _endpointId;
-    private MMDevice? _selectedDevice;
-    private WasapiLoopbackCapture? _capture;
+    private IWindowsLoopbackCapture? _capture;
+    private readonly Func<string?, IWindowsLoopbackCapture> _captureFactory;
     private TaskCompletionSource _stopSignal = new(TaskCreationOptions.RunContinuationsAsynchronously);
     private AudioCaptureSourceStatus _status = new(AudioCaptureSourceKind.SystemAudio, AudioCaptureSourceState.NotRequested);
     private bool _disposed;
@@ -18,10 +18,18 @@ public sealed class WindowsSystemAudioLoopbackCapture : IDisposable
     /// <summary>Creates a loopback capture for the default endpoint or a selected active output endpoint ID.</summary>
     /// <param name="endpointId">Optional ID returned by <see cref="GetOutputEndpoints"/>. When omitted, the default multimedia output endpoint is used.</param>
     public WindowsSystemAudioLoopbackCapture(string? endpointId = null)
+        : this(endpointId, WindowsLoopbackCaptureFactory.Create)
+    {
+    }
+
+    internal WindowsSystemAudioLoopbackCapture(
+        string? endpointId,
+        Func<string?, IWindowsLoopbackCapture> captureFactory)
     {
         if (endpointId is not null && string.IsNullOrWhiteSpace(endpointId))
             throw new ArgumentException("An endpoint ID must be nonblank when supplied.", nameof(endpointId));
         _endpointId = endpointId;
+        _captureFactory = captureFactory ?? throw new ArgumentNullException(nameof(captureFactory));
     }
 
     /// <summary>Lists active Windows render endpoints without exposing NAudio types to callers.</summary>
@@ -89,18 +97,7 @@ public sealed class WindowsSystemAudioLoopbackCapture : IDisposable
         SetStatus(_status.TransitionTo(AudioCaptureSourceState.RequestPending));
         try
         {
-            if (_endpointId is null)
-            {
-                _capture = new WasapiLoopbackCapture();
-            }
-            else
-            {
-                using var enumerator = new MMDeviceEnumerator();
-                _selectedDevice = enumerator.GetDevice(_endpointId);
-                if (_selectedDevice.State != DeviceState.Active)
-                    throw new InvalidOperationException("The selected Windows output endpoint is not active.");
-                _capture = new WasapiLoopbackCapture(_selectedDevice);
-            }
+            _capture = _captureFactory(_endpointId);
             _capture.DataAvailable += OnDataAvailable;
             _capture.RecordingStopped += OnRecordingStopped;
             _stopSignal = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
@@ -259,8 +256,7 @@ public sealed class WindowsSystemAudioLoopbackCapture : IDisposable
         finally
         {
             _capture = null;
-            _selectedDevice?.Dispose();
-            _selectedDevice = null;
+            // The capture implementation owns and releases any endpoint/device handles it acquires.
         }
     }
 }
