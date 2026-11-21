@@ -1,4 +1,5 @@
 using NAudio.Wave;
+using Xunit;
 using TheSingularityWorkshop.FSM_UserIO;
 using TheSingularityWorkshop.FSM_UserIO.WindowsAudio;
 
