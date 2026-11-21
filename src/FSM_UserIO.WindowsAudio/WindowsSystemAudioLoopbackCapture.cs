@@ -57,6 +57,11 @@ public sealed class WindowsSystemAudioLoopbackCapture : IDisposable
     public event EventHandler<AudioCaptureBufferEventArgs>? AudioDataAvailable;
     /// <summary>Raised when the source status changes.</summary>
     public event EventHandler<AudioCaptureSourceStatus>? StatusChanged;
+    /// <summary>
+    /// Raised when an <see cref="AudioDataAvailable"/> or <see cref="StatusChanged"/> subscriber throws.
+    /// Exceptions thrown by subscribers to this diagnostic event are isolated and ignored.
+    /// </summary>
+    public event EventHandler<Exception>? SubscriberFaulted;
     /// <summary>Gets the latest source-neutral lifecycle status.</summary>
     public AudioCaptureSourceStatus Status => _status;
 
@@ -170,7 +175,7 @@ public sealed class WindowsSystemAudioLoopbackCapture : IDisposable
         var format = _capture.WaveFormat;
         var bytes = new byte[args.BytesRecorded];
         Buffer.BlockCopy(args.Buffer, 0, bytes, 0, args.BytesRecorded);
-        AudioDataAvailable?.Invoke(this, new AudioCaptureBufferEventArgs(
+        NotifySubscribers(AudioDataAvailable, new AudioCaptureBufferEventArgs(
             bytes, format.SampleRate, format.Channels, format.BitsPerSample, format.Encoding.ToString()));
     }
 
@@ -198,7 +203,46 @@ public sealed class WindowsSystemAudioLoopbackCapture : IDisposable
     private void SetStatus(AudioCaptureSourceStatus status)
     {
         _status = status;
-        StatusChanged?.Invoke(this, status);
+        NotifySubscribers(StatusChanged, status);
+    }
+
+    // Each consumer is isolated: a faulty handler must not escape a native callback,
+    // prevent later handlers from receiving data, or mask a capture/start/stop failure.
+    private void NotifySubscribers<TEventArgs>(EventHandler<TEventArgs>? handlers, TEventArgs args)
+    {
+        if (handlers is null)
+            return;
+
+        foreach (EventHandler<TEventArgs> handler in handlers.GetInvocationList())
+        {
+            try
+            {
+                handler(this, args);
+            }
+            catch (Exception exception)
+            {
+                NotifySubscriberFault(exception);
+            }
+        }
+    }
+
+    private void NotifySubscriberFault(Exception exception)
+    {
+        var handlers = SubscriberFaulted;
+        if (handlers is null)
+            return;
+
+        foreach (EventHandler<Exception> handler in handlers.GetInvocationList())
+        {
+            try
+            {
+                handler(this, exception);
+            }
+            catch
+            {
+                // Diagnostics must never destabilize native capture or lifecycle cleanup.
+            }
+        }
     }
 
     private void ReleaseCapture()
