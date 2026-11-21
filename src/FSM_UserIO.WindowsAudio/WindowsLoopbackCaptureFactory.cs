@@ -34,20 +34,21 @@ internal sealed class NAudioWindowsLoopbackCapture : IWindowsLoopbackCapture
         }
 
         using var enumerator = new MMDeviceEnumerator();
-        _device = enumerator.GetDevice(endpointId);
-        if (_device.State != DeviceState.Active)
+        var device = enumerator.GetDevice(endpointId);
+        _device = device;
+        if (device.State != DeviceState.Active)
         {
-            _device.Dispose();
+            device.Dispose();
             throw new InvalidOperationException("The selected Windows output endpoint is not active.");
         }
 
         try
         {
-            _capture = new WasapiLoopbackCapture(_device);
+            _capture = new WasapiLoopbackCapture(device);
         }
         catch
         {
-            _device.Dispose();
+            device.Dispose();
             throw;
         }
     }
