@@ -6,7 +6,7 @@ on:
       - development
     paths:
       - "docs/**"
-      - "_config.yml"
+      - "docs/_config.yml"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
 
