@@ -1,13 +1,5 @@
----
-layout: home
-title: FSM_UserIO
----
-
-<p align="center">
-  <a href="https://github.com/TrentBest">
-    <img src="https://raw.githubusercontent.com/TrentBest/TheSingularityWorkshop.Renderer/development/docs/assets/moniker.svg" alt="The Singularity Workshop" width="720">
-  </a>
-</p>
+<!-- The Singularity Workshop moniker -->
+<p align="center"><a href="https://github.com/TrentBest"><img src="https://raw.githubusercontent.com/TrentBest/TheSingularityWorkshop.Renderer/development/docs/assets/moniker.svg" alt="The Singularity Workshop — animated workshop moniker" width="720" /></a></p>
 
 # Semantic interaction across forms
 
@@ -43,11 +35,11 @@ An interaction is evidence and intent—not permission. Hosts own policy and aut
 | Development | [Contributor and development guide](DEVELOPMENT.md) |
 | Implementation plan | [Implementation roadmap](IMPLEMENTATION_ROADMAP.md) |
 | Completion criteria | [Domain completion criteria](DOMAIN_COMPLETION_CRITERIA.md) |
+| UML and test traceability | [UML diagrams and test traceability](UML/README.md) |
 
 ## Learning paths and demonstrations
 
 - [Theory chapters](THEORY/README.md)
-- [UML diagrams](UML/)
 - [Interactive Audio Capture Lab](demos/audio-capture-lab.html)
 - [Audio Capture Lab verification](demos/AUDIO_CAPTURE_TESTING.md)
 
@@ -58,3 +50,8 @@ The published NuGet package remains **0.1.0-alpha.1** and exposes the original S
 ---
 
 [View the source and contribute](https://github.com/TrentBest/FSM_UserIO) · [Workshop](https://github.com/TrentBest)
+
+---
+
+<!-- THE SINGULARITY WORKSHOP FOOTER -->
+<p align="center"><img src="https://raw.githubusercontent.com/TrentBest/FSM_API/master/Documentation/Branding/TheSingularityWorkshop.png" alt="The Singularity Workshop avatar" width="200" /></p>
